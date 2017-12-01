@@ -1,15 +1,3 @@
-/*
- * Editor.md
- *
- * @file        editormd.js 
- * @version     v1.5.0 
- * @description Open source online markdown editor.
- * @license     MIT License
- * @author      Pandao
- * {@link       https://github.com/pandao/editor.md}
- * @updateTime  2015-06-09
- */
-
 ;(function(factory) {
     "use strict";
     
@@ -92,14 +80,14 @@
         mode                 : "gfm",          //gfm or markdown
         name                 : "",             // Form element name
         value                : "",             // value for CodeMirror, if mode not gfm/markdown
-        theme                : "monokai",             // Editor.md self themes, before v1.5.0 is CodeMirror theme, default empty
+        theme                : "",             // Editor.md self themes, before v1.5.0 is CodeMirror theme, default empty
         editorTheme          : "default",      // Editor area, this is CodeMirror theme at v1.5.0
-        previewTheme         : "monokai",             // Preview area theme, default empty
+        previewTheme         : "",             // Preview area theme, default empty
         markdown             : "",             // Markdown source code
         appendMarkdown       : "",             // if in init textarea value not empty, append markdown to textarea
         width                : "100%",
-        height               : "100%px",
-        path                 : "/static/vendor/editormd/lib/",       // Dependents module file directory
+        height               : "100%",
+        path                 : "./lib/",       // Dependents module file directory
         pluginPath           : "",             // If this empty, default use settings.path + "../plugins/"
         delay                : 300,            // Delay parse markdown to html, Uint : ms
         autoLoadModules      : true,           // Automatic load dependent module files
@@ -129,7 +117,7 @@
         dialogDraggable      : true,
         dialogMaskBgColor    : "#fff",
         dialogMaskOpacity    : 0.1,
-        fontSize             : "16px",
+        fontSize             : "13px",
         saveHTMLToTextarea   : false,
         disabledKeyMaps      : [],
         
@@ -162,7 +150,7 @@
         atLink               : true,           // for @link
         emailLink            : true,           // for email address auto link
         taskList             : false,          // Enable Github Flavored Markdown task lists
-        emoji                : false,          // :emoji: , Support Github emoji, Twitter Emoji (Twemoji);
+        emoji                : false,          // :emoji: , Support Github emoji;
                                                // Support FontAwesome icon emoji :fa-xxx: > Using fontAwesome icon web fonts;
                                                // Support Editor.md logo icon emoji :editormd-logo: :editormd-logo-1x: > 1~8x;
         tex                  : false,          // TeX(LaTeX), based on KaTeX
@@ -314,7 +302,8 @@
                     unselectedLanguageAlert : "错误：请选择代码所属的语言类型。",
                     codeEmptyAlert    : "错误：请填写代码内容。"
                 },
-                htmlEntities : {                    title : "HTML 实体字符"
+                htmlEntities : {
+                    title : "HTML 实体字符"
                 },
                 help : {
                     title : "使用帮助"
@@ -630,7 +619,7 @@
         setEditorTheme : function(theme) {  
             var settings   = this.settings;  
             settings.editorTheme = theme;  
-            console.log(theme)
+            
             if (theme !== "default")
             {
                 editormd.loadCSS(settings.path + "codemirror/theme/" + settings.editorTheme);
@@ -1472,7 +1461,7 @@
             
             if (settings.previewCodeHighlight) 
             {
-                previewContainer.find("pre").addClass("prettyprint linenums");
+                previewContainer.find("pre:not(.aplayer-lrc-content)").addClass("prettyprint linenums");
                 
                 if (typeof prettyPrint !== "undefined")
                 {                    
@@ -1964,15 +1953,14 @@
         
         save : function() {
             
-            var _this            = this;
-            var state            = this.state;
-            var settings         = this.settings;
-
-            if (timer === null && !(!settings.watch && state.preview))
+            if (timer === null)
             {
                 return this;
             }
             
+            var _this            = this;
+            var state            = this.state;
+            var settings         = this.settings;
             var cm               = this.cm;            
             var cmValue          = cm.getValue();
             var previewContainer = this.previewContainer;
@@ -3356,7 +3344,6 @@
         emailLink     : /(mailto:)?([\w\.\_]+)@(\w+)\.(\w+)\.?(\w+)?/g,
         emoji         : /:([\w\+-]+):/g,
         emojiDatetime : /(\d{2}:\d{2}:\d{2})/g,
-        twemoji       : /:(tw-([\w]+)-?(\w+)?):/g,
         fontAwesome   : /:(fa-([\w]+)(-(\w+)){0,}):/g,
         editormdLogo  : /:(editormd-logo-?(\w+)?):/g,
         pageBreak     : /^\[[=]{8,}\]$/
@@ -3364,14 +3351,8 @@
 
     // Emoji graphics files url path
     editormd.emoji     = {
-        path  : "http://www.emoji-cheat-sheet.com/graphics/emojis/",
+        path  : 'https:' == document.location.protocol ? "https://staticfile.qnssl.com/emoji-cheat-sheet/1.0.0/" : "http://cdn.staticfile.org/emoji-cheat-sheet/1.0.0/",
         ext   : ".png"
-    };
-
-    // Twitter Emoji (Twemoji)  graphics files url path    
-    editormd.twemoji = {
-        path : "http://twemoji.maxcdn.com/36x36/",
-        ext  : ".png"
     };
 
     /**
@@ -3391,7 +3372,7 @@
             atLink               : true,           // for @link
             emailLink            : true,           // for mail address auto link
             taskList             : false,          // Enable Github Flavored Markdown task lists
-            emoji                : false,          // :emoji: , Support Twemoji, fontAwesome, Editor.md logo emojis.
+            emoji                : false,          // :emoji: , Support fontAwesome, Editor.md logo emojis.
             tex                  : false,          // TeX(LaTeX), based on KaTeX
             flowChart            : false,          // flowChart.js only support IE9+
             sequenceDiagram      : false,          // sequenceDiagram.js only support IE9+
@@ -3407,7 +3388,6 @@
         var emojiReg        = regexs.emoji;
         var emailReg        = regexs.email;
         var emailLinkReg    = regexs.emailLink;
-        var twemojiReg      = regexs.twemoji;
         var faIconReg       = regexs.fontAwesome;
         var editormdLogoReg = regexs.editormdLogo;
         var pageBreakReg    = regexs.pageBreak;
@@ -3446,7 +3426,6 @@
                     else
                     {
                         var emdlogoMathcs = $1.match(editormdLogoReg);
-                        var twemojiMatchs = $1.match(twemojiReg);
 
                         if (emdlogoMathcs)                                        
                         {                            
@@ -3454,14 +3433,6 @@
                             {
                                 var logoName = emdlogoMathcs[x].replace(/:/g, "");
                                 return "<i class=\"" + logoName + "\" title=\"Editor.md logo (" + logoName + ")\"></i>";
-                            }
-                        }
-                        else if (twemojiMatchs) 
-                        {
-                            for (var t = 0, len3 = twemojiMatchs.length; t < len3; t++)
-                            {
-                                var twe = twemojiMatchs[t].replace(/:/g, "").replace("tw-", "");
-                                return "<img src=\"" + editormd.twemoji.path + twe + editormd.twemoji.ext + "\" title=\"twemoji-" + twe + "\" alt=\"twemoji-" + twe + "\" class=\"emoji twemoji\" />";
                             }
                         }
                         else
@@ -3601,13 +3572,13 @@
             var isToC           = (settings.tocm) ? /^(\[TOC\]|\[TOCM\])$/.test(text) : /^\[TOC\]$/.test(text);
             var isToCMenu       = /^\[TOCM\]$/.test(text);
             
-            if (!isTeXLine && isTeXInline) 
+            if (!isTeXLine && isTeXInline)
             {
                 text = text.replace(/(\$\$([^\$]*)\$\$)+/g, function($1, $2) {
                     return "<span class=\"" + editormd.classNames.tex + "\">" + $2.replace(/\$/g, "") + "</span>";
                 });
-            } 
-            else 
+            }
+            else
             {
                 text = (isTeXLine) ? text.replace(/\$/g, "") : text;
             }
@@ -3994,7 +3965,7 @@
             
         if (settings.previewCodeHighlight) 
         {
-            div.find("pre").addClass("prettyprint linenums");
+            div.find("pre:not(.aplayer-lrc-content)").addClass("prettyprint linenums");
             prettyPrint();
         }
         
@@ -4178,8 +4149,8 @@
     // 使用国外的CDN，加载速度有时会很慢，或者自定义URL
     // You can custom KaTeX load url.
     editormd.katexURL  = {
-        css : "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min",
-        js  : "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min"
+        css : 'https:' == document.location.protocol ?"https://staticfile.qnssl.com/KaTeX/0.3.0/katex.min":"http://cdn.staticfile.org/KaTeX/0.3.0/katex.min",//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min
+        js  : 'https:' == document.location.protocol ?"https://staticfile.qnssl.com/KaTeX/0.3.0/katex.min":"http://cdn.staticfile.org/KaTeX/0.3.0/katex.min" //cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min
     };
     
     editormd.kaTeXLoaded = false;
