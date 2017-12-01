@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'user.UserProfile'
+
 
 # Application definition
 
@@ -40,6 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'xadmin',
+    'DjangoUeditor',
+    'django_filters',
+    'crispy_forms',
+    'material',
+    'user',
+    'article',
+    'movie',
+    'album'
 ]
 
 MIDDLEWARE = [
@@ -80,10 +91,10 @@ WSGI_APPLICATION = 'BlogBackendProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BlogBackend',
+        'NAME': 'blogtest',
         "USER": 'root',
         "PASSWORD": '12345678',
-        "HOST": '127.0.0.1',
+        "HOST": '65.49.223.136',
         'OPTIONS': {
             "init_command": "SET storage_engine=INNODB;",
         }
@@ -113,9 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
