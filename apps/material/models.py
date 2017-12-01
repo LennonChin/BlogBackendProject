@@ -39,6 +39,7 @@ class MaterialTag(models.Model):
     name = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签名", help_text="标签名")
     subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签别名", help_text="标签别名")
     category = models.ForeignKey(MaterialCategory, null=True, blank=True, verbose_name="类别", help_text="类别")
+    # add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "素材标签"

@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'user.UserProfile'
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,16 +41,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'xadmin',
-    'DjangoUeditor',
-    'django_filters',
-    'crispy_forms',
+
+]
+
+PERSONAL_APPS = [
     'material',
     'user',
     'article',
     'movie',
     'album'
 ]
+
+EXTRA_APPS = [
+    'xadmin',
+    'DjangoUeditor',
+    'django_filters',
+    'crispy_forms',
+    'pagedown'
+]
+
+INSTALLED_APPS += PERSONAL_APPS + EXTRA_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,23 +93,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'BlogBackendProject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'blogtest',
+    #     "USER": 'root',
+    #     "PASSWORD": '12345678',
+    #     "HOST": '65.49.223.136',
+    #     'OPTIONS': {
+    #         "init_command": "SET storage_engine=INNODB;",
+    #     }
+    # },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blogtest',
         "USER": 'root',
         "PASSWORD": '12345678',
-        "HOST": '65.49.223.136',
+        "HOST": '127.0.0.1',
         'OPTIONS': {
             "init_command": "SET storage_engine=INNODB;",
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -120,7 +137,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -134,8 +150,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS= [
+    os.path.join(BASE_DIR,'static'),
+]

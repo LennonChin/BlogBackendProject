@@ -6,7 +6,7 @@
 # @File    : adminx.py
 # @Software: PyCharm
 
-#!/usr/bin/env python
+# !/usr/bin/env python
 # encoding: utf-8
 
 import xadmin
@@ -20,9 +20,8 @@ class BaseSetting(object):
 
 
 class GlobalSettings(object):
-    site_title = "S"
-    site_footer = "S"
-    # menu_style = "accordion"
+    site_title = "Diomedes"
+    site_footer = "Diomedes"
 
 
 class EmailVerifyRecordAdmin(object):

@@ -6,15 +6,44 @@
 # @File    : adminx.py
 # @Software: PyCharm
 
-#!/usr/bin/env python
-# encoding: utf-8
-
 import xadmin
-from .models import ArticleInfo
+from django import forms
+from .models import ArticleInfo, ArticleDetail, ArticleTag
+from pagedown.widgets import AdminPagedownWidget
 
 
-class ArticleInfodAdmin(object):
-    list_display = ['title', 'subtitle', "abstract", "desc", "author", "category", "tags", "detail", "front_image", "front_image_type"]
+class ArticleInfoAdmin(object):
+    list_display = ['title', 'subtitle', "abstract", "desc", "author", "category", "tags", "detail", "front_image",
+                    "front_image_type"]
+    search_fields = ['title', ]
+
+    class ArticleTagInline(object):
+        model = ArticleTag
+        style = "tab"
+        extra = 1
+
+    inlines = [ArticleTagInline]
 
 
-xadmin.site.register(ArticleInfo, ArticleInfodAdmin)
+class ArticleDetailForm(forms.ModelForm):
+    origin_content = forms.CharField(widget=AdminPagedownWidget())
+
+    class Meta:
+        model = ArticleDetail
+        fields = '__all__'
+
+
+class ArticleDetailAdmin(object):
+    list_display = ['origin_content', 'formatted_content', "add_time"]
+    search_fields = ['origin_content', ]
+    form = ArticleDetailForm
+
+
+class ArticleTagAdmin(object):
+    list_display = ['article', 'tag', "add_time"]
+    search_fields = ['article', ]
+
+
+xadmin.site.register(ArticleInfo, ArticleInfoAdmin)
+xadmin.site.register(ArticleDetail, ArticleDetailAdmin)
+xadmin.site.register(ArticleTag, ArticleTagAdmin)
