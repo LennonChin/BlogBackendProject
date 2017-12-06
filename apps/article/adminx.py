@@ -34,9 +34,9 @@ class ArticleDetailForm(forms.ModelForm):
 
 
 class ArticleDetailAdmin(object):
+    # form = ArticleDetailForm
     list_display = ['origin_content', 'formatted_content', "add_time"]
     search_fields = ['origin_content', ]
-    form = ArticleDetailForm
 
 
 class ArticleTagAdmin(object):

@@ -13,11 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 import xadmin
+
+# Django Rest Framework
+from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
+
+from article.apiview import ArticleListViewset
+
+router = DefaultRouter()
+
+router.register(r'articles', ArticleListViewset, base_name="articles")
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # drf自带认证模式
+    url(r'^api-token-auth/', views.obtain_auth_token),
+    # 文档
+    url(r'docs/', include_docs_urls(title="文档")),
 ]

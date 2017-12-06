@@ -4,8 +4,6 @@ from datetime import datetime
 
 from material.models import MaterialCategory, MaterialTag
 
-from pagedown.widgets import AdminPagedownWidget
-
 
 # Create your models here.
 
