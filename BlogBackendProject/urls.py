@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from BlogBackendProject.settings import MEDIA_ROOT
+from django.views.static import serve
 import xadmin
 
 # Django Rest Framework
@@ -23,12 +25,13 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 
 from article.apiview import ArticleListViewset
-from material.apiview import CategoryListViewset
+from material.apiview import CategoryListViewset, BannerListViewset
 
 router = DefaultRouter()
 
 # 素材相关
 router.register(r'categorys', CategoryListViewset, base_name='categorys')
+router.register(r'banners', BannerListViewset, base_name='banners')
 
 # 文章相关
 router.register(r'articles', ArticleListViewset, base_name="articles")
@@ -37,6 +40,7 @@ router.register(r'articles', ArticleListViewset, base_name="articles")
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^admin/', admin.site.urls),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # drf自带认证模式

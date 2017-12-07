@@ -7,7 +7,7 @@
 # @Software: PyCharm
 
 from rest_framework import serializers
-from material.models import MaterialCategory, MaterialTag
+from material.models import MaterialCategory, MaterialTag, Banner
 
 
 class CategorySerializer3(serializers.ModelSerializer):
@@ -36,5 +36,12 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MaterialTag
+        fields = "__all__"
+
+
+class BannerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Banner
         fields = "__all__"
 

@@ -11,8 +11,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins, generics, viewsets, filters
 from rest_framework.response import Response
 
-from .models import MaterialCategory
-from .serializers import CategorySerializer
+from .models import MaterialCategory, Banner
+from .serializers import CategorySerializer, BannerSerializer
 from .filters import CategoryFilter
 
 
@@ -21,17 +21,19 @@ class CategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     List:
         分类列表页
     """
-    queryset = MaterialCategory.objects.all()
+    queryset = MaterialCategory.objects.filter(category_type=1)
     serializer_class = CategorySerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CategoryFilter
     search_fields = ('name', 'code', 'desc')
     ordering_fields = ('category_type', 'is_tab')
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.click_num += 1
-        instance.save()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+
+class BannerListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    List:
+        Banner列表页
+    """
+    queryset = Banner.objects.all().order_by("-index")
+    serializer_class = BannerSerializer
 

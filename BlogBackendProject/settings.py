@@ -117,9 +117,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blogtest',
-        "USER": 'root',
+        "USER": 'blogtest',
         "PASSWORD": '12345678',
-        "HOST": '127.0.0.1',
+        "HOST": '47.96.138.114',
         'OPTIONS': {
             "init_command": "SET default_storage_engine=INNODB;",
         }
@@ -176,6 +176,9 @@ REST_FRAMEWORK = {
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

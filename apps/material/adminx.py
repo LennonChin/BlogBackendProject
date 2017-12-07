@@ -10,7 +10,7 @@
 # encoding: utf-8
 
 import xadmin
-from .models import MaterialCategory, MaterialTag
+from .models import MaterialCategory, MaterialTag, Banner
 
 
 class MaterialCategoryAdmin(object):
@@ -23,5 +23,11 @@ class MaterialTagAdmin(object):
     list_display = ['name', 'subname', "category"]
     search_fields = ['name', ]
 
+
+class MaterialBannerAdmin(object):
+    list_display = ['title', 'image', "url", "index", "add_time"]
+    search_fields = ['title', 'url']
+
 xadmin.site.register(MaterialCategory, MaterialCategoryAdmin)
 xadmin.site.register(MaterialTag, MaterialTagAdmin)
+xadmin.site.register(Banner, MaterialBannerAdmin)

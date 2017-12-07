@@ -6,6 +6,7 @@
 # @File    : filters.py
 # @Software: PyCharm
 
+from django.db.models import Q
 import django_filters
 from .models import ArticleInfo
 
@@ -16,6 +17,13 @@ class ArticleFilter(django_filters.rest_framework.FilterSet):
     """
     time_min = django_filters.NumberFilter(name='add_time', lookup_expr='gte')
     time_max = django_filters.NumberFilter(name='add_time', lookup_expr='lte')
+
+    top_category = django_filters.NumberFilter(method='top_category_filter')
+
+    # 查找指定分类下的所有文章
+    def top_category_filter(self, queryset, name, value):
+        return queryset.filter(Q(category_id=value) | Q(category__parent_category_id=value) | Q(
+            category__parent_category__parent_category_id=value))
 
     class Meta:
         model = ArticleInfo
