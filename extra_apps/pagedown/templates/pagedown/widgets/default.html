@@ -1,12 +1,23 @@
+{% load staticfiles %}
+
 <div id="editormd">
     <textarea style="display:none;">{{ body }}</textarea>
 </div>
 
+<script type="application/javascript" src="{% static 'vendor/editormd/js/editormd.js' %}"></script>
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         var editor = editormd("editormd", {
-            path : "/static/vendor/editormd/lib/"
+            width: "100%",
+            height: 500,
+            theme : "dark",
+            previewTheme : "dark",
+            editorTheme : "pastel-on-dark",
+            syncScrolling: "single",
+            path: "/static/vendor/editormd/lib/",
+            emoji: true,
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp", "svg"]
         });
-
     });
 </script>

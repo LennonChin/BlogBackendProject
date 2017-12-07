@@ -7,7 +7,10 @@
 # @Software: PyCharm
 
 import xadmin
+
+import markdown
 from django import forms
+
 from .models import ArticleInfo, ArticleDetail, ArticleTag
 from pagedown.widgets import AdminPagedownWidget
 
@@ -35,8 +38,19 @@ class ArticleDetailForm(forms.ModelForm):
 
 class ArticleDetailAdmin(object):
     # form = ArticleDetailForm
-    list_display = ['origin_content', 'formatted_content', "add_time"]
+    list_display = ['origin_content', "add_time"]
     search_fields = ['origin_content', ]
+    readonly_fields = ('formatted_content',)
+
+    def save_models(self):
+        # 转换Markdown为格式化的HTML
+        self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
+                                                           extensions=[
+                                                               'markdown.extensions.extra',
+                                                               'markdown.extensions.codehilite',
+                                                               'markdown.extensions.toc',
+                                                           ])
+        self.new_obj.save()
 
 
 class ArticleTagAdmin(object):
