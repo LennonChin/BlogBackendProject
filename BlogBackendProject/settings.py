@@ -28,7 +28,7 @@ SECRET_KEY = '#vam9e79q3!tq8pje@19!3z8c#seafwogk)%i8)e$83nmftgfg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'user.UserProfile'
 
@@ -66,12 +66,18 @@ INSTALLED_APPS += PERSONAL_APPS + EXTRA_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# 必须跟原域匹配才可获取发送 cookie 的权限
+CORS_ORIGIN_REGEX_WHITELIST = r'.*'
+# 必须有这个才接受前端跨域发送 cookie
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'BlogBackendProject.urls'
 
