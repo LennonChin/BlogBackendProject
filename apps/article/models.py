@@ -20,6 +20,9 @@ class ArticleDetail(models.Model):
         verbose_name = "文章详细信息"
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.origin_content[:8]
+
 
 class ArticleInfo(models.Model):
     """
@@ -36,7 +39,7 @@ class ArticleInfo(models.Model):
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
     author = models.CharField(max_length=20, null=True, blank=True, verbose_name="作者", help_text="作者")
     category = models.ForeignKey(MaterialCategory, null=False, blank=False, verbose_name="类别", help_text="类别")
-    tags = models.ManyToManyField(MaterialTag, through="ArticleTag")
+    tags = models.ManyToManyField(MaterialTag, through="ArticleTag", through_fields=('article', 'tag'))
     detail = models.ForeignKey(ArticleDetail, null=False, blank=False, verbose_name="内容", help_text="内容")
     click_num = models.IntegerField(default=0, verbose_name="点击数", help_text="点击数")
     like_num = models.IntegerField(default=0, verbose_name="点赞数", help_text="点赞数")

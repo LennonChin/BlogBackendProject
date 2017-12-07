@@ -37,10 +37,10 @@ class ArticleDetailForm(forms.ModelForm):
 
 
 class ArticleDetailAdmin(object):
-    # form = ArticleDetailForm
+    form = ArticleDetailForm
     list_display = ['origin_content', "add_time"]
+    exclude = ['formatted_content', ]
     search_fields = ['origin_content', ]
-    readonly_fields = ('formatted_content',)
 
     def save_models(self):
         # 转换Markdown为格式化的HTML

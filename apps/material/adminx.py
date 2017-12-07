@@ -15,6 +15,7 @@ from .models import MaterialCategory, MaterialTag
 
 class MaterialCategoryAdmin(object):
     list_display = ['name', 'code', "desc", "category_type", "parent_category", "is_tab", "add_time"]
+    list_editable = ["is_tab", ]
     search_fields = ['name', ]
 
 

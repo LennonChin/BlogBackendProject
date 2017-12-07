@@ -18,7 +18,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     detail = ArticleDetailSerializer()
-    # tags = TagSerializer()
+    tags = TagSerializer(many=True)
 
     class Meta:
         model = ArticleInfo

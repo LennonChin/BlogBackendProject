@@ -37,3 +37,4 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaterialTag
         fields = "__all__"
+

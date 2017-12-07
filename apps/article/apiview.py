@@ -2,16 +2,19 @@
 __author__ = 'LennonChin'
 __date__ = '2017/12/2 12:52'
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework import mixins, generics, viewsets, filters
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
 from .models import ArticleInfo
 from .serializers import ArticleSerializer
+from .filters import ArticleFilter
 
 
 class ArticlePagination(PageNumberPagination):
-    page_size = 12
+    page_size = 10
     page_size_query_param = 'page_size'
     page_query_param = 'page'
     max_page_size = 100
@@ -24,10 +27,14 @@ class ArticleListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     """
     queryset = ArticleInfo.objects.all()
     serializer_class = ArticleSerializer
-    pagination_class = ArticlePagination
+    # 过滤，搜索，排序
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = ArticleFilter
+    search_fields = ('title', 'subtitle', 'abstract', 'desc')
+    ordering_fields = ('click_num', 'like_num', 'comment_num')
 
-    search_fields = ('name', 'goods_brief', 'goods_desc')
-    ordering_fields = ('sold_num', 'shop_price')
+    # 分页设置
+    pagination_class = ArticlePagination
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

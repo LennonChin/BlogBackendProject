@@ -23,10 +23,16 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 
 from article.apiview import ArticleListViewset
+from material.apiview import CategoryListViewset
 
 router = DefaultRouter()
 
+# 素材相关
+router.register(r'categorys', CategoryListViewset, base_name='categorys')
+
+# 文章相关
 router.register(r'articles', ArticleListViewset, base_name="articles")
+
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
