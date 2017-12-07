@@ -6,18 +6,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import mixins, generics, viewsets, filters
 from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
 
 from .models import ArticleInfo
 from .serializers import ArticleSerializer
 from .filters import ArticleFilter
 
-
-class ArticlePagination(PageNumberPagination):
-    page_size = 10
-    page_size_query_param = 'page_size'
-    page_query_param = 'page'
-    max_page_size = 100
+from base.utils import Pagination
 
 
 class ArticleListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -27,6 +21,7 @@ class ArticleListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     """
     queryset = ArticleInfo.objects.all()
     serializer_class = ArticleSerializer
+
     # 过滤，搜索，排序
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = ArticleFilter
@@ -34,7 +29,7 @@ class ArticleListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     ordering_fields = ('click_num', 'like_num', 'comment_num')
 
     # 分页设置
-    pagination_class = ArticlePagination
+    pagination_class = Pagination
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
