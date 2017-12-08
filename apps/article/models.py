@@ -12,6 +12,7 @@ class ArticleDetail(models.Model):
     """
     文章详细信息
     """
+    title = models.CharField(max_length=100, null=False, blank=False, verbose_name="标题", help_text="标题")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")

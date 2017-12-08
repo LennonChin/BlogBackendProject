@@ -38,7 +38,7 @@ class ArticleDetailForm(forms.ModelForm):
 
 class ArticleDetailAdmin(object):
     form = ArticleDetailForm
-    list_display = ['origin_content', "add_time"]
+    list_display = ['id', "title", "add_time"]
     exclude = ['formatted_content', ]
     search_fields = ['origin_content', ]
 
