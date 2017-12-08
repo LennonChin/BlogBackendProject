@@ -44,11 +44,12 @@ INSTALLED_APPS = [
 ]
 
 PERSONAL_APPS = [
-    'material',
-    'user',
-    'article',
-    'movie',
-    'album'
+    'base.apps.BaseConfig',
+    'material.apps.MaterialConfig',
+    'movie.apps.MovieConfig',
+    'album.apps.AlbumConfig',
+    'article.apps.ArticleConfig',
+    'user.apps.UserConfig',
 ]
 
 EXTRA_APPS = [

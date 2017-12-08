@@ -66,3 +66,10 @@ class MovieTag(models.Model):
     movie = models.ForeignKey(MovieInfo, null=False, blank=False, verbose_name="文章")
     tag = models.ForeignKey(MaterialTag, null=False, blank=False, verbose_name="标签")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
+
+    class Meta:
+        verbose_name = "电影标签"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.movie.title
