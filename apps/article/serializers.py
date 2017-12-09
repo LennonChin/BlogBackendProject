@@ -5,7 +5,7 @@ __date__ = '2017/12/2 12:56'
 from rest_framework import serializers
 
 from article.models import ArticleInfo, ArticleDetail
-from material.serializers import CategorySerializer, TagSerializer
+from material.serializers import SingleLevelCategorySerializer, TagSerializer
 
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
+    category = SingleLevelCategorySerializer()
     detail = ArticleDetailSerializer()
     tags = TagSerializer(many=True)
 

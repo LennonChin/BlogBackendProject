@@ -64,6 +64,9 @@ class MaterialPicture(models.Model):
         verbose_name = "素材图片"
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.title
+
 
 class Banner(models.Model):
     """
@@ -78,6 +81,9 @@ class Banner(models.Model):
     class Meta:
         verbose_name = "轮播图"
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.title
 
 
 class MaterialSocial(models.Model):
@@ -94,6 +100,9 @@ class MaterialSocial(models.Model):
         verbose_name = "社交平台"
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class MaterialMaster(models.Model):
     """
@@ -109,3 +118,6 @@ class MaterialMaster(models.Model):
     class Meta:
         verbose_name = "技能"
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name

@@ -19,4 +19,4 @@ class CategoryFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = MaterialCategory
-        fields = ['level_min', 'level_max', 'is_tab']
+        fields = ['id', 'level_min', 'level_max', 'is_tab']

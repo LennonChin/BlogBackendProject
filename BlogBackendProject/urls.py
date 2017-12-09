@@ -24,17 +24,26 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 
+
 from article.apiview import ArticleListViewset
-from material.apiview import CategoryListViewset, BannerListViewset
+from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, BannerListViewset
+
+from base.apiview import BloggerInfoViewset, FriendLinkListViewset
 
 router = DefaultRouter()
 
 # 素材相关
 router.register(r'categorys', CategoryListViewset, base_name='categorys')
+router.register(r'category', SingleLevelCategoryListViewset, base_name='category')
 router.register(r'banners', BannerListViewset, base_name='banners')
 
 # 文章相关
 router.register(r'articles', ArticleListViewset, base_name="articles")
+
+# 博主信息
+router.register(r'blogger', BloggerInfoViewset, base_name="blogger")
+# 友情链接
+router.register(r'friendlinks', FriendLinkListViewset, base_name="friendlinks")
 
 
 urlpatterns = [

@@ -8,7 +8,7 @@
 
 import xadmin
 
-from .models import SiteInfo, BloggerInfo, BloggerSocial, BloggerMaster
+from .models import SiteInfo, BloggerInfo, BloggerSocial, BloggerMaster, FriendLink
 
 
 class SiteInfoAdmin(object):
@@ -22,16 +22,20 @@ class BloggerInfoAdmin(object):
 
     class BloggerSocialInline(object):
         model = BloggerSocial
-        style = "tab"
         extra = 1
 
     class BloggerMasterInline(object):
         model = BloggerMaster
-        style = "tab"
         extra = 1
 
     inlines = [BloggerSocialInline, BloggerMasterInline]
 
 
+class FriendLinkAdmin(object):
+    list_display = ['name', 'desc', 'url']
+    search_fields = ['name', 'desc', 'url']
+
+
 xadmin.site.register(SiteInfo, SiteInfoAdmin)
 xadmin.site.register(BloggerInfo, BloggerInfoAdmin)
+xadmin.site.register(FriendLink, FriendLinkAdmin)

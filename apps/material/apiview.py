@@ -8,11 +8,10 @@
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from rest_framework import mixins, generics, viewsets, filters
-from rest_framework.response import Response
+from rest_framework import mixins, viewsets, filters
 
 from .models import MaterialCategory, Banner
-from .serializers import CategorySerializer, BannerSerializer
+from .serializers import CategorySerializer, SingleLevelCategorySerializer, BannerSerializer
 from .filters import CategoryFilter
 
 
@@ -21,8 +20,21 @@ class CategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     List:
         分类列表页
     """
-    queryset = MaterialCategory.objects.filter(category_type=1)
+    queryset = MaterialCategory.objects.all()
     serializer_class = CategorySerializer
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = CategoryFilter
+    search_fields = ('name', 'code', 'desc')
+    ordering_fields = ('category_type', 'is_tab')
+
+
+class SingleLevelCategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    List:
+        单级分类列表页
+    """
+    queryset = MaterialCategory.objects.all()
+    serializer_class = SingleLevelCategorySerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CategoryFilter
     search_fields = ('name', 'code', 'desc')

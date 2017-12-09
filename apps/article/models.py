@@ -46,7 +46,7 @@ class ArticleInfo(models.Model):
     like_num = models.IntegerField(default=0, verbose_name="点赞数", help_text="点赞数")
     comment_num = models.IntegerField(default=0, verbose_name="评论数", help_text="评论数")
     front_image = models.ImageField(upload_to="article/images", null=True, blank=True, verbose_name="封面图", help_text="封面图")
-    front_image_type = models.CharField(max_length=20, default="无", choices=FRONT_IMAGE_TYPE, verbose_name="封面图类别",
+    front_image_type = models.CharField(max_length=20, default="0", choices=FRONT_IMAGE_TYPE, verbose_name="封面图类别",
                                         help_text="封面图类别")
     is_hot = models.BooleanField(default=False, verbose_name="是否热门", help_text="是否热门")
     is_recommend = models.BooleanField(default=False, verbose_name="是否推荐", help_text="是否推荐")
