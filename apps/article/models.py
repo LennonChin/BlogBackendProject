@@ -22,7 +22,7 @@ class ArticleDetail(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.origin_content[:8]
+        return self.title
 
 
 class ArticleInfo(models.Model):

@@ -25,7 +25,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 
 
-from article.apiview import ArticleListViewset
+from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, BannerListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
@@ -38,7 +38,8 @@ router.register(r'category', SingleLevelCategoryListViewset, base_name='category
 router.register(r'banners', BannerListViewset, base_name='banners')
 
 # 文章相关
-router.register(r'articles', ArticleListViewset, base_name="articles")
+router.register(r'articleBaseInfos', ArticleBaseInfoListViewset, base_name="articleBaseInfos")
+router.register(r'articleDetailInfos', ArticleDetailInfoListViewset, base_name="articleDetailInfos")
 
 # 博主信息
 router.register(r'blogger', BloggerInfoViewset, base_name="blogger")

@@ -15,9 +15,19 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
         fields = ["formatted_content", ]
 
 
-class ArticleSerializer(serializers.ModelSerializer):
+class ArticleDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     detail = ArticleDetailSerializer()
+    tags = TagSerializer(many=True)
+
+    class Meta:
+        model = ArticleInfo
+        fields = "__all__"
+
+
+class ArticleBaseInfoSerializer(serializers.ModelSerializer):
+    category = SingleLevelCategorySerializer()
+    # detail = ArticleDetailSerializer()
     tags = TagSerializer(many=True)
 
     class Meta:

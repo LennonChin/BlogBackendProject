@@ -38,7 +38,7 @@ class ArticleDetailForm(forms.ModelForm):
 
 class ArticleDetailAdmin(object):
     form = ArticleDetailForm
-    list_display = ['id', "title", "add_time"]
+    list_display = ["title", "add_time"]
     exclude = ['formatted_content', ]
     search_fields = ['origin_content', ]
 
@@ -48,7 +48,7 @@ class ArticleDetailAdmin(object):
                                                            extensions=[
                                                                'markdown.extensions.extra',
                                                                'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc',
+                                                               'markdown.extensions.toc'
                                                            ])
         self.new_obj.save()
 
