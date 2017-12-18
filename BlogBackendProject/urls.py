@@ -26,7 +26,8 @@ from rest_framework.authtoken import views
 
 
 from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
-from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, BannerListViewset
+from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
+from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, BannerListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
 
@@ -35,11 +36,16 @@ router = DefaultRouter()
 # 素材相关
 router.register(r'categorys', CategoryListViewset, base_name='categorys')
 router.register(r'category', SingleLevelCategoryListViewset, base_name='category')
+router.register(r'tags', TagListViewset, base_name='tags')
 router.register(r'banners', BannerListViewset, base_name='banners')
 
 # 文章相关
 router.register(r'articleBaseInfos', ArticleBaseInfoListViewset, base_name="articleBaseInfos")
 router.register(r'articleDetailInfos', ArticleDetailInfoListViewset, base_name="articleDetailInfos")
+
+# 图集相关
+router.register(r'albumBaseInfos', AlbumBaseInfoListViewset, base_name="albumBaseInfos")
+router.register(r'albumDetailInfos', AlbumDetailInfoListViewset, base_name="albumDetailInfos")
 
 # 博主信息
 router.register(r'blogger', BloggerInfoViewset, base_name="blogger")
