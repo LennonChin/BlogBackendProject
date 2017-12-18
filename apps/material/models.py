@@ -18,6 +18,7 @@ class MaterialCategory(models.Model):
     name = models.CharField(max_length=30, default="", verbose_name="类别名", help_text="类别名")
     code = models.CharField(max_length=30, default="", verbose_name="类别code", help_text="类别code")
     desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
+    image = models.ImageField(upload_to="image/class/", default="image/default.png", help_text="图片")
     category_type = models.CharField(max_length=20, choices=CATEGORY_TYPE, verbose_name="类目级别", help_text="类目级别")
     parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="父类目级别", help_text="父目录",
                                         related_name="sub_category")
@@ -36,9 +37,16 @@ class MaterialTag(models.Model):
     """
     素材标签
     """
+    COLOR_TYPE = (
+        ("blue", "蓝色"),
+        ("green", "绿色"),
+        ("red", "红色"),
+        ("yellow", "黄色")
+    )
     name = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签名", help_text="标签名")
     subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签别名", help_text="标签别名")
     category = models.ForeignKey(MaterialCategory, null=True, blank=True, verbose_name="类别", help_text="类别")
+    color = models.CharField(max_length=20, default="blue", choices=COLOR_TYPE, verbose_name="颜色", help_text="颜色")
     # add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
