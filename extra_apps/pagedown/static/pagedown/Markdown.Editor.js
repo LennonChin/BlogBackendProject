@@ -35,8 +35,8 @@
         codeexample: "enter code here",
 
         image: "Image <img> Ctrl+G",
-        imagedescription: "enter image description here",
-        imagedialog: "<p><b>Insert Image</b></p><p>http://example.com/images/diagram.jpg \"optional title\"<br><br>Need <a href='http://www.google.com/search?q=free+image+hosting' target='_blank'>free image hosting?</a></p>",
+        imagedescription: "enter images description here",
+        imagedialog: "<p><b>Insert Image</b></p><p>http://example.com/images/diagram.jpg \"optional title\"<br><br>Need <a href='http://www.google.com/search?q=free+images+hosting' target='_blank'>free images hosting?</a></p>",
 
         olist: "Numbered List <ol> Ctrl+O",
         ulist: "Bulleted List <ul> Ctrl+U",
@@ -125,9 +125,9 @@
         var hooks = this.hooks = new Markdown.HookCollection();
         hooks.addNoop("onPreviewRefresh");       // called with no arguments after the preview has been refreshed
         hooks.addNoop("postBlockquoteCreation"); // called with the user's selection *after* the blockquote was created; should return the actual to-be-inserted text
-        hooks.addFalse("insertImageDialog");     /* called with one parameter: a callback to be called with the URL of the image. If the application creates
-                                                  * its own image insertion dialog, this hook should return true, and the callback should be called with the chosen
-                                                  * image url (or null if the user cancelled). If this hook returns false, the default dialog will be used.
+        hooks.addFalse("insertImageDialog");     /* called with one parameter: a callback to be called with the URL of the images. If the application creates
+                                                  * its own images insertion dialog, this hook should return true, and the callback should be called with the chosen
+                                                  * images url (or null if the user cancelled). If this hook returns false, the default dialog will be used.
                                                   */
 
         this.getConverter = function () { return markdownConverter; }
@@ -304,7 +304,7 @@
     // Also holds ieCachedRange and ieCachedScrollTop, where necessary; working around
     // this issue:
     // Internet explorer has problems with CSS sprite buttons that use HTML
-    // lists.  When you click on the background image "button", IE will
+    // lists.  When you click on the background images "button", IE will
     // select the non-existent link text and discard the selection in the
     // textarea.  The solution to this is to cache the textarea selection
     // on the button's mousedown event and set a flag.  In the part of the
@@ -1073,7 +1073,7 @@
     };
 
     // This simulates a modal dialog box and asks for the URL when you
-    // click the hyperlink or image buttons.
+    // click the hyperlink or images buttons.
     //
     // text: The html for the input box.
     // defaultInputText: The default value that appears in the input box.
@@ -1365,7 +1365,7 @@
                 // in a function parameter.
                 //
                 // Yes this is awkward and I think it sucks, but there's
-                // no real workaround.  Only the image and link code
+                // no real workaround.  Only the images and link code
                 // create dialogs and require the function pointers.
                 var fixupInputArea = function () {
 
@@ -1408,7 +1408,7 @@
                     image.style.backgroundPosition = this.XShift + " " + normalYShift;
                 };
 
-                // IE tries to select the background image "button" text (it's
+                // IE tries to select the background images "button" text (it's
                 // implemented in a list item) so we have to cache the selection
                 // on mousedown.
                 if (uaSniffed.isIE) {
@@ -1488,7 +1488,7 @@
             }));
             buttons.quote = makeButton("wmd-quote-button", getString("quote"), "-60px", bindCommand("doBlockquote"));
             buttons.code = makeButton("wmd-code-button", getString("code"), "-80px", bindCommand("doCode"));
-            buttons.image = makeButton("wmd-image-button", getString("image"), "-100px", bindCommand(function (chunk, postProcessing) {
+            buttons.image = makeButton("wmd-images-button", getString("image"), "-100px", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }));
             makeSpacer(2);
@@ -1665,7 +1665,7 @@
         // a) the recursive call to getLink cannot go infinite, because by definition
         //    of regex, inner is always a proper substring of wholeMatch, and
         // b) more than one level of nesting is neither supported by the regex
-        //    nor making a lot of sense (the only use case for nesting is a linked image)
+        //    nor making a lot of sense (the only use case for nesting is a linked images)
         var getLink = function (wholeMatch, before, inner, afterInner, id, end) {
             inner = inner.replace(regex, getLink);
             if (defsToAdd[id]) {
@@ -1700,7 +1700,7 @@
         return refOut;
     };
 
-    // takes the line as entered into the add link/as image dialog and makes
+    // takes the line as entered into the add link/as images dialog and makes
     // sure the URL and the optinal title are "nice".
     function properlyEncoded(linkdef) {
         return linkdef.replace(/^\s*(.*?)(?:\s+"(.+)")?\s*$/, function (wholematch, link, title) {

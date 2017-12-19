@@ -18,7 +18,7 @@ class UserProfile(AbstractUser):
                               verbose_name="性别", help_text="性别")
     mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name="电话", help_text="电话")
     email = models.CharField(max_length=100, null=True, blank=True, verbose_name="邮箱", help_text="邮箱")
-    avatar = models.ImageField(upload_to="image/%Y/%m", default="image/default.png", verbose_name="头像", help_text="头像")
+    avatar = models.ImageField(upload_to="images/%Y/%m", default="images/default.png", verbose_name="头像", help_text="头像")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:

@@ -367,7 +367,7 @@
                 accept: {
                     title: 'Images',
                     extensions: acceptExtensions,
-                    mimeTypes: 'image/*'
+                    mimeTypes: 'images/*'
                 },
                 swf: '../../third-party/webuploader/Uploader.swf',
                 server: actionUrl,
@@ -377,7 +377,7 @@
                 compress: editor.getOpt('imageCompressEnable') ? {
                     width: imageCompressBorder,
                     height: imageCompressBorder,
-                    // 图片质量，只有type为`image/jpeg`的时候才有效。
+                    // 图片质量，只有type为`images/jpeg`的时候才有效。
                     quality: 90,
                     // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
                     allowMagnify: false,
@@ -1055,7 +1055,7 @@
                 key = $G('searchTxt').value,
                 type = $G('searchType').value,
                 keepOriginName = editor.options.keepOriginName ? "1" : "0",
-                url = "http://image.baidu.com/i?ct=201326592&cl=2&lm=-1&st=-1&tn=baiduimagejson&istype=2&rn=32&fm=index&pv=&word=" + _this.encodeToGb2312(key) + type + "&keeporiginname=" + keepOriginName + "&" + +new Date;
+                url = "http://images.baidu.com/i?ct=201326592&cl=2&lm=-1&st=-1&tn=baiduimagejson&istype=2&rn=32&fm=index&pv=&word=" + _this.encodeToGb2312(key) + type + "&keeporiginname=" + keepOriginName + "&" + +new Date;
 
             $G('searchListUl').innerHTML = lang.searchLoading;
             ajax.request(url, {

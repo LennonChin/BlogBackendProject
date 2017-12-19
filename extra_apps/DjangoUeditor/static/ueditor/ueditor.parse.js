@@ -388,7 +388,7 @@ UE.parse.register('table', function (utils) {
                 selector + ' table.noBorderTable th,' +
                 selector + ' table.noBorderTable caption{border:1px dashed #ddd !important}' +
                 selector + ' table.sortEnabled tr.firstRow th,' + selector + ' table.sortEnabled tr.firstRow td{padding-right:20px; background-repeat: no-repeat;' +
-                    'background-position: center right; background-image:url(' + this.rootPath + 'themes/default/images/sortable.png);}' +
+                    'background-position: center right; background-images:url(' + this.rootPath + 'themes/default/images/sortable.png);}' +
                 selector + ' table.sortEnabled tr.firstRow th:hover,' + selector + ' table.sortEnabled tr.firstRow td:hover{background-color: #EEE;}' +
                 selector + ' table{margin-bottom:10px;border-collapse:collapse;display:table;}' +
                 selector + ' td,' + selector + ' th{ background:white; padding: 5px 10px;border: 1px solid #DDD;}' +
@@ -935,14 +935,14 @@ UE.parse.register('list',function(utils){
             if(list.className && /custom_/i.test(list.className)){
                 var listStyle = list.className.match(/custom_(\w+)/)[1];
                 if(listStyle == 'dash' || listStyle == 'dot'){
-                    utils.pushItem(customCss,selector +' li.list-' + customStyle[listStyle] + '{background-image:url(' + T.liiconpath +customStyle[listStyle]+'.gif)}');
+                    utils.pushItem(customCss,selector +' li.list-' + customStyle[listStyle] + '{background-images:url(' + T.liiconpath +customStyle[listStyle]+'.gif)}');
                     utils.pushItem(customCss,selector +' ul.custom_'+listStyle+'{list-style:none;} '+ selector +' ul.custom_'+listStyle+' li{background-position:0 3px;background-repeat:no-repeat}');
 
                 }else{
                     var index = 1;
                     utils.each(list.childNodes,function(li){
                         if(li.tagName == 'LI'){
-                            utils.pushItem(customCss,selector + ' li.list-' + customStyle[listStyle] + index + '{background-image:url(' + T.liiconpath  + 'list-'+customStyle[listStyle] +index + '.gif)}');
+                            utils.pushItem(customCss,selector + ' li.list-' + customStyle[listStyle] + index + '{background-images:url(' + T.liiconpath  + 'list-'+customStyle[listStyle] +index + '.gif)}');
                             index++;
                         }
                     });

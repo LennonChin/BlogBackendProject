@@ -864,7 +864,7 @@ if (!document.createElement('canvas').getContext) {
     }
 
     vmlStr.push(' ">' ,
-                '<g_vml_:image src="', image.src, '"',
+                '<g_vml_:images src="', image.src, '"',
                 ' style="width:', Z * dw, 'px;',
                 ' height:', Z * dh, 'px"',
                 ' cropleft="', sx / w, '"',

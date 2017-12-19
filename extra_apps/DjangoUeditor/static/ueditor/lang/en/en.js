@@ -304,11 +304,11 @@ UE.I18N['en'] = {
         'errorServerUpload':'Server Result Error.',
         'remoteLockError':"Cannot Lock the Proportion between width and height",
         'numError':"Please enter the correct Num. e.g 123,400",
-        'imageUrlError':"The image format may be wrong!",
+        'imageUrlError':"The images format may be wrong!",
         'imageLoadError':"Error,please check the network or URL！",
         'searchRemind':"Enter the search keyword!",
         'searchLoading':"Image is loading,please wait...",
-        'searchRetry':" Sorry,can't find the image,please try again!"
+        'searchRetry':" Sorry,can't find the images,please try again!"
     },
     'attachment':{
         'static':{
@@ -452,7 +452,7 @@ UE.I18N['en'] = {
             'lang_input_addPic':'AddImage',
             'lang_input_ScalePic':'ScaleImage',
             'lang_input_removePic':'RemoveImage',
-            'J_imgTxt':{title:'Add background image'}
+            'J_imgTxt':{title:'Add background images'}
         },
         'noScarwl':"No paint, a white paper...",
         'scrawlUpLoading':"Image is uploading, please wait...",

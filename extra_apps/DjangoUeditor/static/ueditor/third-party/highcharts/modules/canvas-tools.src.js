@@ -2323,7 +2323,7 @@ if(!Array.prototype.indexOf){
 		}
 		svg.Element.a.prototype = new svg.Element.TextElementBase;		
 		
-		// image element
+		// images element
 		svg.Element.image = function(node) {
 			this.base = svg.Element.RenderedElementBase;
 			this.base(node);

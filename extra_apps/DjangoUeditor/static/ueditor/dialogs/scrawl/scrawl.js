@@ -392,7 +392,7 @@ var scrawl = function (options) {
                 context.fillRect(0, 0, canvas.width, canvas.height);
             }
             try {
-                return canvas.toDataURL("image/png").substring(22);
+                return canvas.toDataURL("images/png").substring(22);
             } catch (e) {
                 return "";
             }

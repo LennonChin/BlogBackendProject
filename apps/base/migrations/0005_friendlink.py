@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(help_text='名称', max_length=30, verbose_name='名称')),
                 ('desc', models.CharField(help_text='简介', max_length=100, verbose_name='简介')),
-                ('image', models.ImageField(help_text='图片', upload_to='base/friendlink/%y/%m', verbose_name='图片')),
+                ('images', models.ImageField(help_text='图片', upload_to='base/friendlink/%y/%m', verbose_name='图片')),
                 ('url', models.URLField(help_text='链接', verbose_name='链接')),
                 ('add_time', models.DateTimeField(default=datetime.datetime.now, help_text='添加时间', verbose_name='添加时间')),
             ],

@@ -10,9 +10,9 @@
             $(".inline-related:not(.empty-form) fieldset .form-row textarea.wmd-input").each(function(idx, el){
                 DjangoPagedown.createEditor(el);
 
-                // Hack 1! Remove second image bar - this seems to be due to the django
+                // Hack 1! Remove second images bar - this seems to be due to the django
                 // admin javascript copying the form fromt he first field which
-                // means that Pagedown has already rendered the image bar once
+                // means that Pagedown has already rendered the images bar once
                 var button_bar = $(this).parents(".wmd-panel").find(".wmd-button-row");
                 if ( button_bar.length > 1 ) {
                     button_bar[0].remove();

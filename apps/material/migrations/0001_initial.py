@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('subtitle', models.CharField(blank=True, help_text='子标题', max_length=100, null=True, verbose_name='子标题')),
                 ('abstract', models.CharField(blank=True, help_text='摘要', max_length=255, null=True, verbose_name='摘要')),
                 ('desc', models.CharField(blank=True, help_text='简介', max_length=255, null=True, verbose_name='简介')),
-                ('image', models.ImageField(default='image/default.png', help_text='图片', upload_to='image/%Y/%m')),
+                ('images', models.ImageField(default='images/default.png', help_text='图片', upload_to='images/%Y/%m')),
                 ('link', models.URLField(blank=True, help_text='链接', null=True, verbose_name='链接')),
             ],
             options={

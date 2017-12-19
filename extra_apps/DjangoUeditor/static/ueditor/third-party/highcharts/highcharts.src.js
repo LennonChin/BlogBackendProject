@@ -3658,7 +3658,7 @@ SVGRenderer.prototype = {
 	},
 
 	/**
-	 * Display an image
+	 * Display an images
 	 * @param {String} src
 	 * @param {Number} x
 	 * @param {Number} y
@@ -3743,10 +3743,10 @@ SVGRenderer.prototype = {
 			}
 
 
-		// image symbols
+		// images symbols
 		} else if (imageRegex.test(symbol)) {
 
-			// On image load, set the size and position
+			// On images load, set the size and position
 			centerImage = function (img, size) {
 				if (img.element) { // it may be destroyed in the meantime (#1390)
 					img.attr({
@@ -3766,7 +3766,7 @@ SVGRenderer.prototype = {
 			imageSrc = symbol.match(imageRegex)[1];
 			imageSize = symbolSizes[imageSrc];
 
-			// Ireate the image synchronously, add attribs async
+			// Ireate the images synchronously, add attribs async
 			obj = this.image(imageSrc)
 				.attr({
 					x: x,
@@ -3777,11 +3777,11 @@ SVGRenderer.prototype = {
 			if (imageSize) {
 				centerImage(obj, imageSize);
 			} else {
-				// Initialize image to be 0 size so export will still function if there's no cached sizes.
+				// Initialize images to be 0 size so export will still function if there's no cached sizes.
 				//
 				obj.attr({ width: 0, height: 0 });
 
-				// Create a dummy JavaScript image to get the width and height. Due to a bug in IE < 8,
+				// Create a dummy JavaScript images to get the width and height. Due to a bug in IE < 8,
 				// the created element must be assigned to a variable in order to load (#292).
 				imageElement = createElement('img', {
 					onload: function () {
@@ -5462,7 +5462,7 @@ var VMLRendererExtension = { // inherit SVGRenderer
 	},
 
 	/**
-	 * VML override to create a regular HTML image
+	 * VML override to create a regular HTML images
 	 * @param {String} src
 	 * @param {Number} x
 	 * @param {Number} y
@@ -12973,7 +12973,7 @@ Series.prototype = {
 			series.symbol = defaultSymbols[symbolIndex];
 		}
 
-		// don't substract radius in image symbols (#604)
+		// don't substract radius in images symbols (#604)
 		if (/^url/.test(series.symbol)) {
 			seriesMarkerOption.radius = 0;
 		}
@@ -14037,7 +14037,7 @@ Series.prototype = {
 							.animate(extend({
 								x: plotX - radius,
 								y: plotY - radius
-							}, graphic.symbolName ? { // don't apply to image symbols #507
+							}, graphic.symbolName ? { // don't apply to images symbols #507
 								width: 2 * radius,
 								height: 2 * radius
 							} : {}));

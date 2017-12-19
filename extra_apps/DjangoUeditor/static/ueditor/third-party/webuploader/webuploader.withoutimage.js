@@ -1559,7 +1559,7 @@
     
             // 如果没有指定mimetype, 但是知道文件后缀。
             if ( !this.type &&  ~'jpg,jpeg,png,gif,bmp'.indexOf( ext ) ) {
-                this.type = 'image/' + (ext === 'jpg' ? 'jpeg' : ext);
+                this.type = 'images/' + (ext === 'jpg' ? 'jpeg' : ext);
             }
     
             this.ext = ext;
@@ -1745,14 +1745,14 @@
              * {
              *     title: 'Images',
              *     extensions: 'gif,jpg,jpeg,bmp,png',
-             *     mimeTypes: 'image/*'
+             *     mimeTypes: 'images/*'
              * }
              * ```
              */
             accept: null/*{
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/*'
+                mimeTypes: 'images/*'
             }*/
         });
     

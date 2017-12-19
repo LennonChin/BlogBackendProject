@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('gender', models.CharField(choices=[('male', '男'), ('female', '女')], default='female', help_text='性别', max_length=6, verbose_name='性别')),
                 ('mobile', models.CharField(blank=True, help_text='电话', max_length=11, null=True, verbose_name='电话')),
                 ('email', models.CharField(blank=True, help_text='邮箱', max_length=100, null=True, verbose_name='邮箱')),
-                ('avatar', models.ImageField(default='image/default.png', help_text='头像', upload_to='image/%Y/%m', verbose_name='头像')),
+                ('avatar', models.ImageField(default='images/default.png', help_text='头像', upload_to='images/%Y/%m', verbose_name='头像')),
                 ('add_time', models.DateTimeField(default=datetime.datetime.now, help_text='添加时间', verbose_name='添加时间')),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(help_text='标题', max_length=100, verbose_name='标题')),
-                ('image', models.ImageField(help_text='图片', upload_to='banner/%y/%m', verbose_name='图片')),
+                ('images', models.ImageField(help_text='图片', upload_to='banner/%y/%m', verbose_name='图片')),
                 ('url', models.URLField(help_text='链接', verbose_name='链接')),
                 ('index', models.IntegerField(default=100, help_text='顺序', verbose_name='顺序')),
                 ('add_time', models.DateTimeField(default=datetime.datetime.now, help_text='添加时间', verbose_name='添加时间')),

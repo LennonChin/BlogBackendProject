@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='materialcategory',
-            name='image',
-            field=models.ImageField(default='image/default.png', help_text='图片', upload_to='image/%Y/%m'),
+            name='images',
+            field=models.ImageField(default='images/default.png', help_text='图片', upload_to='images/%Y/%m'),
         ),
     ]

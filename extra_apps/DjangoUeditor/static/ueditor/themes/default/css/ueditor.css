@@ -1358,7 +1358,7 @@ div.edui-box {
     *height: 570px;
 }
 
-/*image-dialog*/
+/*images-dialog*/
 .edui-default .edui-for-insertimage .edui-dialog-content {
     width: 650px;
     height: 400px;
@@ -1372,7 +1372,7 @@ div.edui-box {
     overflow: hidden;
 }
 
-/*image-insertframe*/
+/*images-insertframe*/
 .edui-default .edui-for-insertframe .edui-dialog-content {
     width: 350px;
     height: 200px;

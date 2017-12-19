@@ -18,7 +18,7 @@
 (function ($) {
     'use strict';
 
-    // Loads an image for a given File object.
+    // Loads an images for a given File object.
     // Invokes the callback with an img or optional canvas
     // element (if supported by the browser) as parameter:
     var loadImage = function (file, callback, options) {
@@ -86,9 +86,9 @@
             canvas.width = canvas.height = 1;
             ctx = canvas.getContext('2d');
             ctx.drawImage(img, -iw + 1, 0);
-            // subsampled image becomes half smaller in rendering size.
-            // check alpha channel value to confirm image is covering edge pixel or not.
-            // if alpha value is 0 image is not covering, hence subsampled.
+            // subsampled images becomes half smaller in rendering size.
+            // check alpha channel value to confirm images is covering edge pixel or not.
+            // if alpha value is 0 images is not covering, hence subsampled.
             return ctx.getImageData(0, 0, 1, 1).data[3] === 0;
         }
         return false;
@@ -107,7 +107,7 @@
         canvas.height = ih;
         ctx.drawImage(img, 0, 0);
         data = ctx.getImageData(0, 0, 1, ih).data;
-        // search image edge pixel position in case it is squashed vertically:
+        // search images edge pixel position in case it is squashed vertically:
         sy = 0;
         ey = ih;
         py = ih;
@@ -123,7 +123,7 @@
         return (py / ih) || 1;
     };
 
-    // Renders image to canvas while working around iOS image scaling bugs:
+    // Renders images to canvas while working around iOS images scaling bugs:
     // https://github.com/blueimp/JavaScript-Load-Image/issues/13
     loadImage.renderImageToCanvas = function (img, canvas, width, height) {
         var iw = img.width,
@@ -168,11 +168,11 @@
         tmpCanvas = tmpCtx = null;
     };
 
-    // Scales the given image (img or canvas HTML element)
+    // Scales the given images (img or canvas HTML element)
     // using the given options.
     // Returns a canvas object if the browser supports canvas
     // and the canvas option is true or a canvas object is passed
-    // as image, else the scaled image:
+    // as images, else the scaled images:
     loadImage.scale = function (img, options) {
         options = options || {};
         var canvas = document.createElement('canvas'),
@@ -197,7 +197,7 @@
         if (img.getContext || (options.canvas && canvas.getContext)) {
             canvas.width = width;
             canvas.height = height;
-            if (img._type === 'image/jpeg') {
+            if (img._type === 'images/jpeg') {
                 loadImage
                     .renderImageToCanvas(img, canvas, width, height);
             } else {

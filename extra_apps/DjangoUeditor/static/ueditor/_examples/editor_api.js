@@ -27,7 +27,7 @@
             'plugins/autotypeset.js',
             'plugins/autosubmit.js',
             'plugins/background.js',
-            'plugins/image.js',
+            'plugins/images.js',
             'plugins/justify.js',
             'plugins/font.js',
             'plugins/link.js',

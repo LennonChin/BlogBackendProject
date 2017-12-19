@@ -150,7 +150,7 @@ class UEditorButtonCommand(UEditorCommand):
             var btn = new UE.ui.Button({
                 name: uiName,
                 title: "%(title)s",
-                cssRules: "background-image:url('%(icon)s')!important;",
+                cssRules: "background-images:url('%(icon)s')!important;",
                 onclick: function() {
                     %(onclick)s
                 }

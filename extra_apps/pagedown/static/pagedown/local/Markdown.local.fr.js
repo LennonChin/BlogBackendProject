@@ -22,8 +22,8 @@
         codeexample: "votre extrait de code",
 
         image: "Image <img> Ctrl+G",
-        imagedescription: "description de l'image",
-        imagedialog: "<p><b>Insérer une image</b></p><p>http://example.com/images/diagram.jpg \"titre optionnel\"<br><br><a href='http://www.google.com/search?q=free+image+hosting' target='_blank'>Vous chercher un hébergement d'image grauit ?</a></p>",
+        imagedescription: "description de l'images",
+        imagedialog: "<p><b>Insérer une images</b></p><p>http://example.com/images/diagram.jpg \"titre optionnel\"<br><br><a href='http://www.google.com/search?q=free+images+hosting' target='_blank'>Vous chercher un hébergement d'images grauit ?</a></p>",
 
         olist: "Liste numérotée <ol> Ctrl+O",
         ulist: "Liste à point <ul> Ctrl+U",

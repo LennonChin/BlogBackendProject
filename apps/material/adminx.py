@@ -25,22 +25,22 @@ class MaterialTagAdmin(object):
 
 
 class MaterialPictureAdmin(object):
-    list_display = ['title', 'subtitle', 'abstract', "desc", "image", "link"]
+    list_display = ['title', 'subtitle', 'abstract', "desc", "images", "link"]
     search_fields = ['title', 'subtitle', 'abstract', "desc", "link"]
 
 
 class MaterialBannerAdmin(object):
-    list_display = ['title', 'image', "url", "index", "add_time"]
+    list_display = ['title', 'images', "url", "index", "add_time"]
     search_fields = ['title', 'url']
 
 
 class MaterialSocialAdmin(object):
-    list_display = ['name', 'desc', "image", "url"]
+    list_display = ['name', 'desc', "images", "url"]
     search_fields = ['name', 'desc']
 
 
 class MaterialMasterAdmin(object):
-    list_display = ['name', 'desc', "image", "url", 'experience']
+    list_display = ['name', 'desc', "images", "url", 'experience']
     search_fields = ['name', 'desc']
 
 xadmin.site.register(MaterialCategory, MaterialCategoryAdmin)

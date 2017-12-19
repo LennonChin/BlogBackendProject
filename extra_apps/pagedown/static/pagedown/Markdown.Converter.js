@@ -124,7 +124,7 @@ else
 
             //
             // Main function. The order in which other subs are called here is
-            // essential. Link and image substitutions need to happen before
+            // essential. Link and images substitutions need to happen before
             // _EscapeSpecialCharsWithinTagAttributes(), so that any *'s or _'s in the <a>
             // and <img> tags get encoded.
             //
@@ -416,7 +416,7 @@ else
             text = _EscapeSpecialCharsWithinTagAttributes(text);
             text = _EncodeBackslashEscapes(text);
 
-            // Process anchor and image tags. Images must come first,
+            // Process anchor and images tags. Images must come first,
             // because ![foo][f] looks like an anchor.
             text = _DoImages(text);
             text = _DoAnchors(text);
@@ -600,7 +600,7 @@ else
 
         function _DoImages(text) {
             //
-            // Turn Markdown image shortcuts into <img> tags.
+            // Turn Markdown images shortcuts into <img> tags.
             //
 
             //
