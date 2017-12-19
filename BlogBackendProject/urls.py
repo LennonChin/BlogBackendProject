@@ -27,6 +27,7 @@ from rest_framework.authtoken import views
 
 from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
+from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, BannerListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
@@ -46,6 +47,10 @@ router.register(r'articleDetailInfos', ArticleDetailInfoListViewset, base_name="
 # 图集相关
 router.register(r'albumBaseInfos', AlbumBaseInfoListViewset, base_name="albumBaseInfos")
 router.register(r'albumDetailInfos', AlbumDetailInfoListViewset, base_name="albumDetailInfos")
+
+# 电影
+router.register(r'movieBaseInfos', MovieBaseInfoListViewset, base_name="movieBaseInfos")
+router.register(r'movieDetailInfos', MovieDetailInfoListViewset, base_name="movieDetailInfos")
 
 # 博主信息
 router.register(r'blogger', BloggerInfoViewset, base_name="blogger")

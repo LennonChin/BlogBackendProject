@@ -5,7 +5,7 @@ __date__ = '2017/12/2 12:56'
 from rest_framework import serializers
 
 from .models import AlbumInfo, AlbumPhoto
-from material.serializers import SingleLevelCategorySerializer, TagSerializer
+from material.serializers import SingleLevelCategorySerializer, TagSerializer, PictureSerializer
 
 
 class AlbumDetailSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class AlbumDetailSerializer(serializers.ModelSerializer):
 
 class AlbumDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
-    # pictures = AlbumDetailSerializer()
+    pictures = PictureSerializer(many=True)
     tags = TagSerializer(many=True)
 
     class Meta:
