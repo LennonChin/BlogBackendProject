@@ -102,6 +102,7 @@ class Banner(models.Model):
     title = models.CharField(max_length=100, verbose_name="标题", help_text="标题")
     image = models.ImageField(upload_to="banner/%y/%m", verbose_name="图片", help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
+    category = models.ForeignKey(MaterialCategory, default='1', null=False, blank=False, verbose_name="类别", help_text="类别")
     index = models.IntegerField(default=0, verbose_name="顺序", help_text="顺序")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
