@@ -79,7 +79,7 @@ class FriendLink(models.Model):
     """
     name = models.CharField(max_length=30, verbose_name="名称", help_text="名称")
     desc = models.CharField(max_length=100, verbose_name="简介", help_text="简介")
-    image = models.ImageField(upload_to="base/friendlink/%y/%m", verbose_name="图片", help_text="图片")
+    image = models.ImageField(default='image/default.png', upload_to="base/friendlink/%y/%m", verbose_name="图片", help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
