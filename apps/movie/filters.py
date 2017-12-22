@@ -15,8 +15,8 @@ class MovieFilter(django_filters.rest_framework.FilterSet):
     """
     电影的过滤类
     """
-    time_min = django_filters.NumberFilter(name='add_time', lookup_expr='gte')
-    time_max = django_filters.NumberFilter(name='add_time', lookup_expr='lte')
+    time_min = django_filters.DateFilter(name='add_time', lookup_expr='gte')
+    time_max = django_filters.DateFilter(name='add_time', lookup_expr='lte')
 
     top_category = django_filters.NumberFilter(method='top_category_filter')
 
