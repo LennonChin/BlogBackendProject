@@ -28,7 +28,7 @@ from rest_framework.authtoken import views
 from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
-from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, BannerListViewset
+from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, MaterialBannerListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
 
@@ -38,7 +38,7 @@ router = DefaultRouter()
 router.register(r'categorys', CategoryListViewset, base_name='categorys')
 router.register(r'category', SingleLevelCategoryListViewset, base_name='category')
 router.register(r'tags', TagListViewset, base_name='tags')
-router.register(r'banners', BannerListViewset, base_name='banners')
+router.register(r'banners', MaterialBannerListViewset, base_name='banners')
 
 # 文章相关
 router.register(r'articleBaseInfos', ArticleBaseInfoListViewset, base_name="articleBaseInfos")

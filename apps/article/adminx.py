@@ -11,36 +11,25 @@ import xadmin
 import markdown
 from django import forms
 
-from .models import ArticleInfo, ArticleDetail, ArticleTag
+from .models import ArticleInfo
+from material.models import PostTag
 from pagedown.widgets import AdminPagedownWidget
-
-
-class ArticleInfoAdmin(object):
-    list_display = ['title', 'subtitle', "abstract", "desc", "author", "category", "tags", "detail", "front_image",
-                    "front_image_type"]
-    search_fields = ['title', ]
-
-    class ArticleTagInline(object):
-        model = ArticleTag
-        style = "tab"
-        extra = 1
-
-    inlines = [ArticleTagInline]
 
 
 class ArticleDetailForm(forms.ModelForm):
     origin_content = forms.CharField(widget=AdminPagedownWidget())
 
     class Meta:
-        model = ArticleDetail
+        model = ArticleInfo
         fields = '__all__'
 
 
-class ArticleDetailAdmin(object):
+class ArticleInfoAdmin(object):
     form = ArticleDetailForm
-    list_display = ["title", "add_time"]
-    exclude = ['formatted_content', ]
-    search_fields = ['origin_content', ]
+    list_display = ['title', "category", "tags", "front_image",
+                    "front_image_type"]
+    search_fields = ['title', 'origin_content']
+    exclude = ['formatted_content', 'post_type']
 
     def save_models(self):
         # 转换Markdown为格式化的HTML
@@ -52,12 +41,11 @@ class ArticleDetailAdmin(object):
                                                            ])
         self.new_obj.save()
 
+    class ArticleTagInline(object):
+        model = PostTag
+        extra = 1
 
-class ArticleTagAdmin(object):
-    list_display = ['article', 'tag', "add_time"]
-    search_fields = ['article', ]
+    inlines = [ArticleTagInline]
 
 
 xadmin.site.register(ArticleInfo, ArticleInfoAdmin)
-xadmin.site.register(ArticleDetail, ArticleDetailAdmin)
-xadmin.site.register(ArticleTag, ArticleTagAdmin)

@@ -4,20 +4,12 @@ __date__ = '2017/12/2 12:56'
 
 from rest_framework import serializers
 
-from movie.models import MovieInfo, MovieDetail
+from movie.models import MovieInfo
 from material.serializers import SingleLevelCategorySerializer, TagSerializer
-
-
-class MovieDetailSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = MovieDetail
-        fields = ["formatted_content", ]
 
 
 class MovieDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
-    detail = MovieDetailSerializer()
     tags = TagSerializer(many=True)
 
     class Meta:

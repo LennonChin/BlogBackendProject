@@ -10,7 +10,7 @@
 # encoding: utf-8
 
 import xadmin
-from .models import MaterialCategory, MaterialTag, MaterialPicture, Banner, MaterialSocial, MaterialMaster
+from .models import MaterialCategory, MaterialTag, MaterialPicture, MaterialBanner, MaterialSocial, MaterialMaster
 
 
 class MaterialCategoryAdmin(object):
@@ -46,6 +46,6 @@ class MaterialMasterAdmin(object):
 xadmin.site.register(MaterialCategory, MaterialCategoryAdmin)
 xadmin.site.register(MaterialTag, MaterialTagAdmin)
 xadmin.site.register(MaterialPicture, MaterialPictureAdmin)
-xadmin.site.register(Banner, MaterialBannerAdmin)
+xadmin.site.register(MaterialBanner, MaterialBannerAdmin)
 xadmin.site.register(MaterialSocial, MaterialSocialAdmin)
 xadmin.site.register(MaterialMaster, MaterialMasterAdmin)

@@ -10,9 +10,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import mixins, viewsets, filters
 
-from .models import MaterialCategory, MaterialTag, Banner
-from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, BannerSerializer
-from .filters import CategoryFilter, BannerFilter
+from .models import MaterialCategory, MaterialTag, MaterialBanner
+from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer
+from .filters import CategoryFilter, MaterialBannerFilter
 
 
 class CategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -52,13 +52,13 @@ class TagListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.
     ordering_fields = ('name', 'subname')
 
 
-class BannerListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class MaterialBannerListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     List:
         Banner列表页
     """
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_class = BannerFilter
-    queryset = Banner.objects.all().order_by("-index")
-    serializer_class = BannerSerializer
+    filter_class = MaterialBannerFilter
+    queryset = MaterialBanner.objects.all().order_by("-index")
+    serializer_class = MaterialBannerSerializer
 

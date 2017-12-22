@@ -8,22 +8,23 @@
 
 import xadmin
 
-from .models import AlbumInfo, AlbumPhoto, AlbumTag
+from .models import AlbumInfo, AlbumPhoto
+from material.models import PostTag
 
 
 class AlbumInfoAdmin(object):
     list_display = ['title', 'subtitle', "abstract", "desc", "author", "category", "tags", "pictures", "front_image",
                     "front_image_type"]
     search_fields = ['title', 'subtitle', "abstract", "desc", "category"]
+    exclude = ['post_type', ]
 
     class AlbumTagInline(object):
-        model = AlbumTag
+        model = PostTag
         style = "tab"
         extra = 1
 
     class AlbumPhotoInline(object):
         model = AlbumPhoto
-        style = "tab"
         extra = 1
 
     inlines = [AlbumTagInline, AlbumPhotoInline]
@@ -34,11 +35,5 @@ class AlbumPhotoAdmin(object):
     search_fields = ['album', 'picture']
 
 
-class AlbumTagAdmin(object):
-    list_display = ['album', 'tag', "add_time"]
-    search_fields = ['album', 'tag']
-
-
 xadmin.site.register(AlbumInfo, AlbumInfoAdmin)
 xadmin.site.register(AlbumPhoto, AlbumPhotoAdmin)
-xadmin.site.register(AlbumTag, AlbumTagAdmin)

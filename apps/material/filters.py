@@ -8,7 +8,7 @@
 
 from django.db.models import Q
 import django_filters
-from .models import MaterialCategory, Banner
+from .models import MaterialCategory, MaterialBanner
 
 
 class CategoryFilter(django_filters.rest_framework.FilterSet):
@@ -23,7 +23,7 @@ class CategoryFilter(django_filters.rest_framework.FilterSet):
         fields = ['id', 'level_min', 'level_max', 'is_tab']
 
 
-class BannerFilter(django_filters.rest_framework.FilterSet):
+class MaterialBannerFilter(django_filters.rest_framework.FilterSet):
     """
     分类的过滤类
     """
@@ -38,5 +38,5 @@ class BannerFilter(django_filters.rest_framework.FilterSet):
             category__parent_category__parent_category_id=value))
 
     class Meta:
-        model = Banner
+        model = MaterialBanner
         fields = ['title', 'url', 'index']
