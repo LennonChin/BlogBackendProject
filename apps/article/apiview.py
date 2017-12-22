@@ -4,7 +4,7 @@ __date__ = '2017/12/2 12:52'
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from rest_framework import mixins, generics, viewsets, filters
+from rest_framework import mixins, viewsets, filters
 from rest_framework.response import Response
 
 from .models import ArticleInfo

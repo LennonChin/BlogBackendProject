@@ -32,6 +32,8 @@ class ArticleInfoAdmin(object):
     exclude = ['formatted_content', 'post_type']
 
     def save_models(self):
+        # 手动设置类型
+        self.new_obj.post_type = "article"
         # 转换Markdown为格式化的HTML
         self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
                                                            extensions=[

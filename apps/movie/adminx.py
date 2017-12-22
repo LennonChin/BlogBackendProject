@@ -30,6 +30,8 @@ class MovieDetailAdmin(object):
     exclude = ['formatted_content', 'post_type']
 
     def save_models(self):
+        # 手动设置类型
+        self.new_obj.post_type = "movie"
         # 转换Markdown为格式化的HTML
         self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
                                                            extensions=[

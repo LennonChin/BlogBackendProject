@@ -12,8 +12,6 @@ class AlbumInfo(PostBaseInfo):
     """
     图集基本信息
     """
-    post_type = models.CharField(max_length=10, default="1", choices=PostBaseInfo.POST_TYPE, verbose_name="POST类别",
-                                        help_text="POST类别")
     pictures = models.ManyToManyField(MaterialPicture, through="AlbumPhoto", through_fields=('album', 'picture'),
                                       verbose_name="图片", help_text="图片")
 
@@ -38,4 +36,4 @@ class AlbumPhoto(models.Model):
         verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
-        return self.album.name
+        return self.album.title

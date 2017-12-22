@@ -24,11 +24,11 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 
-
 from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
-from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, MaterialBannerListViewset
+from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
+    MaterialBannerListViewset, TimeLineListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
 
@@ -52,11 +52,13 @@ router.register(r'albumDetailInfos', AlbumDetailInfoListViewset, base_name="albu
 router.register(r'movieBaseInfos', MovieBaseInfoListViewset, base_name="movieBaseInfos")
 router.register(r'movieDetailInfos', MovieDetailInfoListViewset, base_name="movieDetailInfos")
 
+# 时光轴
+router.register(r'timeline', TimeLineListViewset, base_name="timeline")
+
 # 博主信息
 router.register(r'blogger', BloggerInfoViewset, base_name="blogger")
 # 友情链接
 router.register(r'friendlinks', FriendLinkListViewset, base_name="friendlinks")
-
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),

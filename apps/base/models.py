@@ -30,7 +30,7 @@ class BloggerInfo(models.Model):
     name_en = models.CharField(default="", max_length=20, verbose_name="名称英文", help_text="名称英文")
     desc = models.CharField(default="", max_length=300, verbose_name="简介", help_text="简介")
     avatar = models.ImageField(upload_to="base/avatar/image/%y/%m", null=True, blank=True, verbose_name="头像", help_text="头像")
-    background = models.ImageField(upload_to="base/image/background/%y/%m", null=True, blank=True, verbose_name="背景图", help_text="背景图")
+    background = models.ImageField(upload_to="base/background/image/%y/%m", null=True, blank=True, verbose_name="背景图", help_text="背景图")
     socials = models.ManyToManyField(MaterialSocial, through='BloggerSocial', through_fields=('blogger', 'social'))
     masters = models.ManyToManyField(MaterialMaster, through='BloggerMaster', through_fields=('blogger', 'master'))
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")

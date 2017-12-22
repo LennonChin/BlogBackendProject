@@ -108,7 +108,8 @@ class MaterialPicture(models.Model):
     subtitle = models.CharField(max_length=100, null=True, blank=True, verbose_name="子标题", help_text="子标题")
     abstract = models.CharField(max_length=255, null=True, blank=True, verbose_name="摘要", help_text="摘要")
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
-    image = models.ImageField(upload_to="material/picture/image/%Y/%m", null=True, blank=True, verbose_name="图片", help_text="图片")
+    image = models.ImageField(upload_to="material/picture/image/%Y/%m", null=True, blank=True, verbose_name="图片",
+                              help_text="图片")
     # thumb = models.ImageField(upload_to="picture/image/thumb/%Y/%m", blank=True, null=True, blank=True, verbose_name="缩略图", help_text="缩略图")
     camera = models.ForeignKey(MaterialCamera, null=True, blank=True, verbose_name="拍摄相机", help_text="拍摄相机")
     link = models.URLField(null=True, blank=True, verbose_name="链接", help_text="链接")
@@ -127,9 +128,9 @@ class PostBaseInfo(models.Model):
     Post基本信息
     """
     POST_TYPE = (
-        ("0", "article"),
-        ("1", "album"),
-        ("2", "movie")
+        ("article", "文章"),
+        ("album", "图集"),
+        ("movie", "电影")
     )
     FRONT_IMAGE_TYPE = (
         ("0", "无"),
@@ -143,10 +144,13 @@ class PostBaseInfo(models.Model):
     author = models.CharField(max_length=20, null=True, blank=True, verbose_name="作者", help_text="作者")
     category = models.ForeignKey(MaterialCategory, null=False, blank=False, verbose_name="类别", help_text="类别")
     tags = models.ManyToManyField(MaterialTag, through="PostTag", through_fields=('post', 'tag'))
+    post_type = models.CharField(max_length=10, choices=POST_TYPE, null=True, blank=True, verbose_name="POST类别",
+                                 help_text="POST类别")
     click_num = models.IntegerField(default=0, verbose_name="点击数", help_text="点击数")
     like_num = models.IntegerField(default=0, verbose_name="点赞数", help_text="点赞数")
     comment_num = models.IntegerField(default=0, verbose_name="评论数", help_text="评论数")
-    front_image = models.ImageField(upload_to="material/post/image/%y/%m", null=True, blank=True, verbose_name="封面图", help_text="封面图")
+    front_image = models.ImageField(upload_to="material/post/image/%y/%m", null=True, blank=True, verbose_name="封面图",
+                                    help_text="封面图")
     front_image_type = models.CharField(max_length=20, default="0", choices=FRONT_IMAGE_TYPE, verbose_name="封面图类别",
                                         help_text="封面图类别")
     is_hot = models.BooleanField(default=False, verbose_name="是否热门", help_text="是否热门")
@@ -179,9 +183,11 @@ class MaterialBanner(models.Model):
     轮播图
     """
     title = models.CharField(max_length=100, verbose_name="标题", help_text="标题")
-    image = models.ImageField(upload_to="material/banner/image/%y/%m", null=True, blank=True, verbose_name="图片", help_text="图片")
+    image = models.ImageField(upload_to="material/banner/image/%y/%m", null=True, blank=True, verbose_name="图片",
+                              help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
-    category = models.ForeignKey(MaterialCategory, default='1', null=False, blank=False, verbose_name="类别", help_text="类别")
+    category = models.ForeignKey(MaterialCategory, default='1', null=False, blank=False, verbose_name="类别",
+                                 help_text="类别")
     index = models.IntegerField(default=0, verbose_name="顺序", help_text="顺序")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
@@ -199,7 +205,8 @@ class MaterialSocial(models.Model):
     """
     name = models.CharField(max_length=30, verbose_name="名称", help_text="名称")
     desc = models.CharField(max_length=100, verbose_name="简介", help_text="简介")
-    image = models.ImageField(upload_to="material/social/image/%y/%m", null=True, blank=True, verbose_name="图片", help_text="图片")
+    image = models.ImageField(upload_to="material/social/image/%y/%m", null=True, blank=True, verbose_name="图片",
+                              help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
@@ -217,7 +224,8 @@ class MaterialMaster(models.Model):
     """
     name = models.CharField(max_length=30, verbose_name="名称", help_text="名称")
     desc = models.CharField(max_length=100, verbose_name="简介", help_text="简介")
-    image = models.ImageField(upload_to="material/master/image/%y/%m", null=True, blank=True, verbose_name="图片", help_text="图片")
+    image = models.ImageField(upload_to="material/master/image/%y/%m", null=True, blank=True, verbose_name="图片",
+                              help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
     experience = models.FloatField(default=0, verbose_name="熟练度", help_text="熟练度")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")

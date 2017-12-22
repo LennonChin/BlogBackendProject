@@ -11,8 +11,6 @@ class MovieInfo(PostBaseInfo):
     """
     电影基本信息
     """
-    post_type = models.CharField(max_length=10, default="2", choices=PostBaseInfo.POST_TYPE, verbose_name="POST类别",
-                                 help_text="POST类别")
     directors = models.CharField(max_length=255, null=True, blank=True, verbose_name="导演", help_text="导演")
     actors = models.CharField(max_length=255, null=True, blank=True, verbose_name="演员", help_text="演员")
     region = models.CharField(max_length=20, null=True, blank=True, verbose_name="地区", help_text="地区")
