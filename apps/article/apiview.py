@@ -11,7 +11,7 @@ from .models import ArticleInfo
 from .serializers import ArticleBaseInfoSerializer, ArticleDetailInfoSerializer
 from .filters import ArticleFilter
 
-from base.utils import Pagination
+from base.utils import LimitOffsetPagination
 
 
 class ArticleBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -29,7 +29,7 @@ class ArticleBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixi
     ordering_fields = ('click_num', 'like_num', 'comment_num', 'add_time')
 
     # 分页设置
-    pagination_class = Pagination
+    pagination_class = LimitOffsetPagination
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -54,7 +54,7 @@ class ArticleDetailInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMi
     ordering_fields = ('click_num', 'like_num', 'comment_num')
 
     # 分页设置
-    pagination_class = Pagination
+    pagination_class = LimitOffsetPagination
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

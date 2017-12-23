@@ -7,7 +7,8 @@
 # @Software: PyCharm
 
 from rest_framework import serializers
-from material.models import MaterialCategory, MaterialTag, PostBaseInfo, MaterialBanner, MaterialCamera, MaterialPicture, MaterialSocial, MaterialMaster
+from material.models import MaterialCategory, MaterialTag, PostBaseInfo, MaterialBanner, MaterialCamera, \
+    MaterialPicture, MaterialSocial, MaterialMaster
 
 
 class CategorySerializer3(serializers.ModelSerializer):
@@ -33,21 +34,18 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class SingleLevelCategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MaterialCategory
         fields = "__all__"
 
 
 class TagSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MaterialTag
         fields = "__all__"
 
 
 class CameraSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MaterialCamera
         fields = "__all__"
@@ -62,28 +60,26 @@ class PictureSerializer(serializers.ModelSerializer):
 
 
 class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = PostBaseInfo
-        fields = ('id', 'title', 'is_hot', 'is_recommend', 'post_type', 'add_time')
+        fields = (
+        'id', 'title', 'desc', 'like_num', 'comment_num', 'click_num', 'front_image', 'is_hot', 'is_recommend',
+        'post_type', 'add_time')
 
 
 class MaterialBannerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MaterialBanner
         fields = "__all__"
 
 
 class MaterialSocialSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MaterialSocial
         fields = "__all__"
 
 
 class MaterialMasterSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MaterialMaster
         fields = "__all__"

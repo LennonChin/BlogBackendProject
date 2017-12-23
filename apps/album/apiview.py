@@ -11,7 +11,7 @@ from .models import AlbumInfo
 from .serializers import AlbumBaseInfoSerializer, AlbumDetailInfoSerializer
 from .filters import AlbumFilter
 
-from base.utils import Pagination
+from base.utils import LimitOffsetPagination
 
 
 class AlbumBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -30,7 +30,7 @@ class AlbumBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin,
     exclude = ['post_type', ]
 
     # 分页设置
-    pagination_class = Pagination
+    pagination_class = LimitOffsetPagination
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -55,7 +55,7 @@ class AlbumDetailInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixi
     ordering_fields = ('click_num', 'like_num', 'comment_num')
 
     # 分页设置
-    pagination_class = Pagination
+    pagination_class = LimitOffsetPagination
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

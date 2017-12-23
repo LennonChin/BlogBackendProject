@@ -14,7 +14,7 @@ from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo
 from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, \
     MaterialPostBaseInfoSerializer
 from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter
-from base.utils import Pagination
+from base.utils import LimitOffsetPagination
 
 
 class CategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -65,17 +65,17 @@ class MaterialBannerListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin
     serializer_class = MaterialBannerSerializer
 
 
-class TimeLineListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class PostBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     List:
         时间轴列表页
     """
     queryset = PostBaseInfo.objects.all()
     # 分页设置
-    pagination_class = Pagination
+    pagination_class = LimitOffsetPagination
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = PostBaseInfoFilter
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
-    ordering_fields = ('click_num', 'like_num', 'comment_num', 'add_time')
+    ordering_fields = ('id', 'click_num', 'like_num', 'comment_num', 'add_time')
     serializer_class = MaterialPostBaseInfoSerializer

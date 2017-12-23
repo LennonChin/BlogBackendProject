@@ -28,7 +28,7 @@ from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListVie
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
-    MaterialBannerListViewset, TimeLineListViewset
+    MaterialBannerListViewset, PostBaseInfoListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
 
@@ -53,7 +53,7 @@ router.register(r'movieBaseInfos', MovieBaseInfoListViewset, base_name="movieBas
 router.register(r'movieDetailInfos', MovieDetailInfoListViewset, base_name="movieDetailInfos")
 
 # 时光轴
-router.register(r'timeline', TimeLineListViewset, base_name="timeline")
+router.register(r'postBaseInfos', PostBaseInfoListViewset, base_name="postBaseInfos")
 
 # 博主信息
 router.register(r'blogger', BloggerInfoViewset, base_name="blogger")

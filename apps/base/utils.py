@@ -7,11 +7,19 @@
 # @Software: PyCharm
 
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import LimitOffsetPagination
 
 
 # 分页
-class Pagination(PageNumberPagination):
+class PageNumberPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     page_query_param = 'page'
     max_page_size = 100
+
+
+class LimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 10
+    limit_query_param = 'limit'
+    offset_query_param = 'offset'
+    max_limit = 20
