@@ -177,6 +177,9 @@ class PostTag(models.Model):
         verbose_name = "标签"
         verbose_name_plural = verbose_name + '列表'
 
+    def __str__(self):
+        return self.tag.name
+
 
 class MaterialBanner(models.Model):
     """

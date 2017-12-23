@@ -11,7 +11,7 @@ import xadmin
 import markdown
 from django import forms
 
-from .models import ArticleInfo
+from .models import ArticleInfo, ArticleDetail
 from material.models import PostTag
 from pagedown.widgets import AdminPagedownWidget
 
@@ -20,20 +20,16 @@ class ArticleDetailForm(forms.ModelForm):
     origin_content = forms.CharField(widget=AdminPagedownWidget())
 
     class Meta:
-        model = ArticleInfo
+        model = ArticleDetail
         fields = '__all__'
 
 
-class ArticleInfoAdmin(object):
+class ArticleDetailAdmin(object):
     form = ArticleDetailForm
-    list_display = ['title', "category", "tags", "front_image",
-                    "front_image_type"]
-    search_fields = ['title', 'origin_content']
-    exclude = ['formatted_content', 'post_type']
+    exclude = ['formatted_content']
+    model = ArticleDetail
 
     def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "article"
         # 转换Markdown为格式化的HTML
         self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
                                                            extensions=[
@@ -43,11 +39,22 @@ class ArticleInfoAdmin(object):
                                                            ])
         self.new_obj.save()
 
+
+class ArticleInfoAdmin(object):
+    list_display = ['title', "front_image", "front_image_type"]
+    search_fields = ['title']
+    exclude = ['post_type']
+
     class ArticleTagInline(object):
         model = PostTag
         extra = 1
 
-    inlines = [ArticleTagInline]
+    inlines = [ArticleTagInline, ArticleDetailAdmin]
+
+    def save_models(self):
+        # 手动设置类型
+        self.new_obj.post_type = "article"
+        self.new_obj.save()
 
 
 xadmin.site.register(ArticleInfo, ArticleInfoAdmin)

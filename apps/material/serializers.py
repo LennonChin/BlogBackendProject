@@ -63,7 +63,7 @@ class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostBaseInfo
         fields = (
-        'id', 'title', 'desc', 'like_num', 'comment_num', 'click_num', 'front_image', 'is_hot', 'is_recommend',
+        'id', 'title', 'desc', 'like_num', 'comment_num', 'click_num', 'front_image', 'front_image_type', 'is_hot', 'is_recommend',
         'post_type', 'add_time')
 
 

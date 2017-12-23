@@ -49,7 +49,6 @@ class ArticleDetailInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMi
 
     # 过滤，搜索，排序
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_class = ArticleFilter
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
     ordering_fields = ('click_num', 'like_num', 'comment_num')
 

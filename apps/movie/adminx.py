@@ -11,7 +11,8 @@ import xadmin
 import markdown
 from django import forms
 
-from .models import MovieInfo
+from .models import MovieInfo, MovieDetail
+from material.models import PostTag
 from pagedown.widgets import AdminPagedownWidget
 
 
@@ -19,19 +20,16 @@ class MovieDetailForm(forms.ModelForm):
     origin_content = forms.CharField(widget=AdminPagedownWidget())
 
     class Meta:
-        model = MovieInfo
+        model = MovieDetail
         fields = '__all__'
 
 
 class MovieDetailAdmin(object):
     form = MovieDetailForm
-    list_display = ['title', "category", "tags", "front_image", "front_image_type"]
-    search_fields = ['title', 'origin_content']
-    exclude = ['formatted_content', 'post_type']
+    exclude = ['formatted_content']
+    model = MovieDetail
 
     def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "movie"
         # 转换Markdown为格式化的HTML
         self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
                                                            extensions=[
@@ -42,9 +40,21 @@ class MovieDetailAdmin(object):
         self.new_obj.save()
 
 
-class MovieTagAdmin(object):
-    list_display = ['movie', 'tag', "add_time"]
-    search_fields = ['movie', 'tag']
+class MovieInfoAdmin(object):
+    list_display = ['title', "front_image", "front_image_type"]
+    search_fields = ['title']
+    exclude = ['post_type']
+
+    class ArticleTagInline(object):
+        model = PostTag
+        extra = 1
+
+    inlines = [ArticleTagInline, MovieDetailAdmin]
+
+    def save_models(self):
+        # 手动设置类型
+        self.new_obj.post_type = "movie"
+        self.new_obj.save()
 
 
-xadmin.site.register(MovieInfo, MovieDetailAdmin)
+xadmin.site.register(MovieInfo, MovieInfoAdmin)

@@ -10,7 +10,8 @@
 # encoding: utf-8
 
 import xadmin
-from .models import MaterialCategory, MaterialTag, MaterialPicture, MaterialBanner, MaterialSocial, MaterialMaster
+from .models import MaterialCategory, MaterialTag, MaterialPicture, MaterialBanner, PostBaseInfo, MaterialSocial, \
+    MaterialMaster
 
 
 class MaterialCategoryAdmin(object):
@@ -34,6 +35,11 @@ class MaterialBannerAdmin(object):
     search_fields = ['title', 'url']
 
 
+class MaterialPostInfoAdmin(object):
+    list_display = ['title', 'subtitle']
+    search_fields = ['title', 'subtitle']
+
+
 class MaterialSocialAdmin(object):
     list_display = ['name', 'desc', "image", "url"]
     search_fields = ['name', 'desc']
@@ -43,9 +49,11 @@ class MaterialMasterAdmin(object):
     list_display = ['name', 'desc', "image", "url", 'experience']
     search_fields = ['name', 'desc']
 
+
 xadmin.site.register(MaterialCategory, MaterialCategoryAdmin)
 xadmin.site.register(MaterialTag, MaterialTagAdmin)
 xadmin.site.register(MaterialPicture, MaterialPictureAdmin)
 xadmin.site.register(MaterialBanner, MaterialBannerAdmin)
+xadmin.site.register(PostBaseInfo, MaterialPostInfoAdmin)
 xadmin.site.register(MaterialSocial, MaterialSocialAdmin)
 xadmin.site.register(MaterialMaster, MaterialMasterAdmin)

@@ -4,17 +4,14 @@ __date__ = '2017/12/2 12:56'
 
 from rest_framework import serializers
 
-from article.models import ArticleInfo
+from article.models import ArticleInfo, ArticleDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer
 
 
-class ArticleDetailInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
-    tags = TagSerializer(many=True)
-
+class ArticleDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ArticleInfo
-        exclude = ('origin_content',)
+        model = ArticleDetail
+        fields = ('formatted_content', )
 
 
 class ArticleBaseInfoSerializer(serializers.ModelSerializer):
@@ -22,5 +19,17 @@ class ArticleBaseInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ArticleInfo
-        fields = ('id', 'title', 'desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',
-                  'front_image_type', 'add_time')
+        fields = (
+            'id', 'title', 'desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type',
+            'front_image',
+            'front_image_type', 'add_time')
+
+
+class ArticleDetailInfoSerializer(serializers.ModelSerializer):
+    category = SingleLevelCategorySerializer()
+    tags = TagSerializer(many=True)
+    detail = ArticleDetailSerializer()
+
+    class Meta:
+        model = ArticleInfo
+        fields = "__all__"

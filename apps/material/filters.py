@@ -58,4 +58,4 @@ class PostBaseInfoFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = PostBaseInfo
-        fields = ['time_min', 'time_max', 'is_hot', 'is_recommend']
+        fields = ['time_min', 'time_max', 'is_hot', 'is_recommend', 'post_type']
