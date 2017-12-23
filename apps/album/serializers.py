@@ -26,9 +26,8 @@ class AlbumDetailInfoSerializer(serializers.ModelSerializer):
 
 
 class AlbumBaseInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
-    tags = TagSerializer(many=True)
 
     class Meta:
         model = AlbumInfo
-        fields = "__all__"
+        fields = ('id', 'title', 'author', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',
+                  'front_image_type', 'add_time')

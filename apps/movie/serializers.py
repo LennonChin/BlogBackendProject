@@ -14,13 +14,11 @@ class MovieDetailInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MovieInfo
-        fields = "__all__"
+        exclude = ('origin_content',)
 
 
 class MovieBaseInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
-    tags = TagSerializer(many=True)
 
     class Meta:
         model = MovieInfo
-        fields = "__all__"
+        fields = ('id', 'title', 'desc', 'post_type', 'front_image')

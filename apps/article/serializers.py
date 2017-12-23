@@ -14,13 +14,13 @@ class ArticleDetailInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ArticleInfo
-        exclude = ('origin_content', )
+        exclude = ('origin_content',)
 
 
 class ArticleBaseInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
 
     class Meta:
         model = ArticleInfo
-        exclude = ('subtitle', 'abstract', 'origin_content', 'formatted_content')
+        fields = ('id', 'title', 'desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',
+                  'front_image_type', 'add_time')
