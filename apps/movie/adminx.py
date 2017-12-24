@@ -41,7 +41,7 @@ class MovieDetailAdmin(object):
 
 
 class MovieInfoAdmin(object):
-    list_display = ['title', "front_image", "front_image_type"]
+    list_display = ['title', "category", "tags", "front_image", "front_image_type"]
     search_fields = ['title']
     exclude = ['post_type']
 

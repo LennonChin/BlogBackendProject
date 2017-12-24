@@ -10,18 +10,7 @@
 # encoding: utf-8
 
 import xadmin
-from xadmin import views
 from .models import EmailVerifyRecord
-
-
-class BaseSetting(object):
-    enable_themes = True
-    use_bootswatch = True
-
-
-class GlobalSettings(object):
-    site_title = "Diomedes"
-    site_footer = "Diomedes"
 
 
 class EmailVerifyRecordAdmin(object):
@@ -29,5 +18,3 @@ class EmailVerifyRecordAdmin(object):
 
 
 xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
-xadmin.site.register(views.BaseAdminView, BaseSetting)
-xadmin.site.register(views.CommAdminView, GlobalSettings)

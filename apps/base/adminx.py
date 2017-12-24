@@ -7,8 +7,18 @@
 # @Software: PyCharm
 
 import xadmin
-
+from xadmin import views
 from .models import SiteInfo, BloggerInfo, BloggerSocial, BloggerMaster, FriendLink
+
+
+class BaseSetting(object):
+    enable_themes = True
+    use_bootswatch = True
+
+
+class GlobalSettings(object):
+    site_title = "Diomedes"
+    site_footer = "Diomedes"
 
 
 class SiteInfoAdmin(object):
@@ -36,6 +46,8 @@ class FriendLinkAdmin(object):
     search_fields = ['name', 'desc', 'url']
 
 
+xadmin.site.register(views.BaseAdminView, BaseSetting)
+xadmin.site.register(views.CommAdminView, GlobalSettings)
 xadmin.site.register(SiteInfo, SiteInfoAdmin)
 xadmin.site.register(BloggerInfo, BloggerInfoAdmin)
 xadmin.site.register(FriendLink, FriendLinkAdmin)

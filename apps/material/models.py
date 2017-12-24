@@ -158,8 +158,8 @@ class PostBaseInfo(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
-        verbose_name = "Post基本信息"
-        verbose_name_plural = verbose_name
+        verbose_name = "所有博文"
+        verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
         return self.title
