@@ -14,7 +14,7 @@ from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo
 from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, \
     MaterialPostBaseInfoSerializer
 from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter
-from base.utils import LimitOffsetPagination
+from base.utils import CustomeLimitOffsetPagination
 
 
 class CategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -72,7 +72,7 @@ class PostBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, 
     """
     queryset = PostBaseInfo.objects.all()
     # 分页设置
-    pagination_class = LimitOffsetPagination
+    pagination_class = CustomeLimitOffsetPagination
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = PostBaseInfoFilter

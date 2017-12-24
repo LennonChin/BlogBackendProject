@@ -11,14 +11,14 @@ from rest_framework.pagination import LimitOffsetPagination
 
 
 # 分页
-class PageNumberPagination(PageNumberPagination):
+class CustomePageNumberPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     page_query_param = 'page'
     max_page_size = 100
 
 
-class LimitOffsetPagination(LimitOffsetPagination):
+class CustomeLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 10
     limit_query_param = 'limit'
     offset_query_param = 'offset'
