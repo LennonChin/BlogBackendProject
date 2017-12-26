@@ -9,7 +9,6 @@ from material.serializers import SingleLevelCategorySerializer, TagSerializer, P
 
 
 class AlbumDetailSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = AlbumPhoto
         fields = "__all__"
@@ -26,8 +25,7 @@ class AlbumDetailInfoSerializer(serializers.ModelSerializer):
 
 
 class AlbumBaseInfoSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = AlbumInfo
-        fields = ('id', 'title', 'author', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',
-                  'front_image_type', 'add_time')
+        fields = ('id', 'title', 'desc', 'author', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',
+                  'front_image_type', 'is_banner', 'add_time')

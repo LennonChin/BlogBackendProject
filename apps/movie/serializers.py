@@ -28,7 +28,7 @@ class MovieBaseInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MovieInfo
-        fields = ('id', 'title', 'desc', 'post_type', 'front_image')
+        fields = ('id', 'title', 'desc', 'post_type', 'is_banner', 'front_image')
 
 
 

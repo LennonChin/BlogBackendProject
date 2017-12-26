@@ -18,6 +18,13 @@ class CategoryFilter(django_filters.rest_framework.FilterSet):
     level_min = django_filters.NumberFilter(name='category_type', lookup_expr='gte')
     level_max = django_filters.NumberFilter(name='category_type', lookup_expr='lte')
 
+    top_category = django_filters.NumberFilter(method='top_category_filter')
+
+    # 查找指定分类下的类别
+    def top_category_filter(self, queryset, name, value):
+        return queryset.filter(Q(id=value) | Q(parent_category_id=value) | Q(
+            parent_category__parent_category_id=value))
+
     class Meta:
         model = MaterialCategory
         fields = ['id', 'level_min', 'level_max', 'is_tab']

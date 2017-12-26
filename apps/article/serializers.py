@@ -11,7 +11,7 @@ from material.serializers import SingleLevelCategorySerializer, TagSerializer
 class ArticleDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleDetail
-        fields = ('formatted_content', )
+        fields = ('formatted_content',)
 
 
 class ArticleBaseInfoSerializer(serializers.ModelSerializer):
@@ -21,7 +21,7 @@ class ArticleBaseInfoSerializer(serializers.ModelSerializer):
         model = ArticleInfo
         fields = (
             'id', 'title', 'desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type',
-            'front_image',
+            'front_image', 'is_banner',
             'front_image_type', 'add_time')
 
 

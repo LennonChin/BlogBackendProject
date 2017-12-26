@@ -155,6 +155,8 @@ class PostBaseInfo(models.Model):
                                         help_text="封面图类别")
     is_hot = models.BooleanField(default=False, verbose_name="是否热门", help_text="是否热门")
     is_recommend = models.BooleanField(default=False, verbose_name="是否推荐", help_text="是否推荐")
+    is_banner = models.BooleanField(default=False, verbose_name="是否是Banner", help_text="是否是Banner")
+    is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
