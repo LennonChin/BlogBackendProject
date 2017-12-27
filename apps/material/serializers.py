@@ -8,7 +8,7 @@
 
 from rest_framework import serializers
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo, MaterialBanner, MaterialCamera, \
-    MaterialPicture, MaterialSocial, MaterialMaster
+    MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 
 
 class CategorySerializer3(serializers.ModelSerializer):
@@ -56,6 +56,28 @@ class PictureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MaterialPicture
+        fields = "__all__"
+
+
+class CommentDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MaterialCommentDetail
+        fields = "__all__"
+
+
+class CommentDetailInfoSerializer(serializers.ModelSerializer):
+    detail = CommentDetailSerializer()
+
+    class Meta:
+        model = MaterialCommentInfo
+        fields = "__all__"
+
+
+class CommentBaseInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MaterialCommentInfo
         fields = "__all__"
 
 

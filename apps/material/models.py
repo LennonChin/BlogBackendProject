@@ -153,6 +153,7 @@ class PostBaseInfo(models.Model):
                                     help_text="封面图")
     front_image_type = models.CharField(max_length=20, default="0", choices=FRONT_IMAGE_TYPE, verbose_name="封面图类别",
                                         help_text="封面图类别")
+    license = models.ForeignKey(MaterialLicense, null=True, blank=True, verbose_name="版权", help_text="版权")
     is_hot = models.BooleanField(default=False, verbose_name="是否热门", help_text="是否热门")
     is_recommend = models.BooleanField(default=False, verbose_name="是否推荐", help_text="是否推荐")
     is_banner = models.BooleanField(default=False, verbose_name="是否是Banner", help_text="是否是Banner")

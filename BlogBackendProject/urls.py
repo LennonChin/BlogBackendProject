@@ -28,7 +28,7 @@ from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListVie
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
-    MaterialBannerListViewset, PostBaseInfoListViewset
+    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
 
@@ -59,6 +59,8 @@ router.register(r'postBaseInfos', PostBaseInfoListViewset, base_name="postBaseIn
 router.register(r'blogger', BloggerInfoViewset, base_name="blogger")
 # 友情链接
 router.register(r'friendlinks', FriendLinkListViewset, base_name="friendlinks")
+# 评论
+router.register(r'comments', CommentDetailListViewset, base_name="comments")
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
