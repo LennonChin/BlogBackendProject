@@ -27,7 +27,7 @@ class MovieInfo(PostBaseInfo):
 
 class MovieDetail(models.Model):
     """
-    文章基本信息
+    电影详细信息
     """
     movie_info = models.OneToOneField(MovieInfo, null=True, blank=True, related_name='detail', verbose_name="内容", help_text="内容")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")

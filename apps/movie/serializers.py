@@ -25,10 +25,11 @@ class MovieDetailInfoSerializer(serializers.ModelSerializer):
 
 
 class MovieBaseInfoSerializer(serializers.ModelSerializer):
+    category = SingleLevelCategorySerializer()
 
     class Meta:
         model = MovieInfo
-        fields = ('id', 'title', 'desc', 'post_type', 'is_banner', 'front_image')
-
-
-
+        fields = (
+            'id', 'title', 'desc', 'directors', 'actors', 'category', 'post_type', 'is_recommend', 'is_hot',
+            'is_banner',
+            'front_image', 'add_time')
