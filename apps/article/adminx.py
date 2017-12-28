@@ -8,7 +8,6 @@
 
 import xadmin
 
-import markdown
 from django import forms
 
 from .models import ArticleInfo, ArticleDetail
@@ -28,16 +27,7 @@ class ArticleDetailAdmin(object):
     form = ArticleDetailForm
     exclude = ['formatted_content']
     model = ArticleDetail
-
-    def save_models(self):
-        # 转换Markdown为格式化的HTML
-        self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
-                                                           extensions=[
-                                                               'markdown.extensions.extra',
-                                                               'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc'
-                                                           ])
-        self.new_obj.save()
+    max_num = 1
 
 
 class ArticleInfoAdmin(object):
