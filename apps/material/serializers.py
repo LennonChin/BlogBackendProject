@@ -6,8 +6,10 @@
 # @File    : serializers.py
 # @Software: PyCharm
 
+from datetime import datetime
 from rest_framework import serializers
-from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, MaterialCamera, \
+from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, \
+    MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 
 
@@ -66,14 +68,24 @@ class PictureSerializer(serializers.ModelSerializer):
 
 
 class CommentDetailSerializer(serializers.ModelSerializer):
+    origin_content = serializers.CharField(write_only=True, label='原始内容')
+    formatted_content = serializers.CharField(read_only=True)
 
     class Meta:
         model = MaterialCommentDetail
-        fields = ('formatted_content', 'update_time')
+        fields = ('origin_content', 'formatted_content', 'update_time')
 
 
 class CommentDetailInfoSerializer(serializers.ModelSerializer):
     detail = CommentDetailSerializer()
+
+    def create(self, validated_data):
+        detail_data = validated_data.pop('detail')
+        comment_info = MaterialCommentInfo.objects.create(**validated_data)
+        # 处理评论详情
+        instance = MaterialCommentDetail.objects.create(comment_info=comment_info, origin_content=detail_data['origin_content'],
+                                                        update_time=datetime.now())
+        return comment_info
 
     class Meta:
         model = MaterialCommentInfo
@@ -81,7 +93,6 @@ class CommentDetailInfoSerializer(serializers.ModelSerializer):
 
 
 class CommentBaseInfoSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MaterialCommentInfo
         fields = "__all__"

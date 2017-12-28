@@ -1,7 +1,7 @@
 from django.db import models
 
 from datetime import datetime
-
+import markdown
 
 # Create your models here.
 
@@ -194,7 +194,7 @@ class MaterialCommentInfo(models.Model):
         verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
-        return self.post.title
+        return self.detail.formatted_content[:100]
 
 
 class MaterialCommentDetail(models.Model):
@@ -205,15 +205,24 @@ class MaterialCommentDetail(models.Model):
                                         verbose_name="基本信息",
                                         help_text="基本信息")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
-    formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
+    formatted_content = models.TextField(null=True, blank=True, verbose_name="处理后内容", help_text="处理后内容")
     update_time = models.DateTimeField(null=False, blank=False, verbose_name="修改时间", help_text="修改时间")
+
+    def save(self, *args, **kwargs):
+        self.formatted_content = markdown.markdown(self.origin_content,
+                                                           extensions=[
+                                                               'markdown.extensions.extra',
+                                                               'markdown.extensions.codehilite',
+                                                               'markdown.extensions.toc'
+                                                           ])
+        super(MaterialCommentDetail, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.comment_info.post.title
 
     class Meta:
         verbose_name = "评论详细信息"
         verbose_name_plural = verbose_name + '列表'
-
-    def __str__(self):
-        return self.comment_info.post.title
 
 
 class PostTag(models.Model):
