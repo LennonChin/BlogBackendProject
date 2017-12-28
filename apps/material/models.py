@@ -68,10 +68,10 @@ class MaterialLicense(models.Model):
         ("red", "红色"),
         ("yellow", "黄色")
     )
-    name = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签名", help_text="标签名")
-    subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签别名", help_text="标签别名")
+    name = models.CharField(max_length=30, null=False, blank=False, verbose_name="版权名", help_text="版权名")
+    subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="版权别名", help_text="版权别名")
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
-    link = models.URLField(null=True, blank=True, verbose_name="链接", help_text="链接")
+    link = models.URLField(null=True, blank=True, verbose_name="版权参考链接", help_text="版权参考链接")
     color = models.CharField(max_length=20, default="blue", choices=COLOR_TYPE, verbose_name="颜色", help_text="颜色")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
@@ -174,6 +174,7 @@ class MaterialCommentInfo(models.Model):
     """
     post = models.ForeignKey(PostBaseInfo, null=False, blank=False, verbose_name='所属文章')
     author = models.CharField(max_length=20, null=True, blank=True, verbose_name="作者", help_text="作者")
+    reply_to_author = models.CharField(max_length=20, null=True, blank=True, verbose_name="被回复人", help_text="被回复人")
     comment_level = models.IntegerField(default=0, verbose_name="评论级别", help_text="评论级别")
     parent_comment = models.ForeignKey("self", null=True, blank=True, related_name="sub_comment", verbose_name="根评论",
                                        help_text="根评论")

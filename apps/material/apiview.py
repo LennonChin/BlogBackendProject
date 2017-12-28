@@ -13,7 +13,7 @@ from rest_framework import mixins, viewsets, filters
 from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo, MaterialCommentInfo
 from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, \
     MaterialPostBaseInfoSerializer, CommentDetailInfoSerializer
-from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter
+from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter, CommentFilter
 from base.utils import CustomeLimitOffsetPagination, CustomePageNumberPagination
 
 
@@ -97,3 +97,5 @@ class CommentDetailListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin,
 
     ordering_fields = ('add_time',)
     serializer_class = CommentDetailInfoSerializer
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = CommentFilter

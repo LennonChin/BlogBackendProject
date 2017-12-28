@@ -7,7 +7,7 @@
 # @Software: PyCharm
 
 from rest_framework import serializers
-from material.models import MaterialCategory, MaterialTag, PostBaseInfo, MaterialBanner, MaterialCamera, \
+from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 
 
@@ -45,6 +45,12 @@ class TagSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class LicenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaterialLicense
+        fields = "__all__"
+
+
 class CameraSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaterialCamera
@@ -63,7 +69,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MaterialCommentDetail
-        fields = "__all__"
+        fields = ('formatted_content', 'update_time')
 
 
 class CommentDetailInfoSerializer(serializers.ModelSerializer):
