@@ -11,6 +11,7 @@ from rest_framework import serializers
 from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, \
     MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
+from user.serializers import GuestSerializer
 
 
 class CategorySerializer3(serializers.ModelSerializer):
@@ -78,13 +79,14 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 
 class CommentDetailInfoSerializer(serializers.ModelSerializer):
     detail = CommentDetailSerializer()
+    author = GuestSerializer()
+    reply_to_author = GuestSerializer()
 
     def create(self, validated_data):
         detail_data = validated_data.pop('detail')
         comment_info = MaterialCommentInfo.objects.create(**validated_data)
         # 处理评论详情
-        instance = MaterialCommentDetail.objects.create(comment_info=comment_info, origin_content=detail_data['origin_content'],
-                                                        update_time=datetime.now())
+        instance = MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
         return comment_info
 
     class Meta:

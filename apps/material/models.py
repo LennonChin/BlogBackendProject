@@ -3,6 +3,9 @@ from django.db import models
 from datetime import datetime
 import markdown
 
+from user.models import GuestProfile
+
+
 # Create your models here.
 
 
@@ -173,8 +176,8 @@ class MaterialCommentInfo(models.Model):
     评论基本信息
     """
     post = models.ForeignKey(PostBaseInfo, null=False, blank=False, verbose_name='所属文章')
-    author = models.CharField(max_length=20, null=True, blank=True, verbose_name="作者", help_text="作者")
-    reply_to_author = models.CharField(max_length=20, null=True, blank=True, verbose_name="被回复人", help_text="被回复人")
+    author = models.ForeignKey(GuestProfile, null=True, blank=True, related_name="comments", verbose_name='作者')
+    reply_to_author = models.ForeignKey(GuestProfile, null=True, blank=True, related_name="be_comments", verbose_name='被回复人')
     comment_level = models.IntegerField(default=0, verbose_name="评论级别", help_text="评论级别")
     parent_comment = models.ForeignKey("self", null=True, blank=True, related_name="sub_comment", verbose_name="根评论",
                                        help_text="根评论")
@@ -210,11 +213,11 @@ class MaterialCommentDetail(models.Model):
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,
-                                                           extensions=[
-                                                               'markdown.extensions.extra',
-                                                               'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc'
-                                                           ])
+                                                   extensions=[
+                                                       'markdown.extensions.extra',
+                                                       'markdown.extensions.codehilite',
+                                                       'markdown.extensions.toc'
+                                                   ])
         super(MaterialCommentDetail, self).save(*args, **kwargs)
 
     def __str__(self):
