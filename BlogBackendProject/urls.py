@@ -31,6 +31,7 @@ from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset
     MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
+from user.apiview import EmailCodeViewset
 
 router = DefaultRouter()
 
@@ -61,6 +62,9 @@ router.register(r'blogger', BloggerInfoViewset, base_name="blogger")
 router.register(r'friendlinks', FriendLinkListViewset, base_name="friendlinks")
 # 评论
 router.register(r'comments', CommentDetailListViewset, base_name="comments")
+
+# 邮箱验证码
+router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),

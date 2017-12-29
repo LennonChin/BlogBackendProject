@@ -16,11 +16,12 @@ from base.const import REGEX_EMAIL
 class GuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = GuestProfile
-        fields = "__all__"
+        fields = ('id', 'nick_name', 'avatar')
 
 
 class EmailSerializer(serializers.Serializer):
-    email = serializers.CharField(max_length=11)
+    nick_name = serializers.CharField(max_length=50, min_length=1, required=True, label='昵称')
+    email = serializers.EmailField(required=True, label='邮箱')
 
     def validate_email(self, email):
         """
@@ -31,11 +32,30 @@ class EmailSerializer(serializers.Serializer):
 
         # 验证邮箱是否合法
         if not re.match(REGEX_EMAIL, email):
-            raise serializers.ValidationError("手机号码格式错误")
+            raise serializers.ValidationError("邮箱格式错误")
 
         # 验证发送频率
-        ten_minutes_ago = datetime.now() - timedelta(hours=0, minutes=10, seconds=0)
-        if EmailVerifyRecord.objects.filter(add_time__gt=ten_minutes_ago, email=email):
-            raise serializers.ValidationError("距离上一次发送未超过60秒")
+        ten_minutes_ago = datetime.now() - timedelta(hours=0, minutes=0, seconds=30)
+        if EmailVerifyRecord.objects.filter(send_time__gt=ten_minutes_ago, email=email):
+            raise serializers.ValidationError("距离上一次发送未超过10分钟")
+
+        return email
+
+
+class EmailVerifySerializer(serializers.Serializer):
+    nick_name = serializers.CharField(max_length=50, min_length=1, required=True, label='昵称')
+    email = serializers.EmailField(required=True, label='邮箱')
+    code = serializers.CharField(max_length=4, min_length=4, required=False, label='验证码')
+
+    def validate_email(self, email):
+        """
+        验证邮箱
+        :param email:
+        :return:
+        """
+
+        # 验证邮箱是否合法
+        if not re.match(REGEX_EMAIL, email):
+            raise serializers.ValidationError("邮箱格式错误")
 
         return email

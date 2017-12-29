@@ -77,10 +77,32 @@ class CommentDetailSerializer(serializers.ModelSerializer):
         fields = ('origin_content', 'formatted_content', 'update_time')
 
 
+# 子级评论排序
+class OrderSubCommentListSerializer(serializers.ListSerializer):
+
+    def to_representation(self, data):
+        data = data.order_by('add_time')
+        return super(OrderSubCommentListSerializer, self).to_representation(data)
+
+
+# 子级评论
+class SubCommentDetailInfoSerializer(serializers.ModelSerializer):
+    detail = CommentDetailSerializer()
+    author = GuestSerializer()
+    reply_to_author = GuestSerializer()
+
+    class Meta:
+        list_serializer_class = OrderSubCommentListSerializer
+        model = MaterialCommentInfo
+        fields = "__all__"
+
+
+# 评论详细信息
 class CommentDetailInfoSerializer(serializers.ModelSerializer):
     detail = CommentDetailSerializer()
     author = GuestSerializer()
     reply_to_author = GuestSerializer()
+    sub_comment = SubCommentDetailInfoSerializer(many=True)
 
     def create(self, validated_data):
         detail_data = validated_data.pop('detail')
@@ -94,6 +116,7 @@ class CommentDetailInfoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+# 评论基本信息
 class CommentBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaterialCommentInfo

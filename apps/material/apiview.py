@@ -95,7 +95,8 @@ class CommentDetailListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin,
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination
 
-    ordering_fields = ('add_time',)
     serializer_class = CommentDetailInfoSerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CommentFilter
+    ordering_fields = ('add_time',)
+    ordering = ('-add_time',)
