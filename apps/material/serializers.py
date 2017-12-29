@@ -7,7 +7,8 @@
 # @Software: PyCharm
 
 from datetime import datetime
-from rest_framework import serializers
+from rest_framework import serializers, status
+from rest_framework.response import Response
 from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, \
     MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
@@ -71,6 +72,7 @@ class PictureSerializer(serializers.ModelSerializer):
 class CommentDetailSerializer(serializers.ModelSerializer):
     origin_content = serializers.CharField(write_only=True, label='原始内容')
     formatted_content = serializers.CharField(read_only=True)
+    update_time = serializers.DateTimeField(required=False)
 
     class Meta:
         model = MaterialCommentDetail
@@ -104,13 +106,6 @@ class CommentDetailInfoSerializer(serializers.ModelSerializer):
     reply_to_author = GuestSerializer()
     sub_comment = SubCommentDetailInfoSerializer(many=True)
 
-    def create(self, validated_data):
-        detail_data = validated_data.pop('detail')
-        comment_info = MaterialCommentInfo.objects.create(**validated_data)
-        # 处理评论详情
-        instance = MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
-        return comment_info
-
     class Meta:
         model = MaterialCommentInfo
         fields = "__all__"
@@ -118,6 +113,26 @@ class CommentDetailInfoSerializer(serializers.ModelSerializer):
 
 # 评论基本信息
 class CommentBaseInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaterialCommentInfo
+        fields = "__all__"
+
+
+# 创建评论使用的serializer
+class CreateCommentSerializer(serializers.ModelSerializer):
+    detail = CommentDetailSerializer()
+
+    def create(self, validated_data):
+        detail_data = validated_data.pop('detail')
+        comment_info = MaterialCommentInfo.objects.create(**validated_data)
+        # 处理评论详情
+        instance = MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
+        context = {
+            "new_comment": comment_info
+        }
+        # return Response(context, status=status.HTTP_201_CREATED)
+        return comment_info
+
     class Meta:
         model = MaterialCommentInfo
         fields = "__all__"

@@ -209,7 +209,7 @@ class MaterialCommentDetail(models.Model):
                                         help_text="基本信息")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(null=True, blank=True, verbose_name="处理后内容", help_text="处理后内容")
-    update_time = models.DateTimeField(null=False, blank=False, verbose_name="修改时间", help_text="修改时间")
+    update_time = models.DateTimeField(default=datetime.now, null=True, blank=True, verbose_name="修改时间", help_text="修改时间")
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,

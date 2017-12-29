@@ -12,7 +12,7 @@ from rest_framework import mixins, viewsets, filters
 
 from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo, MaterialCommentInfo
 from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, \
-    MaterialPostBaseInfoSerializer, CommentDetailInfoSerializer
+    MaterialPostBaseInfoSerializer, CommentDetailInfoSerializer, CreateCommentSerializer
 from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter, CommentFilter
 from base.utils import CustomeLimitOffsetPagination, CustomePageNumberPagination
 
@@ -95,8 +95,15 @@ class CommentDetailListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin,
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination
 
-    serializer_class = CommentDetailInfoSerializer
+    # serializer_class = CommentDetailInfoSerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CommentFilter
     ordering_fields = ('add_time',)
     ordering = ('-add_time',)
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return CommentDetailInfoSerializer
+        elif self.action == "create":
+            return CreateCommentSerializer
+        return CommentDetailInfoSerializer
