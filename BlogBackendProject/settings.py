@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import sys
 
+from .private import DATABASE_CONFIG, EMAIL_CONFIG
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -106,26 +108,7 @@ WSGI_APPLICATION = 'BlogBackendProject.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'blogtest',
-    #     "USER": 'root',
-    #     "PASSWORD": '12345678',
-    #     "HOST": '65.49.223.136',
-    #     'OPTIONS': {
-    #         "init_command": "SET storage_engine=INNODB;",
-    #     }
-    # },
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blogdemo',
-        "USER": 'blogtest',
-        "PASSWORD": '12345678',
-        "HOST": '47.96.138.114',
-        'OPTIONS': {
-            "init_command": "SET default_storage_engine=INNODB;",
-        }
-    }
+    'default': DATABASE_CONFIG
 }
 
 # Password validation
@@ -188,9 +171,9 @@ STATICFILES_DIRS = [
 ]
 
 # email setting
-EMAIL_HOST = "smtp.mxhichina.com"
-EMAIL_PORT = 25
-EMAIL_HOST_USER = "admin@coderap.com"
-EMAIL_HOST_PASSWORD = ""
-EMAIL_USE_TLS = False
-EMAIL_FROM = "admin@coderap.com"
+EMAIL_HOST = EMAIL_CONFIG['EMAIL_HOST']
+EMAIL_PORT = EMAIL_CONFIG['EMAIL_PORT']
+EMAIL_HOST_USER = EMAIL_CONFIG['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = EMAIL_CONFIG['EMAIL_HOST_PASSWORD']
+EMAIL_USE_TLS = EMAIL_CONFIG['EMAIL_USE_TLS']
+EMAIL_FROM = EMAIL_CONFIG['EMAIL_FROM']
