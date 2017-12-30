@@ -32,6 +32,7 @@ class CustomeLimitOffsetPagination(LimitOffsetPagination):
     max_limit = 100
 
 
+
 def generate_code(length):
     """
     生成四位数字的验证码

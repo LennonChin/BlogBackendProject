@@ -45,7 +45,7 @@ class MaterialTag(models.Model):
         ("blue", "蓝色"),
         ("green", "绿色"),
         ("red", "红色"),
-        ("yellow", "黄色")
+        ("orange", "黄色")
     )
     name = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签名", help_text="标签名")
     subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签别名", help_text="标签别名")
@@ -66,10 +66,11 @@ class MaterialLicense(models.Model):
     素材授权
     """
     COLOR_TYPE = (
-        ("blue", "蓝色"),
-        ("green", "绿色"),
-        ("red", "红色"),
-        ("yellow", "黄色")
+        ("#878D99", "灰色"),
+        ("#409EFF", "蓝色"),
+        ("#67C23A", "绿色"),
+        ("#EB9E05", "黄色"),
+        ("#FA5555", "红色")
     )
     name = models.CharField(max_length=30, null=False, blank=False, verbose_name="版权名", help_text="版权名")
     subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="版权别名", help_text="版权别名")
