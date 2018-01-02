@@ -83,7 +83,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 class OrderSubCommentListSerializer(serializers.ListSerializer):
 
     def to_representation(self, data):
-        data = data.order_by('add_time')
+        data = data.order_by('add_time')[:11]
         return super(OrderSubCommentListSerializer, self).to_representation(data)
 
 
@@ -127,10 +127,10 @@ class CreateCommentSerializer(serializers.ModelSerializer):
         comment_info = MaterialCommentInfo.objects.create(**validated_data)
         # 处理评论详情
         instance = MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
-        context = {
-            "new_comment": comment_info
-        }
-        # return Response(context, status=status.HTTP_201_CREATED)
+        # 文章的评论数数据
+        post = comment_info.post
+        post.comment_num += 1
+        post.save()
         return comment_info
 
     class Meta:

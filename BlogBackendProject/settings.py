@@ -53,6 +53,7 @@ PERSONAL_APPS = [
     'album.apps.AlbumConfig',
     'article.apps.ArticleConfig',
     'user.apps.UserConfig',
+    'user_operation.apps.UserOperationConfig'
 ]
 
 EXTRA_APPS = [

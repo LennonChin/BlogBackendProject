@@ -32,6 +32,7 @@ from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset
 
 from base.apiview import BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
+from user_operation.apiview import PostLikeViewset
 
 router = DefaultRouter()
 
@@ -62,6 +63,7 @@ router.register(r'blogger', BloggerInfoViewset, base_name="blogger")
 router.register(r'friendlinks', FriendLinkListViewset, base_name="friendlinks")
 # 评论
 router.register(r'comments', CommentDetailListViewset, base_name="comments")
+router.register(r'likePost', PostLikeViewset, base_name="likePost")
 
 # 邮箱验证码
 router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
