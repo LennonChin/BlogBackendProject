@@ -17,7 +17,7 @@ from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter, C
 from base.utils import CustomeLimitOffsetPagination, CustomePageNumberPagination
 
 
-class CategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class CategoryListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         分类列表页
@@ -32,7 +32,7 @@ class CategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     ordering_fields = ('category_type', 'is_tab')
 
 
-class SingleLevelCategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class SingleLevelCategoryListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         单级分类列表页
@@ -47,7 +47,7 @@ class SingleLevelCategoryListViewset(mixins.ListModelMixin, mixins.RetrieveModel
     ordering_fields = ('category_type', 'is_tab')
 
 
-class TagListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class TagListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         标签列表页
@@ -58,7 +58,7 @@ class TagListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.
     ordering_fields = ('name', 'subname')
 
 
-class MaterialBannerListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class MaterialBannerListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         Banner列表页
@@ -69,7 +69,7 @@ class MaterialBannerListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin
     serializer_class = MaterialBannerSerializer
 
 
-class PostBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class PostBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         时间轴列表页
@@ -85,8 +85,7 @@ class PostBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, 
     serializer_class = MaterialPostBaseInfoSerializer
 
 
-class CommentDetailListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
-                               viewsets.GenericViewSet):
+class CommentDetailListViewset(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     List:
         评论列表页

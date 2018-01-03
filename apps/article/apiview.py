@@ -14,7 +14,7 @@ from .filters import ArticleFilter
 from base.utils import CustomeLimitOffsetPagination
 
 
-class ArticleBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class ArticleBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         文章列表页
@@ -39,7 +39,7 @@ class ArticleBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixi
         return Response(serializer.data)
 
 
-class ArticleDetailInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class ArticleDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         文章列表页

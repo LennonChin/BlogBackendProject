@@ -14,7 +14,7 @@ from .filters import AlbumFilter
 from base.utils import CustomeLimitOffsetPagination
 
 
-class AlbumBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class AlbumBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         图集列表页
@@ -40,7 +40,7 @@ class AlbumBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin,
         return Response(serializer.data)
 
 
-class AlbumDetailInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class AlbumDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         图集列表页

@@ -8,7 +8,7 @@ from .models import BloggerInfo, FriendLink
 from .serializers import BloggerInfoSerializer, FriendLinksSerializer
 
 
-class BloggerInfoViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class BloggerInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         Banner列表页
@@ -17,7 +17,7 @@ class BloggerInfoViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     serializer_class = BloggerInfoSerializer
 
 
-class FriendLinkListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class FriendLinkListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         Banner列表页

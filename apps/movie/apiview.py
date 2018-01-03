@@ -14,7 +14,7 @@ from .filters import MovieFilter
 from base.utils import CustomeLimitOffsetPagination
 
 
-class MovieBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class MovieBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         文章列表页
@@ -39,7 +39,7 @@ class MovieBaseInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin,
         return Response(serializer.data)
 
 
-class MovieDetailInfoListViewset(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class MovieDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
         文章列表页
