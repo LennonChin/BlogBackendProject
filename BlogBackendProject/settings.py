@@ -28,9 +28,8 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = '#vam9e79q3!tq8pje@19!3z8c#seafwogk)%i8)e$83nmftgfg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '47.96.138.114']
 
 AUTH_USER_MODEL = 'user.UserProfile'
 
@@ -167,9 +166,8 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# 加入下面的配置
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # email setting
 EMAIL_HOST = EMAIL_CONFIG['EMAIL_HOST']

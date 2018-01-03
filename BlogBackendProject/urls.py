@@ -18,6 +18,7 @@ from django.contrib import admin
 from BlogBackendProject.settings import MEDIA_ROOT
 from django.views.static import serve
 import xadmin
+from django.views.generic import TemplateView
 
 # Django Rest Framework
 from rest_framework.documentation import include_docs_urls
@@ -72,10 +73,11 @@ urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^admin/', admin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
-    url(r'^', include(router.urls)),
+    url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # drf自带认证模式
     url(r'^api-token-auth/', views.obtain_auth_token),
     # 文档
     url(r'docs/', include_docs_urls(title="文档")),
+    url(r'^', TemplateView.as_view(template_name="index.html")),
 ]
