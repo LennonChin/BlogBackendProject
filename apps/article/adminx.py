@@ -31,9 +31,9 @@ class ArticleDetailAdmin(object):
 
 
 class ArticleInfoAdmin(object):
-    list_display = ['title', "category", "tags", "front_image", "front_image_type"]
+    list_display = ['title', "category", "tags", "front_image", "front_image_type", 'browse_password']
     search_fields = ['title']
-    exclude = ['post_type']
+    exclude = ['post_type', 'browse_password_encrypt']
 
     class ArticleTagInline(object):
         model = PostTag

@@ -1,3 +1,4 @@
+import hashlib
 from django.db import models
 
 from datetime import datetime
@@ -162,7 +163,16 @@ class PostBaseInfo(models.Model):
     is_recommend = models.BooleanField(default=False, verbose_name="是否推荐", help_text="是否推荐")
     is_banner = models.BooleanField(default=False, verbose_name="是否是Banner", help_text="是否是Banner")
     is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
+    browse_password = models.CharField(max_length=20, null=True, blank=True, verbose_name="浏览密码", help_text="浏览密码")
+    browse_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密", help_text="浏览密码加密")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
+
+    def save(self, *args, **kwargs):
+        if self.browse_password:
+            md5 = hashlib.md5()
+            md5.update(self.browse_password.encode('utf8'))
+            self.browse_password_encrypt = md5.hexdigest()
+        super(PostBaseInfo, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "所有博文"

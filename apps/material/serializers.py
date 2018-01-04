@@ -81,7 +81,6 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 
 # 子级评论排序
 class OrderSubCommentListSerializer(serializers.ListSerializer):
-
     def to_representation(self, data):
         data = data.order_by('add_time')[:11]
         return super(OrderSubCommentListSerializer, self).to_representation(data)
@@ -147,7 +146,7 @@ class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
             'id', 'title', 'desc', 'tags', 'like_num', 'comment_num', 'click_num', 'front_image', 'front_image_type',
             'is_hot',
             'is_recommend', 'is_banner',
-            'post_type', 'add_time')
+            'post_type', 'browse_password_encrypt', 'add_time')
 
 
 class MaterialBannerSerializer(serializers.ModelSerializer):

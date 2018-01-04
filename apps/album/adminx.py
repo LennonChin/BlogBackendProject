@@ -15,7 +15,7 @@ from material.models import PostTag
 class AlbumInfoAdmin(object):
     list_display = ['title', "category", "tags", "pictures", "front_image", "front_image_type"]
     search_fields = ['title', 'subtitle', "abstract", "desc", "category"]
-    exclude = ['post_type', ]
+    exclude = ['post_type', 'browse_password_encrypt']
 
     def save_models(self):
         # 手动设置类型

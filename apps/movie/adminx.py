@@ -43,7 +43,7 @@ class MovieDetailAdmin(object):
 class MovieInfoAdmin(object):
     list_display = ['title', "category", "tags", "front_image", "front_image_type"]
     search_fields = ['title']
-    exclude = ['post_type']
+    exclude = ['post_type', 'browse_password_encrypt']
 
     class ArticleTagInline(object):
         model = PostTag
