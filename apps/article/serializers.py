@@ -14,6 +14,18 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
         fields = ('formatted_content',)
 
 
+class ArticleDetailInfoSerializer(serializers.ModelSerializer):
+    category = SingleLevelCategorySerializer()
+    tags = TagSerializer(many=True)
+    license = LicenseSerializer()
+    detail = ArticleDetailSerializer()
+    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
+
+    class Meta:
+        model = ArticleInfo
+        exclude = ('browse_password', )
+
+
 class ArticleBaseInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
 
@@ -21,16 +33,5 @@ class ArticleBaseInfoSerializer(serializers.ModelSerializer):
         model = ArticleInfo
         fields = (
             'id', 'title', 'desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type',
-            'front_image', 'is_recommend', 'is_hot', 'is_banner',
+            'front_image', 'is_recommend', 'is_hot', 'is_banner', 'browse_password_encrypt',
             'front_image_type', 'add_time')
-
-
-class ArticleDetailInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
-    tags = TagSerializer(many=True)
-    license = LicenseSerializer()
-    detail = ArticleDetailSerializer()
-
-    class Meta:
-        model = ArticleInfo
-        fields = "__all__"

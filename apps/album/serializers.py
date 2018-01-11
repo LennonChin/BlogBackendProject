@@ -21,11 +21,11 @@ class AlbumDetailInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AlbumInfo
-        fields = "__all__"
+        exclude = ('browse_password', )
 
 
 class AlbumBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = AlbumInfo
         fields = ('id', 'title', 'desc', 'author', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',
-                  'front_image_type', 'is_banner', 'add_time')
+                  'front_image_type', 'is_banner', 'browse_password_encrypt', 'add_time')

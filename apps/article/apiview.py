@@ -2,9 +2,11 @@
 __author__ = 'LennonChin'
 __date__ = '2017/12/2 12:52'
 
+import hashlib
+
 from django_filters.rest_framework import DjangoFilterBackend
 
-from rest_framework import mixins, viewsets, filters
+from rest_framework import mixins, viewsets, filters, status
 from rest_framework.response import Response
 
 from .models import ArticleInfo
@@ -56,7 +58,19 @@ class ArticleDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
     pagination_class = CustomeLimitOffsetPagination
 
     def retrieve(self, request, *args, **kwargs):
+
         instance = self.get_object()
+
+        if instance.browse_password_encrypt:
+            browse_auth = ""
+            if 'browse_auth' in request.query_params:
+                browse_auth = request.query_params['browse_auth']
+            if browse_auth != instance.browse_password_encrypt:
+                context = {
+                    "error": "文章密码错误"
+                }
+                return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
         instance.click_num += 1
         instance.save()
         serializer = self.get_serializer(instance)

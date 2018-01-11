@@ -21,7 +21,7 @@ class MovieDetailInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MovieInfo
-        fields = '__all__'
+        exclude = ('browse_password', )
 
 
 class MovieBaseInfoSerializer(serializers.ModelSerializer):
@@ -31,5 +31,5 @@ class MovieBaseInfoSerializer(serializers.ModelSerializer):
         model = MovieInfo
         fields = (
             'id', 'title', 'desc', 'directors', 'actors', 'category', 'post_type', 'is_recommend', 'is_hot',
-            'is_banner',
+            'is_banner', 'browse_password_encrypt',
             'front_image', 'add_time')
