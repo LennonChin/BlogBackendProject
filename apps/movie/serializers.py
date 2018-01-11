@@ -18,6 +18,7 @@ class MovieDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
     detail = MovieDetailSerializer()
+    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:
         model = MovieInfo

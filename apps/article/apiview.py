@@ -58,9 +58,7 @@ class ArticleDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
     pagination_class = CustomeLimitOffsetPagination
 
     def retrieve(self, request, *args, **kwargs):
-
         instance = self.get_object()
-
         if instance.browse_password_encrypt:
             browse_auth = ""
             if 'browse_auth' in request.query_params:

@@ -18,6 +18,7 @@ class AlbumDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     pictures = PictureSerializer(many=True)
     tags = TagSerializer(many=True)
+    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:
         model = AlbumInfo
