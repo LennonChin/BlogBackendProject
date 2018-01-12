@@ -77,7 +77,7 @@ class CommentFilter(django_filters.rest_framework.FilterSet):
 
     post_id = django_filters.NumberFilter(method='post_id_filter')
 
-    # 查找指定分类下的所有文章
+    # 查找指定文章下的评论
     def post_id_filter(self, queryset, name, value):
         return queryset.filter(post_id=value)
 

@@ -8,7 +8,7 @@
 
 import xadmin
 from xadmin import views
-from .models import SiteInfo, BloggerInfo, BloggerSocial, BloggerMaster, FriendLink
+from .models import SiteInfo, NavigationLink, BloggerInfo, BloggerSocial, BloggerMaster, FriendLink, SiteInfoNavigation
 
 
 class BaseSetting(object):
@@ -24,6 +24,17 @@ class GlobalSettings(object):
 class SiteInfoAdmin(object):
     list_display = ['name', 'name_en', "desc", "copyright", "icp"]
     search_fields = ['name', 'name_en', 'is_live']
+
+    class NavigationLinkInline(object):
+        model = SiteInfoNavigation
+        extra = 1
+
+    inlines = [NavigationLinkInline]
+
+
+class NavigationLinkAdmin(object):
+    list_display = ['name', 'url']
+    search_fields = ['name', 'url']
 
 
 class BloggerInfoAdmin(object):
@@ -50,4 +61,5 @@ xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
 xadmin.site.register(SiteInfo, SiteInfoAdmin)
 xadmin.site.register(BloggerInfo, BloggerInfoAdmin)
+xadmin.site.register(NavigationLink, NavigationLinkAdmin)
 xadmin.site.register(FriendLink, FriendLinkAdmin)

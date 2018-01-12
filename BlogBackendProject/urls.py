@@ -30,7 +30,7 @@ from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
     MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
 
-from base.apiview import BloggerInfoViewset, FriendLinkListViewset
+from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
 from user_operation.apiview import PostLikeViewset
 
@@ -57,6 +57,8 @@ router.register(r'movieDetailInfos', MovieDetailInfoListViewset, base_name="movi
 # 时光轴
 router.register(r'postBaseInfos', PostBaseInfoListViewset, base_name="postBaseInfos")
 
+# 网站信息
+router.register(r'siteInfo', SiteInfoViewset, base_name="siteInfo")
 # 博主信息
 router.register(r'blogger', BloggerInfoViewset, base_name="blogger")
 # 友情链接

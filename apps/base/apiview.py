@@ -4,14 +4,23 @@ __date__ = '2017/12/9 13:31'
 
 from rest_framework import mixins, viewsets
 
-from .models import BloggerInfo, FriendLink
-from .serializers import BloggerInfoSerializer, FriendLinksSerializer
+from .models import SiteInfo, BloggerInfo, FriendLink
+from .serializers import BloggerInfoSerializer, SiteInfoSerializer, FriendLinkSerializer
+
+
+class SiteInfoViewset(viewsets.ReadOnlyModelViewSet):
+    """
+    List:
+        网站信息
+    """
+    queryset = SiteInfo.objects.all()
+    serializer_class = SiteInfoSerializer
 
 
 class BloggerInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
-        Banner列表页
+        博主信息
     """
     queryset = BloggerInfo.objects.all()
     serializer_class = BloggerInfoSerializer
@@ -20,7 +29,7 @@ class BloggerInfoViewset(viewsets.ReadOnlyModelViewSet):
 class FriendLinkListViewset(viewsets.ReadOnlyModelViewSet):
     """
     List:
-        Banner列表页
+        友情链接列表页
     """
     queryset = FriendLink.objects.all()
-    serializer_class = FriendLinksSerializer
+    serializer_class = FriendLinkSerializer
