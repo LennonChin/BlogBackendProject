@@ -296,7 +296,7 @@ class MaterialSocial(models.Model):
 
 
 class MaterialMaster(models.Model):
-    """
+    """¡
     技能
     """
     name = models.CharField(max_length=30, verbose_name="名称", help_text="名称")

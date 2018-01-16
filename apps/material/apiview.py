@@ -30,6 +30,7 @@ class CategoryListViewset(viewsets.ReadOnlyModelViewSet):
     filter_class = CategoryFilter
     search_fields = ('name', 'code', 'desc')
     ordering_fields = ('category_type', 'is_tab')
+    ordering = ('id',)
 
 
 class SingleLevelCategoryListViewset(viewsets.ReadOnlyModelViewSet):
@@ -45,6 +46,7 @@ class SingleLevelCategoryListViewset(viewsets.ReadOnlyModelViewSet):
     filter_class = CategoryFilter
     search_fields = ('name', 'code', 'desc')
     ordering_fields = ('category_type', 'is_tab')
+    ordering = ('id',)
 
 
 class TagListViewset(viewsets.ReadOnlyModelViewSet):
