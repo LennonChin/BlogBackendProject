@@ -9,13 +9,9 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.pagination import LimitOffsetPagination
 
-from random import Random
 from random import choice
-from django.core.mail import send_mail
-
 from user.models import EmailVerifyRecord
-from BlogBackendProject.settings import EMAIL_FROM
-
+from BlogBackendProject.private import QINIU_ACCESS_KEY, QINIU_SECRET_KEY, QINIU_BUCKET_NAME
 
 # 分页
 class CustomePageNumberPagination(PageNumberPagination):
@@ -67,3 +63,36 @@ def send_email(email, send_type="comment"):
             email_record.send_type = send_type
             email_record.save()
             return int(send_status)
+
+
+def generate_qiniu_random_filename(length):
+    seeds = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
+    filename =''.join(choice(seeds) for i in range(length))
+    return filename
+
+
+def generate_qiniu_token(object_name, expire_time=600):
+    """
+    用于生成七牛云上传所需要的Token
+    :param bucket_name: 要上传的空间
+    :param object_name: 上传到七牛后保存的文件名
+    :param expire_time: token过期时间，默认为600秒，即十分钟
+    :return: 
+    """
+    bucket_name = QINIU_BUCKET_NAME
+    from qiniu import Auth
+    # 需要填写你的 Access Key 和 Secret Key
+    access_key = QINIU_ACCESS_KEY
+    secret_key = QINIU_SECRET_KEY
+    # 构建鉴权对象
+    q = Auth(access_key, secret_key)
+    # 上传策略示例
+    # https://developer.qiniu.com/kodo/manual/1206/put-policy
+    policy = {
+        # 'callbackUrl':'https://requestb.in/1c7q2d31',
+        # 'callbackBody':'filename=$(fname)&filesize=$(fsize)'
+        # 'persistentOps':'imageView2/1/w/200/h/200'
+    }
+    token = q.upload_token(bucket_name, object_name, expire_time, policy)
+
+    return token

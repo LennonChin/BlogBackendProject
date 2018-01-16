@@ -32,7 +32,7 @@ from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset
 
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
-from user_operation.apiview import PostLikeViewset
+from user_operation.apiview import PostLikeViewset, QiniuTokenViewset
 
 router = DefaultRouter()
 
@@ -69,6 +69,8 @@ router.register(r'likePost', PostLikeViewset, base_name="likePost")
 
 # 邮箱验证码
 router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
+# 七牛云token
+router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
