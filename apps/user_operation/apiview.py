@@ -52,46 +52,54 @@ class QiniuTokenViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     serializer_class = QiniuTokenSerializer
 
-    def list(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.query_params)
-        serializer.is_valid(raise_exception=True)  # status 400
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True) # status 400
 
+        suffix = serializer.validated_data['suffix']
         use_type = serializer.validated_data['use_type']
 
         if use_type is None:
-            # 验证码未填写
+            # 类型未填写
             context = {
                 'error': '请指定操作类型'
             }
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            ip = '0.0.0.0'
-            print(request.META)
-            if 'HTTP_X_FORWARDED_FOR' in request.META:
-                ip = request.META['HTTP_X_FORWARDED_FOR']
-            elif 'REMOTE_ADDR' in request.META:
-                ip = request.META['REMOTE_ADDR']
 
-            five_minutes_ago = datetime.now() - timedelta(hours=0, minutes=5, seconds=0)
-            token_records = QiniuTokenRecord.objects.filter(ip=ip)
-            if len(token_records):
-                token_record = token_records[0]
-                if token_record.add_time < five_minutes_ago:
-                    # 验证码过期
-                    context = {
-                        "error": '请求太频繁'
-                    }
-                    return Response(context, status=status.HTTP_429_TOO_MANY_REQUESTS)
-
-            # 生成Token返回
-            object_name = generate_qiniu_random_filename(64)
-            token = generate_qiniu_token(object_name)
-            token_record = QiniuTokenRecord(ip=ip, token=token, use_type=use_type)
-            token_record.save()
+        if suffix is None:
+            # 后缀名未提供
             context = {
-                'key': object_name,
-                'token': token,
-                'url': '',
-                'expire': 300
+                'error': '请指定上传文件的类型'
             }
-            return Response(context, status.HTTP_201_CREATED)
+            return Response(context, status=status.HTTP_400_BAD_REQUEST)
+
+        ip = '0.0.0.0'
+        print(request.META)
+        if 'HTTP_X_FORWARDED_FOR' in request.META:
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        elif 'REMOTE_ADDR' in request.META:
+            ip = request.META['REMOTE_ADDR']
+
+        # ten_second_age = datetime.now() - timedelta(hours=0, minutes=0, seconds=10)
+        # token_records = QiniuTokenRecord.objects.filter(ip=ip)
+        # if len(token_records):
+        #     token_record = token_records[0]
+        #     if token_record.add_time < ten_second_age:
+        #         # 验证码过期
+        #         context = {
+        #             "error": '请求太频繁'
+        #         }
+        #         return Response(context, status=status.HTTP_429_TOO_MANY_REQUESTS)
+
+        # 生成Token返回
+        object_name = generate_qiniu_random_filename(64)
+        token = generate_qiniu_token(object_name)
+        token_record = QiniuTokenRecord(ip=ip, token=token, use_type=use_type)
+        token_record.save()
+        context = {
+            'key': object_name,
+            'token': token,
+            'url': '',
+            'expire': 300
+        }
+        return Response(context, status.HTTP_201_CREATED)

@@ -15,6 +15,7 @@ class PostLikeSerializer(serializers.Serializer):
 
 
 class QiniuTokenSerializer(serializers.Serializer):
+    suffix = serializers.CharField(required=False, allow_blank=True, label='文件类型')
     use_type = serializers.CharField(default='comment', required=False, label='操作类型')
 
     def validate_use_type(self, use_type):
@@ -23,7 +24,7 @@ class QiniuTokenSerializer(serializers.Serializer):
         :param use_type: 
         :return: 
         """
-        CHOICES = ['comment']
+        CHOICES = ['comment', 'publish_post']
 
         # 判断类型
         if use_type not in CHOICES:
