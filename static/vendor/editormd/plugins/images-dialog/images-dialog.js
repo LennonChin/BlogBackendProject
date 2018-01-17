@@ -129,6 +129,19 @@
                 var suffix = /.[^.]+$/.exec(fileInput.fileName)[0];
                 console.log(suffix);
 
+                var getUploadToken = function () {
+                    // 获取token
+                    $.ajax({
+                        url: '/api/qiniuToken/',
+                        type: "post",
+                        data: {use_type: 'publish_post', suffix: suffix},
+                        success: constructUploadData,
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                }
+
                 // 构造上传数据
                 var constructUploadData = function (data) {
                     console.log('uploadFile');
@@ -150,6 +163,7 @@
                         contentType: false,
                         success: function (data) {
                             console.log(data);
+                            loading(false);
                         },
                         error: function (e) {
                             console.log(e);
@@ -203,17 +217,7 @@
                     console.log('select file');
 
                     // dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");
-
-                    // 获取token
-                    $.ajax({
-                        url: '/api/qiniuToken/',
-                        type: "post",
-                        data: {use_type: 'publish_post', suffix: suffix},
-                        success: constructUploadData,
-                        error: function (e) {
-                            console.log(e);
-                        }
-                    });
+                    getUploadToken();
                 });
             }
 
