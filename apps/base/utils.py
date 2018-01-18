@@ -12,7 +12,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.pagination import LimitOffsetPagination
 
 from user.models import EmailVerifyRecord
-from BlogBackendProject.private import QINIU_ACCESS_KEY, QINIU_SECRET_KEY, QINIU_BUCKET_NAME, QINIU_GET_OBJECT_BASE_URL
+from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_QINIU_GET_OBJECT_BASE_URL
 
 # 分页
 class CustomePageNumberPagination(PageNumberPagination):
@@ -83,15 +83,15 @@ def generate_qiniu_token(object_name, use_type, expire_time=600):
     :param expire_time: token过期时间，默认为600秒，即十分钟
     :return: 
     """
-    bucket_name = QINIU_BUCKET_NAME['comment']
-    if use_type in QINIU_BUCKET_NAME:
-        bucket_name = QINIU_BUCKET_NAME[use_type]
+    bucket_name = PRIVATE_QINIU_BUCKET_NAME['comment']
+    if use_type in PRIVATE_QINIU_BUCKET_NAME:
+        bucket_name = PRIVATE_QINIU_BUCKET_NAME[use_type]
     else:
-        bucket_name = QINIU_BUCKET_NAME['comment']
+        bucket_name = PRIVATE_QINIU_BUCKET_NAME['comment']
     from qiniu import Auth
     # 需要填写你的 Access Key 和 Secret Key
-    access_key = QINIU_ACCESS_KEY
-    secret_key = QINIU_SECRET_KEY
+    access_key = PRIVATE_QINIU_ACCESS_KEY
+    secret_key = PRIVATE_QINIU_SECRET_KEY
     # 构建鉴权对象
     q = Auth(access_key, secret_key)
     # 上传策略示例
@@ -102,6 +102,6 @@ def generate_qiniu_token(object_name, use_type, expire_time=600):
         # 'persistentOps':'imageView2/1/w/200/h/200'
     }
     token = q.upload_token(bucket_name, object_name, expire_time, policy)
-    base_url = QINIU_GET_OBJECT_BASE_URL
+    base_url = PRIVATE_QINIU_GET_OBJECT_BASE_URL
 
     return (object_name, token, base_url, expire_time)
