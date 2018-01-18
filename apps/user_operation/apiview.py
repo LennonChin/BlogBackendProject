@@ -93,13 +93,13 @@ class QiniuTokenViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
         # 生成Token返回
         object_name = generate_qiniu_random_filename(64)
-        token = generate_qiniu_token(object_name)
+        object_name, token, base_url, expire_time = generate_qiniu_token(object_name, use_type)
         token_record = QiniuTokenRecord(ip=ip, token=token, use_type=use_type)
         token_record.save()
         context = {
             'key': object_name,
             'token': token,
-            'url': '',
-            'expire': 300
+            'base_url': base_url,
+            'expire': expire_time
         }
         return Response(context, status.HTTP_201_CREATED)

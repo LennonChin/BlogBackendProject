@@ -6,12 +6,13 @@
 # @File    : utils.py
 # @Software: PyCharm
 
+from datetime import datetime
+from random import choice
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.pagination import LimitOffsetPagination
 
-from random import choice
 from user.models import EmailVerifyRecord
-from BlogBackendProject.private import QINIU_ACCESS_KEY, QINIU_SECRET_KEY, QINIU_BUCKET_NAME
+from BlogBackendProject.private import QINIU_ACCESS_KEY, QINIU_SECRET_KEY, QINIU_BUCKET_NAME, QINIU_GET_OBJECT_BASE_URL
 
 # 分页
 class CustomePageNumberPagination(PageNumberPagination):
@@ -67,19 +68,26 @@ def send_email(email, send_type="comment"):
 
 def generate_qiniu_random_filename(length):
     seeds = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
-    filename =''.join(choice(seeds) for i in range(length))
+    # 按年月来划分子路径
+    now = datetime.now()
+    filename = ''.join(choice(seeds) for i in range(length))
+    filename = '{0}/{1}/{2}'.format(now.year, now.month, filename)
     return filename
 
 
-def generate_qiniu_token(object_name, expire_time=600):
+def generate_qiniu_token(object_name, use_type, expire_time=600):
     """
     用于生成七牛云上传所需要的Token
-    :param bucket_name: 要上传的空间
     :param object_name: 上传到七牛后保存的文件名
+    :param use_type: 操作类型
     :param expire_time: token过期时间，默认为600秒，即十分钟
     :return: 
     """
-    bucket_name = QINIU_BUCKET_NAME
+    bucket_name = QINIU_BUCKET_NAME['comment']
+    if use_type in QINIU_BUCKET_NAME:
+        bucket_name = QINIU_BUCKET_NAME[use_type]
+    else:
+        bucket_name = QINIU_BUCKET_NAME['comment']
     from qiniu import Auth
     # 需要填写你的 Access Key 和 Secret Key
     access_key = QINIU_ACCESS_KEY
@@ -94,5 +102,6 @@ def generate_qiniu_token(object_name, expire_time=600):
         # 'persistentOps':'imageView2/1/w/200/h/200'
     }
     token = q.upload_token(bucket_name, object_name, expire_time, policy)
+    base_url = QINIU_GET_OBJECT_BASE_URL
 
-    return token
+    return (object_name, token, base_url, expire_time)

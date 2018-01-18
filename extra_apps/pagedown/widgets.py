@@ -62,6 +62,9 @@ class PagedownWidget(forms.Textarea):
             "body": conditional_escape(force_unicode(value)),
             "id": final_attrs["id"],
             "show_preview": self.show_preview,
+            'imageUploadTokenURL': '/api/qiniuToken/',
+            'imageUploadURL': 'http://upload.qiniup.com',
+            'imageRequestBaseURL': 'http://p2qght9m1.bkt.clouddn.com/',
         }
         context = Context(context) if VERSION < (1, 9) else context
         return template.render(context)

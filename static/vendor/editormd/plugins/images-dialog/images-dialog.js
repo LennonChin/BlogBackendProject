@@ -127,12 +127,11 @@
 
                 // 获取文件后缀名
                 var suffix = /.[^.]+$/.exec(fileInput.fileName)[0];
-                console.log(suffix);
 
                 var getUploadToken = function () {
                     // 获取token
                     $.ajax({
-                        url: '/api/qiniuToken/',
+                        url: settings.imageUploadTokenURL,
                         type: "post",
                         data: {use_type: 'publish_post', suffix: suffix},
                         success: constructUploadData,
@@ -144,25 +143,28 @@
 
                 // 构造上传数据
                 var constructUploadData = function (data) {
-                    console.log('uploadFile');
+                    console.log('uploadFile', fileInput[0].files[0]);
                     var formData = new FormData();
                     formData.append('file', fileInput[0].files[0]);
+                    formData.append('filename', fileInput[0].files[0].name);
                     formData.append("key", data.key);
                     formData.append("token", data.token);
                     uploadFile(formData);
                 }
 
                 // 上传文件
-                var uploadFile = function (data) {
+                var uploadFile = function (formData) {
                     $.ajax({
-                        url: '/api/qiniuToken/',
+                        url: settings.imageUploadURL,
                         type: "post",
-                        data: data,
+                        data: formData,
                         cache: false,
                         processData: false,
                         contentType: false,
                         success: function (data) {
                             console.log(data);
+                            dialog.find("[data-url]").val(settings.imageRequestBaseURL + data.key);
+                            dialog.find("[data-alt]").val(formData.get('filename'));
                             loading(false);
                         },
                         error: function (e) {

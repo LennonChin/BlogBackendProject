@@ -136,6 +136,8 @@
         imageUpload          : false,
         imageFormats         : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL       : "",
+        imageUploadTokenURL  : "",
+        imageRequestBaseURL  : "",
         crossDomainUpload    : false,
         uploadCallbackURL    : "",
         
