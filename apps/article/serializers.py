@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 from article.models import ArticleInfo, ArticleDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer, LicenseSerializer
-
+from BlogBackendProject.private import PRIVATE_QINIU_POST_GET_OBJECT_BASE_URL
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +28,10 @@ class ArticleDetailInfoSerializer(serializers.ModelSerializer):
 
 class ArticleBaseInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
+    front_image = serializers.SerializerMethodField()
+
+    def get_front_image(self, obj):
+        return "{0}{1}".format(PRIVATE_QINIU_POST_GET_OBJECT_BASE_URL, obj.front_image)
 
     class Meta:
         model = ArticleInfo

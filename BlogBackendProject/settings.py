@@ -144,7 +144,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_URL = PRIVATE_QINIU_GET_OBJECT_BASE_URL
+MEDIA_URL = ''
 MEDIA_ROOT = ''
 
 # Static files (CSS, JavaScript, Images)
@@ -174,7 +174,7 @@ REST_FRAMEWORK = {
         'anon': '100000/day',
         'user': '100000/day'
     },
-    'UPLOADED_FILES_USE_URL': True
+    'UPLOADED_FILES_USE_URL': False
 }
 
 # email setting
