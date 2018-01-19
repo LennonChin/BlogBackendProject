@@ -12,7 +12,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.pagination import LimitOffsetPagination
 
 from user.models import EmailVerifyRecord
-from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_QINIU_GET_OBJECT_BASE_URL
+from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_MEDIA_URL_PREFIX
 
 # 分页
 class CustomePageNumberPagination(PageNumberPagination):
@@ -102,6 +102,6 @@ def generate_qiniu_token(object_name, use_type, expire_time=600):
         # 'persistentOps':'imageView2/1/w/200/h/200'
     }
     token = q.upload_token(bucket_name, object_name, expire_time, policy)
-    base_url = PRIVATE_QINIU_GET_OBJECT_BASE_URL
+    base_url = PRIVATE_MEDIA_URL_PREFIX
 
     return (object_name, token, base_url, expire_time)

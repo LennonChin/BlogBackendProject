@@ -14,7 +14,7 @@ import os
 import sys
 
 from .private import DATABASE_CONFIG, EMAIL_CONFIG, PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, \
-    PRIVATE_QINIU_BUCKET_DOMAIN, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_QINIU_GET_OBJECT_BASE_URL
+    PRIVATE_QINIU_BUCKET_DOMAIN, PRIVATE_QINIU_BUCKET_NAME
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -155,6 +155,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
@@ -174,7 +177,7 @@ REST_FRAMEWORK = {
         'anon': '100000/day',
         'user': '100000/day'
     },
-    'UPLOADED_FILES_USE_URL': False
+    'UPLOADED_FILES_USE_URL': True
 }
 
 # email setting
@@ -187,10 +190,10 @@ EMAIL_FROM = EMAIL_CONFIG['EMAIL_FROM']
 
 # QINIU
 
-QINIU_ACCESS_KEY = PRIVATE_QINIU_ACCESS_KEY
-QINIU_SECRET_KEY = PRIVATE_QINIU_SECRET_KEY
-QINIU_BUCKET_NAME = PRIVATE_QINIU_BUCKET_NAME['post']
-QINIU_BUCKET_DOMAIN = PRIVATE_QINIU_BUCKET_DOMAIN
-QINIU_SECURE_URL = False
-
-DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuMediaStorage'
+# QINIU_ACCESS_KEY = PRIVATE_QINIU_ACCESS_KEY
+# QINIU_SECRET_KEY = PRIVATE_QINIU_SECRET_KEY
+# QINIU_BUCKET_NAME = PRIVATE_QINIU_BUCKET_NAME['post']
+# QINIU_BUCKET_DOMAIN = PRIVATE_QINIU_BUCKET_DOMAIN
+# QINIU_SECURE_URL = False
+#
+# DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuMediaStorage'

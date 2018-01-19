@@ -75,7 +75,7 @@ router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^admin/', admin.site.urls),
-    # url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     # drf自带认证模式
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'^api/', include(router.urls)),
