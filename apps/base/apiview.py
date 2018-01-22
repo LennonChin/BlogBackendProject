@@ -2,10 +2,12 @@
 __author__ = 'LennonChin'
 __date__ = '2017/12/9 13:31'
 
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import SiteInfo, BloggerInfo, FriendLink
 from .serializers import BloggerInfoSerializer, SiteInfoSerializer, FriendLinkSerializer
+from .filters import SiteInfoFilter
 
 
 class SiteInfoViewset(viewsets.ReadOnlyModelViewSet):
@@ -15,6 +17,8 @@ class SiteInfoViewset(viewsets.ReadOnlyModelViewSet):
     """
     queryset = SiteInfo.objects.all()
     serializer_class = SiteInfoSerializer
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = SiteInfoFilter
 
 
 class BloggerInfoViewset(viewsets.ReadOnlyModelViewSet):

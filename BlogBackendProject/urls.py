@@ -32,7 +32,7 @@ from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset
 
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
-from user_operation.apiview import PostLikeViewset, QiniuTokenViewset
+from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTokenViewset
 
 router = DefaultRouter()
 
@@ -66,6 +66,7 @@ router.register(r'friendlinks', FriendLinkListViewset, base_name="friendlinks")
 # 评论
 router.register(r'comments', CommentDetailListViewset, base_name="comments")
 router.register(r'likePost', PostLikeViewset, base_name="likePost")
+router.register(r'likeOrUnlikeComment', CommentLikeViewset, base_name="likeOrUnlikeComment")
 
 # 邮箱验证码
 router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")

@@ -82,7 +82,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 # 子级评论排序
 class OrderSubCommentListSerializer(serializers.ListSerializer):
     def to_representation(self, data):
-        data = data.order_by('add_time')[:11]
+        data = data.order_by('add_time')[:10]
         return super(OrderSubCommentListSerializer, self).to_representation(data)
 
 
@@ -123,9 +123,15 @@ class CreateCommentSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         detail_data = validated_data.pop('detail')
+        # 创建评论
         comment_info = MaterialCommentInfo.objects.create(**validated_data)
         # 处理评论详情
         instance = MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
+        # 修改根级评论数数据
+        if comment_info.parent_comment_id:
+            parent_comment = MaterialCommentInfo.objects.get(id=comment_info.parent_comment_id)
+            parent_comment.comment_num += 1
+            parent_comment.save()
         # 文章的评论数数据
         post = comment_info.post
         post.comment_num += 1
