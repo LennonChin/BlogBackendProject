@@ -42,19 +42,19 @@ Back-end project has achieved 19 interfaces, the main function points are as fol
 2. local installation of Python3 environment;
 3. After installing the virtualenv and virtualenvwrapper environment, execute the following command:
 
-`` `bash
+```bash
 # Create a workspace
 > mkvirtualenv BlogBackend
 # Activate the workspace
 > workon BlogBackend
 # Change to the root directory of this project, Install dependencies
 > pip install -r requirements.txt
-`` `
+```
 
 4. Next, if you are using PyCharm as a development environment, modify its Project Interpreter to workspace we made above.
 5. In this project, sensitive account information is not provided, but stored in `private.py` file, this file is not managed to the warehouse, so you need to create a `private.py` file in the same level `setting.py` file Document, which reads as follows:
 
-`` `python
+```python
 #! / usr / bin / python3
 # - * - coding: utf-8 - * -
 # @Time: 2017/12/29 6:01 PM
@@ -92,13 +92,13 @@ PRIVATE_QINIU_BUCKET_DOMAIN = '' # Seven Niu Bucket domain
 PRIVATE_QINIU_BUCKET_NAME = '' # Seven Bulls Bucket name
 
 PRIVATE_MEDIA_URL_PREFIX = '' # Resource prefix used when accessing Cattle Cloud
-`` `
+```
 6. Configure the above configs, use the following command to migrate the table:
 
-`` `shell
+```bash
 > python manage.py makemigrations
-> python manage.py migrate
-`` `
+> ython manage.py migrate
+```
 
 > Note: If the migration fails, you can migrate by user, material, base, user_operation, index, remaining modules in that order.
 
