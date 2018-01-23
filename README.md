@@ -1,6 +1,6 @@
 # Front and back end of the separation of the blog project - back-end projects
 
-> [中文版](https://Github.Com/LennonChin/BlogBackendProject/blob/master/README_zh-cn.Md)
+> [中文版说明](https://Github.Com/LennonChin/BlogBackendProject/blob/master/README_zh-cn.Md)
 
 > This repository stores the backend code for blog entries, built using Django and the Django Rest Framework.
 
@@ -85,11 +85,11 @@ EMAIL_CONFIG = {
     'EMAIL_FROM': "" # This item is generally the same as EMAIL_HOST
 }
 
-# Seven Niu Yun related configuration
-PRIVATE_QINIU_ACCESS_KEY = '' # Seven Niuyun Access key
-PRIVATE_QINIU_SECRET_KEY = '' # Seven Niuyun Secret key
-PRIVATE_QINIU_BUCKET_DOMAIN = '' # Seven Niu Bucket domain
-PRIVATE_QINIU_BUCKET_NAME = '' # Seven Bulls Bucket name
+# Qiniu Yun related configuration
+PRIVATE_QINIU_ACCESS_KEY = '' # Qiniu Access key
+PRIVATE_QINIU_SECRET_KEY = '' # Qiniu Secret key
+PRIVATE_QINIU_BUCKET_DOMAIN = '' # Qiniu Bucket domain
+PRIVATE_QINIU_BUCKET_NAME = '' # Qiniu name
 
 PRIVATE_MEDIA_URL_PREFIX = '' # Resource prefix used when accessing Cattle Cloud
 ```
@@ -100,7 +100,7 @@ PRIVATE_MEDIA_URL_PREFIX = '' # Resource prefix used when accessing Cattle Cloud
 > ython manage.py migrate
 ```
 
-> Note: If the migration fails, you can migrate by user, material, base, user_operation, index, remaining modules in that order.
+> Note: If the migration fails, you can migrate by user, material, base, user_operation, index and remaining modules in that order.
 
 7. Then run the project directly; By default, if you run the evelopment Server after running '127.0.0.1: 8000`, the provided interface is at http://127.0.0.1:8000/ api`, background management address `http: //127.0.0.1: 8000 / xadmin`.
 
