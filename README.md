@@ -1,6 +1,6 @@
 # Front and back end of the separation of the blog project - back-end projects
 
-> [中文版说明](https://Github.Com/LennonChin/BlogBackendProject/blob/master/README_zh-cn.Md)
+> [中文版说明](https://github.com/LennonChin/BlogBackendProject/blob/master/README_zh-cn.md)
 
 > This repository stores the backend code for blog entries, built using Django and the Django Rest Framework.
 
