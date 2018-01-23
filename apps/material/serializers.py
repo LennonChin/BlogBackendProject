@@ -126,7 +126,7 @@ class CreateCommentSerializer(serializers.ModelSerializer):
         # 创建评论
         comment_info = MaterialCommentInfo.objects.create(**validated_data)
         # 处理评论详情
-        instance = MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
+        MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
         # 修改根级评论数数据
         if comment_info.parent_comment_id:
             parent_comment = MaterialCommentInfo.objects.get(id=comment_info.parent_comment_id)

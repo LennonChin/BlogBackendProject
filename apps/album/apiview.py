@@ -27,7 +27,7 @@ class AlbumBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     filter_class = AlbumFilter
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
     ordering_fields = ('click_num', 'like_num', 'comment_num', 'add_time')
-    exclude = ['post_type', ]
+    exclude = ('post_type', )
 
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination
