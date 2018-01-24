@@ -18,6 +18,7 @@ from django.contrib import admin
 from BlogBackendProject.settings import MEDIA_ROOT
 from django.views.static import serve
 import xadmin
+from haystack.views import SearchView
 
 # Django Rest Framework
 from rest_framework.documentation import include_docs_urls
@@ -83,4 +84,6 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # 文档
     url(r'docs/', include_docs_urls(title="文档", public=False)),
+    # 搜索
+    url(r'^search/', SearchView(), name='haystack_search'),
 ]

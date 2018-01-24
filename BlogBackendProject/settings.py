@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 PERSONAL_APPS = [
+    'haystack',
     'index',
     'base.apps.BaseConfig',
     'material.apps.MaterialConfig',
@@ -179,6 +180,16 @@ REST_FRAMEWORK = {
     },
     'UPLOADED_FILES_USE_URL': True
 }
+
+# haystack全文搜索配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'BlogBackendProject.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # email setting
 EMAIL_HOST = EMAIL_CONFIG['EMAIL_HOST']
