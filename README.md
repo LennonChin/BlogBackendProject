@@ -4,13 +4,11 @@
 
 > This repository stores the backend code for blog entries, built using Django and the Django Rest Framework.
 
-> Note: The front-end code repository linked to this repository is linked here [Blog-Frontend-Project] (https://github.com/LennonChin/Blog-Frontend-Project) and the front-end code is implemented using Vue.js + Vue-Router + iView.
+> Note: The front-end code repository linked to this repository is linked here [Blog-Frontend-Project] (https://github.com/LennonChin/Blog-Frontend-Project) and the front-end code is implemented using Vue.js + Vue-Router + iView.js.
 
 ## Overall technology stack
 
-1. Python environment
-
-- Python 3.6.2
+1. Python environment: Python 3.6.2
 
 2. Mainly dependent
 
@@ -39,8 +37,8 @@ Back-end project has achieved 19 interfaces, the main function points are as fol
 ## How to use
 
 1. Clone this project
-2. local installation of Python3 environment;
-3. After installing the virtualenv and virtualenvwrapper environment, execute the following command:
+2. local installation of Python3 and pip environment;
+3. After installing the virtualenv and virtualenvwrapper environment, execute the following command to create a virtual environment:
 
 ```bash
 # Create a workspace
@@ -97,12 +95,18 @@ PRIVATE_MEDIA_URL_PREFIX = '' # Resource prefix used when accessing Cattle Cloud
 
 ```bash
 > python manage.py makemigrations
-> ython manage.py migrate
+> python manage.py migrate
 ```
 
 > Note: If the migration fails, you can migrate by user, material, base, user_operation, index and remaining modules in that order.
 
-7. Then run the project directly; By default, if you run the evelopment Server after running '127.0.0.1: 8000`, the provided interface is at http://127.0.0.1:8000/ api`, background management address `http: //127.0.0.1: 8000 / xadmin`.
+7. Then start the project directly use the following command:
+
+```python
+> python manage.py runserver 127.0.0.1:8000
+```
+
+By default, if you run the evelopment Server after running '127.0.0.1: 8000`, the provided interface is at http://127.0.0.1:8000/api`, background management address `http://127.0.0.1: 8000/xadmin`.
 
 ## License
 

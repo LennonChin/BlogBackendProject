@@ -4,14 +4,14 @@
 
 > 该仓库存放了博客项目的后端代码，使用Django及Django Rest Framework搭建。
 
-> 注：与该仓库配合的前端代码仓库链接在此[BlogBackendProject](https://github.com/LennonChin/Blog-Frontend-Project)，前端代码使用Vue.js + Vue-Router + iView实现。
+> 注：与该仓库配合的前端代码仓库链接在此[BlogBackendProject](https://github.com/LennonChin/Blog-Frontend-Project)，前端代码使用Vue.js + Vue-Router + iView.js实现。
 
 ## 整体技术栈
 
-1. Python 环境
-- Python 3.6.2
+1. Python环境：Python 3.6.2
 
 2. 主要依赖
+
 - [Django==1.11.3](https://github.com/django/django)
 - [djangorestframework==3.6.3](https://github.com/encode/django-rest-framework)
 
@@ -37,8 +37,8 @@
 ## 如何使用
 
 1. clone本项目；
-2. 本地安装Python3环境；
-3. 安装virtualenv及virtualenvwrapper环境后，执行以下命令：
+2. 本地安装Python3及pip环境；
+3. 安装virtualenv及virtualenvwrapper环境后，执行以下命令创建一个虚拟环境：
 
 ``` bash
 # 创建工作空间
@@ -101,7 +101,13 @@ PRIVATE_MEDIA_URL_PREFIX = '' # 访问七牛云时使用的资源前缀
 
 > 注：如果迁移失败，可以按照user、material、base、user_operation、index、剩余模块的顺序迁移。
 
-7. 接下来直接运行本项目即可；默认情况下，如果你运行后启动的evelopment Server为`127.0.0.1:8000`，则提供的接口访问地址为`http://127.0.0.1:8000/api`，后台管理地址为`http://127.0.0.1:8000/xadmin`。
+7. 接下来直接运行下面的脚本启动本项目即可：
+
+```python
+> python manage.py runserver 127.0.0.1:8000
+```
+
+默认情况下，如果你运行后启动的evelopment Server为`127.0.0.1:8000`，则提供的接口访问地址为`http://127.0.0.1:8000/api`，后台管理地址为`http://127.0.0.1:8000/xadmin`。
 
 ## License
 
