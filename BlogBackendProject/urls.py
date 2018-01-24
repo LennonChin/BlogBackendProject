@@ -29,7 +29,7 @@ from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListVie
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
-    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
+    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset, PostBaseInfoSearchSearchViewset
 
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
@@ -74,6 +74,9 @@ router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
 # 七牛云token
 router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 
+# 搜索
+router.register("search", PostBaseInfoSearchSearchViewset, base_name="search")
+
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^admin/', admin.site.urls),
@@ -85,5 +88,5 @@ urlpatterns = [
     # 文档
     url(r'docs/', include_docs_urls(title="文档", public=False)),
     # 搜索
-    url(r'^search/', SearchView(), name='haystack_search'),
+    # url(r'^search/', SearchView(), name='haystack_search'),
 ]

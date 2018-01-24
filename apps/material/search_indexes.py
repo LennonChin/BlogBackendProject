@@ -23,6 +23,14 @@ class PostBaseInfoIndex(indexes.SearchIndex, indexes.Indexable):
     desc = indexes.CharField()
     author = indexes.CharField()
 
+    autocomplete = indexes.EdgeNgramField()
+
+    @staticmethod
+    def prepare_autocomplete(obj):
+        return " ".join((
+            obj.title, obj.subtitle, obj.abstract, obj.desc, obj.author
+        ))
+
     def get_model(self):
         return PostBaseInfo
 

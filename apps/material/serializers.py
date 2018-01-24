@@ -6,13 +6,15 @@
 # @File    : serializers.py
 # @Software: PyCharm
 
-from datetime import datetime
-from rest_framework import serializers, status
-from rest_framework.response import Response
+from rest_framework import serializers
 from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, \
     MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 from user.serializers import GuestSerializer
+
+# 搜索
+from drf_haystack.serializers import HaystackSerializer, HighlighterMixin
+from .search_indexes import PostBaseInfoIndex
 
 
 class CategorySerializer3(serializers.ModelSerializer):
@@ -171,3 +173,14 @@ class MaterialMasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaterialMaster
         fields = "__all__"
+
+
+# 搜索相关
+class PostBaseInfoSearchSerializer(HaystackSerializer, HighlighterMixin):
+
+    highlighter_css_class = "keyword"
+    highlighter_html_tag = "em"
+
+    class Meta:
+        index_classes = [PostBaseInfoIndex, ]
+        fields = ['title', 'subtitle', 'abstract', 'desc', 'author']
