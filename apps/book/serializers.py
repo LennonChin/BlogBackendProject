@@ -22,18 +22,6 @@ class BookNoteDetialSerializer(serializers.ModelSerializer):
         fields = ('formatted_content',)
 
 
-class BookNoteDetialInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
-    tags = TagSerializer(many=True)
-    license = LicenseSerializer()
-    detail = BookNoteDetialSerializer()
-    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
-
-    class Meta:
-        model = BookNoteInfo
-        exclude = ('browse_password',)
-
-
 class BookNoteBaseInfoSerializer2(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
@@ -79,7 +67,8 @@ class BookDetailInfoSerializer(serializers.ModelSerializer):
         book_notes_json = []
         book_notes = BookNoteInfo.objects.filter(book_id=serializer.id, note_type=1)
         if book_notes:
-            book_notes_json = BookNoteBaseInfoSerializer(book_notes, many=True, context={'request': self.context['request']}).data
+            book_notes_json = BookNoteBaseInfoSerializer(book_notes, many=True,
+                                                         context={'request': self.context['request']}).data
         return book_notes_json
 
     class Meta:
@@ -94,5 +83,18 @@ class BookBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookInfo
         fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner',
-                  'browse_password_encrypt', 'front_image', 'add_time', "douban_id", 'isbn10', 'isbn13', 'book_name',
-                  'book_author', 'publisher', 'pages',)
+                  'browse_password_encrypt', 'front_image', 'add_time', 'douban_id', 'douban_type', 'isbn10', 'isbn13',
+                  'book_name', 'book_author', 'publisher', 'pages',)
+
+
+class BookNoteDetialInfoSerializer(serializers.ModelSerializer):
+    category = SingleLevelCategorySerializer()
+    tags = TagSerializer(many=True)
+    book = BookBaseInfoSerializer()
+    license = LicenseSerializer()
+    detail = BookNoteDetialSerializer()
+    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
+
+    class Meta:
+        model = BookNoteInfo
+        exclude = ('browse_password',)
