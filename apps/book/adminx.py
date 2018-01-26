@@ -11,7 +11,7 @@ import xadmin
 import markdown
 from django import forms
 
-from .models import BookInfo, BookDetail, BookChapter, BookSection, BookResource, BookNoteInfo, BookNoteDetail
+from .models import BookInfo, BookDetail, BookResource, BookNoteInfo, BookNoteDetail
 from material.models import PostTag
 from pagedown.widgets import AdminPagedownWidget
 
@@ -86,7 +86,8 @@ class BookNoteDetailAdmin(object):
 
 # 章节基本信息
 class BookNoteInfoAdmin(object):
-    list_display = ['title', "category", "tags", "front_image", "front_image_type"]
+    list_display = ['title', "category", "tags", 'is_reading', 'is_completed', 'is_noted', "front_image", "front_image_type"]
+    list_editable = ['is_reading', 'is_completed', 'is_noted']
     search_fields = ['title']
     exclude = ['post_type', 'browse_password_encrypt']
 
@@ -95,42 +96,6 @@ class BookNoteInfoAdmin(object):
         extra = 1
 
     inlines = [ArticleTagInline, BookNoteDetailAdmin]
-
-
-# 章信息
-class BookChapterAdmin(object):
-    list_display = ['title', "category", "tags", "front_image", "front_image_type"]
-    search_fields = ['title']
-    exclude = ['post_type', 'browse_password_encrypt']
-
-    class ArticleTagInline(object):
-        model = PostTag
-        extra = 1
-
-    inlines = [ArticleTagInline, BookNoteDetailAdmin]
-
-    def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "book_chapter"
-        self.new_obj.save()
-
-
-# 节信息
-class BookSectionAdmin(object):
-    list_display = ['title', "category", "tags", "front_image", "front_image_type"]
-    search_fields = ['title']
-    exclude = ['post_type', 'browse_password_encrypt']
-
-    class ArticleTagInline(object):
-        model = PostTag
-        extra = 1
-
-    inlines = [ArticleTagInline, BookNoteDetailAdmin]
-
-    def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "book_section"
-        self.new_obj.save()
 
 
 # 资源信息
@@ -141,6 +106,4 @@ class BookResourceAdmin(object):
 
 xadmin.site.register(BookInfo, BookInfoAdmin)
 xadmin.site.register(BookNoteInfo, BookNoteInfoAdmin)
-xadmin.site.register(BookChapter, BookChapterAdmin)
-xadmin.site.register(BookSection, BookSectionAdmin)
 xadmin.site.register(BookResource, BookResourceAdmin)

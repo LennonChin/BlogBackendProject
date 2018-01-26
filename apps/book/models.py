@@ -26,9 +26,6 @@ class BookInfo(PostBaseInfo):
     publisher = models.CharField(max_length=255, null=True, blank=True, verbose_name="出版社", help_text="出版社")
     pages = models.CharField(max_length=20, null=True, blank=True, verbose_name="总页数", help_text="总页数")
 
-    def get_book_chapter(self):
-        return self.bookchapter_set.all()
-
     class Meta:
         verbose_name = "图书"
         verbose_name_plural = verbose_name + '列表'
@@ -67,6 +64,18 @@ class BookNoteInfo(PostBaseInfo):
     """
     图书笔记基本信息
     """
+    NOTE_TYPE = (
+        ("1", "一级"),
+        ("2", "二级"),
+        ("3", "三级")
+    )
+    book = models.ForeignKey(BookInfo, null=True, blank=True, verbose_name=u"图书")
+    note_type = models.CharField(max_length=20, null=True, blank=True, choices=NOTE_TYPE, verbose_name="笔记级别", help_text="笔记级别")
+    parent_note = models.ForeignKey("self", null=True, blank=True, verbose_name="父笔记", help_text="父笔记",
+                                        related_name="sub_note")
+    is_reading = models.BooleanField(default=False, verbose_name="是否正在阅读", help_text="是否正在阅读")
+    is_completed = models.BooleanField(default=False, verbose_name="是否读完", help_text="是否读完")
+    is_noted = models.BooleanField(default=False, verbose_name="笔记是否完成", help_text="笔记是否完成")
 
     def __str__(self):
         return self.title
@@ -100,31 +109,6 @@ class BookNoteDetail(models.Model):
     class Meta:
         verbose_name = "图书笔记详情"
         verbose_name_plural = verbose_name + '列表'
-
-
-class BookChapter(BookNoteInfo):
-    book = models.ForeignKey(BookInfo, verbose_name=u"图书")
-
-    class Meta:
-        verbose_name = u"图书章次"
-        verbose_name_plural = verbose_name
-
-    def get_learn_video(self):
-        return self.video_set.all()
-
-    def __unicode__(self):
-        return self.title
-
-
-class BookSection(BookNoteInfo):
-    chapter = models.ForeignKey(BookChapter, verbose_name=u"章")
-
-    class Meta:
-        verbose_name = u"图书节次"
-        verbose_name_plural = verbose_name
-
-    def __unicode__(self):
-        return self.title
 
 
 class BookResource(models.Model):

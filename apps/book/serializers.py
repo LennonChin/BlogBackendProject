@@ -4,7 +4,7 @@ __date__ = '2017/12/2 12:56'
 
 from rest_framework import serializers
 
-from .models import BookInfo, BookDetail, BookChapter, BookSection, BookNoteInfo, BookNoteDetail
+from .models import BookInfo, BookDetail, BookNoteInfo, BookNoteDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer, LicenseSerializer
 
 
@@ -15,69 +15,54 @@ class BookDetailSerializer(serializers.ModelSerializer):
         fields = ('formatted_content',)
 
 
-# 节
-class BookSectonDetialSerializer(serializers.ModelSerializer):
+# 笔记
+class BookNoteDetialSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookNoteDetail
         fields = ('formatted_content',)
 
 
-class BookSectonDetialInfoSerializer(serializers.ModelSerializer):
+class BookNoteDetialInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
     license = LicenseSerializer()
-    detail = BookSectonDetialSerializer()
+    detail = BookNoteDetialSerializer()
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:
-        model = BookSection
+        model = BookNoteInfo
         exclude = ('browse_password',)
 
 
-class BookSectonBaseInfoSerializer(serializers.ModelSerializer):
+class BookNoteBaseInfoSerializer2(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
-
-    class Meta:
-        model = BookSection
-        exclude = ('browse_password',)
-
-
-# 章
-class BookChapterDetialSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BookNoteDetail
-        fields = ('formatted_content',)
-
-
-class BookChapterDetialInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
-    tags = TagSerializer(many=True)
-    license = LicenseSerializer()
-    detail = BookChapterDetialSerializer()
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:
-        model = BookChapter
+        model = BookNoteInfo
         exclude = ('browse_password',)
 
 
-class BookChapterBaseInfoSerializer(serializers.ModelSerializer):
+class BookNoteBaseInfoSerializer1(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
-    book_section = serializers.SerializerMethodField()
+    sub_note = BookNoteBaseInfoSerializer2(many=True)
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
-    def get_book_section(self, serializer):
-        book_sections_json = []
-        book_sections = BookSection.objects.filter(chapter_id=serializer.id)
-        if book_sections:
-            book_sections_json = BookSectonBaseInfoSerializer(book_sections, many=True,
-                                                              context={'request': self.context['request']}).data
-        return book_sections_json
+    class Meta:
+        model = BookNoteInfo
+        exclude = ('browse_password',)
+
+
+class BookNoteBaseInfoSerializer(serializers.ModelSerializer):
+    category = SingleLevelCategorySerializer()
+    tags = TagSerializer(many=True)
+    sub_note = BookNoteBaseInfoSerializer1(many=True)
+    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:
-        model = BookChapter
+        model = BookNoteInfo
         exclude = ('browse_password',)
 
 
@@ -87,16 +72,15 @@ class BookDetailInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     license = LicenseSerializer()
     detail = BookDetailSerializer()
-    book_chapter = serializers.SerializerMethodField()
+    book_note = serializers.SerializerMethodField()
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
-    def get_book_chapter(self, serializer):
-        book_chapters_json = []
-        book_chapters = BookChapter.objects.filter(book_id=serializer.id)
-        if book_chapters:
-            book_chapters_json = BookChapterBaseInfoSerializer(book_chapters, many=True,
-                                                               context={'request': self.context['request']}).data
-        return book_chapters_json
+    def get_book_note(self, serializer):
+        book_notes_json = []
+        book_notes = BookNoteInfo.objects.filter(book_id=serializer.id, note_type=1)
+        if book_notes:
+            book_notes_json = BookNoteBaseInfoSerializer(book_notes, many=True, context={'request': self.context['request']}).data
+        return book_notes_json
 
     class Meta:
         model = BookInfo
