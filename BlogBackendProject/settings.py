@@ -55,7 +55,8 @@ PERSONAL_APPS = [
     'album.apps.AlbumConfig',
     'article.apps.ArticleConfig',
     'user.apps.UserConfig',
-    'user_operation.apps.UserOperationConfig'
+    'user_operation.apps.UserOperationConfig',
+    'book.apps.BookConfig'
 ]
 
 EXTRA_APPS = [

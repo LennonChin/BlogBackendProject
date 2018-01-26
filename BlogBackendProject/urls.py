@@ -35,6 +35,8 @@ from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListView
 from user.apiview import EmailCodeViewset
 from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTokenViewset
 
+from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset
+
 router = DefaultRouter()
 
 # 素材相关
@@ -54,6 +56,10 @@ router.register(r'albumDetailInfos', AlbumDetailInfoListViewset, base_name="albu
 # 电影
 router.register(r'movieBaseInfos', MovieBaseInfoListViewset, base_name="movieBaseInfos")
 router.register(r'movieDetailInfos', MovieDetailInfoListViewset, base_name="movieDetailInfos")
+
+# 图书
+router.register(r'bookBaseInfos', BookBaseInfoListViewset, base_name='bookBaseInfos')
+router.register(r'bookDetailInfos', BookDetailInfoListViewset, base_name='bookDetailInfos')
 
 # 时光轴
 router.register(r'postBaseInfos', PostBaseInfoListViewset, base_name="postBaseInfos")

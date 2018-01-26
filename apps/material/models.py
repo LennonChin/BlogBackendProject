@@ -135,7 +135,10 @@ class PostBaseInfo(models.Model):
     POST_TYPE = (
         ("article", "文章"),
         ("album", "图集"),
-        ("movie", "电影")
+        ("movie", "电影"),
+        ("book", "图书"),
+        ("book_chapter", "图书章次"),
+        ("book_section", "图书节次")
     )
     FRONT_IMAGE_TYPE = (
         ("0", "无"),
@@ -149,7 +152,7 @@ class PostBaseInfo(models.Model):
     author = models.CharField(max_length=20, null=True, blank=True, verbose_name="作者", help_text="作者")
     category = models.ForeignKey(MaterialCategory, null=False, blank=False, verbose_name="类别", help_text="类别")
     tags = models.ManyToManyField(MaterialTag, through="PostTag", through_fields=('post', 'tag'))
-    post_type = models.CharField(max_length=10, choices=POST_TYPE, null=True, blank=True, verbose_name="POST类别",
+    post_type = models.CharField(max_length=20, choices=POST_TYPE, null=True, blank=True, verbose_name="POST类别",
                                  help_text="POST类别")
     click_num = models.IntegerField(default=0, verbose_name="点击数", help_text="点击数")
     like_num = models.IntegerField(default=0, verbose_name="点赞数", help_text="点赞数")
