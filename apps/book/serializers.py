@@ -8,13 +8,6 @@ from .models import BookInfo, BookDetail, BookNoteInfo, BookNoteDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer, LicenseSerializer
 
 
-# 图书详细信息
-class BookDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BookDetail
-        fields = ('formatted_content',)
-
-
 # 笔记
 class BookNoteDetialSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,6 +45,13 @@ class BookNoteBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookNoteInfo
         exclude = ('browse_password',)
+
+
+# 图书详细信息
+class BookDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookDetail
+        fields = ('formatted_content',)
 
 
 # 图书基本信息

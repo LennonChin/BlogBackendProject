@@ -1,4 +1,6 @@
 import markdown
+import requests
+import json
 from datetime import datetime
 from django.db import models
 
@@ -19,19 +21,25 @@ class BookInfo(PostBaseInfo):
     douban_type = models.CharField(max_length=255, choices=DOUBAN_TYPE, null=True, blank=True, verbose_name="豆瓣资源类型",
                                    help_text="豆瓣资源类型")
     douban_id = models.CharField(max_length=255, null=True, blank=True, verbose_name="豆瓣资源ID", help_text="豆瓣资源ID")
-    isbn10 = models.CharField(max_length=255, null=True, blank=True, verbose_name="isbn10", help_text="isbn10")
-    isbn13 = models.CharField(max_length=255, null=True, blank=True, verbose_name="isbn13", help_text="isbn13")
+    book_isbn10 = models.CharField(max_length=255, null=True, blank=True, verbose_name="isbn10", help_text="isbn10")
+    book_isbn13 = models.CharField(max_length=255, null=True, blank=True, verbose_name="isbn13", help_text="isbn13")
     book_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="书名", help_text="书名")
+    book_origin_name = models.CharField(max_length=100, null=True, blank=True, verbose_name="本书原始名", help_text="本书原始名")
+    book_image = models.URLField(null=True, blank=True, verbose_name="本书图片", help_text="本书图片")
     book_author = models.CharField(max_length=255, null=True, blank=True, verbose_name="本书作者", help_text="本书作者")
-    publisher = models.CharField(max_length=255, null=True, blank=True, verbose_name="出版社", help_text="出版社")
-    pages = models.CharField(max_length=20, null=True, blank=True, verbose_name="总页数", help_text="总页数")
+    book_tags = models.CharField(max_length=255, null=True, blank=True, verbose_name="本书标签", help_text="本书标签")
+    book_publisher = models.CharField(max_length=255, null=True, blank=True, verbose_name="出版社", help_text="出版社")
+    publish_date = models.CharField(max_length=30, null=True, blank=True, verbose_name="出版日期", help_text="出版日期")
+    book_pages = models.CharField(max_length=20, null=True, blank=True, verbose_name="总页数", help_text="总页数")
+    book_url = models.URLField(null=True, blank=True, verbose_name="本书豆瓣链接", help_text="本书豆瓣链接")
+    book_api = models.URLField(null=True, blank=True, verbose_name="本书API链接", help_text="本书API链接")
 
     class Meta:
         verbose_name = "图书"
         verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
-        return self.title
+        return self.book_name
 
 
 class BookDetail(models.Model):
@@ -40,6 +48,8 @@ class BookDetail(models.Model):
     """
     book_info = models.OneToOneField(BookInfo, null=True, blank=True, related_name='detail', verbose_name="内容",
                                      help_text="内容")
+    is_update_douban_info = models.BooleanField(default=False, verbose_name='是否更新', help_text='是否更新豆瓣信息')
+    douban_infos = models.TextField(null=True, blank=True, verbose_name='豆瓣信息', help_text='豆瓣信息')
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
 
@@ -50,6 +60,40 @@ class BookDetail(models.Model):
                                                        'markdown.extensions.codehilite',
                                                        'markdown.extensions.toc'
                                                    ])
+        # 豆瓣信息
+        if self.is_update_douban_info:
+            douban_infos = requests.get(
+                'https://api.douban.com/v2/{0}/{1}'.format(self.book_info.douban_type, self.book_info.douban_id))
+            douban_infos_dict = json.loads(douban_infos.text)
+            if douban_infos_dict:
+                if not self.book_info.book_isbn10:
+                    self.book_info.book_isbn10 = douban_infos_dict['isbn10']
+                if not self.book_info.book_isbn13:
+                    self.book_info.book_isbn13 = douban_infos_dict['isbn13']
+                if not self.book_info.book_name:
+                    self.book_info.book_name = douban_infos_dict['title']
+                if not self.book_info.book_origin_name:
+                    self.book_info.book_origin_name = douban_infos_dict['origin_title']
+                if not self.book_info.book_image:
+                    self.book_info.book_image = douban_infos_dict['image']
+                if not self.book_info.book_author:
+                    self.book_info.book_author = '，'.join(douban_infos_dict['author'])
+                if not self.book_info.book_tags:
+                    # self.book_info.book_tags = '，'.join(douban_infos_dict['tags'])
+                    pass
+                if not self.book_info.book_publisher:
+                    self.book_info.book_publisher = douban_infos_dict['publisher']
+                if not self.book_info.publish_date:
+                    self.book_info.publish_date = douban_infos_dict['pubdate']
+                if not self.book_info.book_pages:
+                    self.book_info.book_pages = douban_infos_dict['pages']
+                if not self.book_info.book_url:
+                    self.book_info.book_url = douban_infos_dict['alt']
+                if not self.book_info.book_api:
+                    self.book_info.book_api = douban_infos_dict['url']
+                self.book_info.save()
+            self.douban_infos = douban_infos.text
+        self.is_update_douban_info = False
         super(BookDetail, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -70,9 +114,10 @@ class BookNoteInfo(PostBaseInfo):
         ("3", "三级")
     )
     book = models.ForeignKey(BookInfo, null=True, blank=True, verbose_name=u"图书")
-    note_type = models.CharField(max_length=20, null=True, blank=True, choices=NOTE_TYPE, verbose_name="笔记级别", help_text="笔记级别")
+    note_type = models.CharField(max_length=20, null=True, blank=True, choices=NOTE_TYPE, verbose_name="笔记级别",
+                                 help_text="笔记级别")
     parent_note = models.ForeignKey("self", null=True, blank=True, verbose_name="父笔记", help_text="父笔记",
-                                        related_name="sub_note")
+                                    related_name="sub_note")
     is_reading = models.BooleanField(default=False, verbose_name="是否正在阅读", help_text="是否正在阅读")
     is_completed = models.BooleanField(default=False, verbose_name="是否读完", help_text="是否读完")
     is_noted = models.BooleanField(default=False, verbose_name="笔记是否完成", help_text="笔记是否完成")
