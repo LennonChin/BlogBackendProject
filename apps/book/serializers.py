@@ -8,11 +8,18 @@ from .models import BookInfo, BookDetail, BookNoteInfo, BookNoteDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer, LicenseSerializer
 
 
+# 图书详细信息
+class BookDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookDetail
+        fields = ('formatted_content', 'douban_infos')
+
+
 # 笔记
 class BookNoteDetialSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookNoteDetail
-        fields = ('formatted_content',)
+        fields = ('formatted_content', )
 
 
 class BookNoteBaseInfoSerializer2(serializers.ModelSerializer):
@@ -47,13 +54,6 @@ class BookNoteBaseInfoSerializer(serializers.ModelSerializer):
         exclude = ('browse_password',)
 
 
-# 图书详细信息
-class BookDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BookDetail
-        fields = ('formatted_content',)
-
-
 # 图书基本信息
 class BookDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
@@ -83,7 +83,7 @@ class BookBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookInfo
         fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner',
-                  'browse_password_encrypt', 'front_image', 'add_time', 'douban_id', 'douban_type', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages',)
+                  'browse_password_encrypt', 'front_image', 'add_time', 'douban_id', 'douban_type', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_tags')
 
 
 class BookNoteDetialInfoSerializer(serializers.ModelSerializer):

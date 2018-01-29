@@ -5,6 +5,7 @@ from datetime import datetime
 from django.db import models
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo
+from BlogBackendProject.settings import DOUBAN_API_URL
 
 
 # Create your models here.
@@ -28,6 +29,7 @@ class BookInfo(PostBaseInfo):
     book_image = models.URLField(null=True, blank=True, verbose_name="本书图片", help_text="本书图片")
     book_author = models.CharField(max_length=255, null=True, blank=True, verbose_name="本书作者", help_text="本书作者")
     book_tags = models.CharField(max_length=255, null=True, blank=True, verbose_name="本书标签", help_text="本书标签")
+    book_rating = models.CharField(max_length=10, null=True, blank=True, verbose_name="本书豆瓣评分", help_text="本书豆瓣评分")
     book_publisher = models.CharField(max_length=255, null=True, blank=True, verbose_name="出版社", help_text="出版社")
     publish_date = models.CharField(max_length=30, null=True, blank=True, verbose_name="出版日期", help_text="出版日期")
     book_pages = models.CharField(max_length=20, null=True, blank=True, verbose_name="总页数", help_text="总页数")
@@ -48,7 +50,7 @@ class BookDetail(models.Model):
     """
     book_info = models.OneToOneField(BookInfo, null=True, blank=True, related_name='detail', verbose_name="内容",
                                      help_text="内容")
-    is_update_douban_info = models.BooleanField(default=False, verbose_name='是否更新', help_text='是否更新豆瓣信息')
+    is_update_douban_info = models.BooleanField(default=False, verbose_name='是否更新', help_text='会自动更新所有未填写的豆瓣信息')
     douban_infos = models.TextField(null=True, blank=True, verbose_name='豆瓣信息', help_text='豆瓣信息')
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
@@ -63,7 +65,7 @@ class BookDetail(models.Model):
         # 豆瓣信息
         if self.is_update_douban_info:
             douban_infos = requests.get(
-                'https://api.douban.com/v2/{0}/{1}'.format(self.book_info.douban_type, self.book_info.douban_id))
+                '{0}/{1}/{2}'.format(DOUBAN_API_URL, self.book_info.douban_type, self.book_info.douban_id))
             douban_infos_dict = json.loads(douban_infos.text)
             if douban_infos_dict:
                 if not self.book_info.book_isbn10:
@@ -79,8 +81,9 @@ class BookDetail(models.Model):
                 if not self.book_info.book_author:
                     self.book_info.book_author = '，'.join(douban_infos_dict['author'])
                 if not self.book_info.book_tags:
-                    # self.book_info.book_tags = '，'.join(douban_infos_dict['tags'])
-                    pass
+                    self.book_info.book_tags = '，'.join(item['name'] for item in douban_infos_dict['tags'])
+                if not self.book_info.book_rating:
+                    self.book_info.book_rating = douban_infos_dict['rating']['average']
                 if not self.book_info.book_publisher:
                     self.book_info.book_publisher = douban_infos_dict['publisher']
                 if not self.book_info.publish_date:

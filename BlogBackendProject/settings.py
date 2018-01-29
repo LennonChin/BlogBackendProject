@@ -48,8 +48,8 @@ INSTALLED_APPS = [
 
 PERSONAL_APPS = [
     'haystack',
-    'index',
     'base.apps.BaseConfig',
+    'index',
     'material.apps.MaterialConfig',
     'movie.apps.MovieConfig',
     'album.apps.AlbumConfig',
@@ -209,3 +209,7 @@ EMAIL_FROM = EMAIL_CONFIG['EMAIL_FROM']
 # QINIU_SECURE_URL = False
 #
 # DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuMediaStorage'
+
+# Douban
+
+DOUBAN_API_URL = 'https://api.douban.com/v2'
