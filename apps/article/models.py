@@ -1,8 +1,8 @@
-
 from django.db import models
 import markdown
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo
+from utils import AbsoluteImageExtension
 
 
 # Create your models here.
@@ -25,17 +25,21 @@ class ArticleDetail(models.Model):
     """
     文章基本信息
     """
-    article_info = models.OneToOneField(ArticleInfo, null=True, blank=True, related_name='detail', verbose_name="内容", help_text="内容")
+    article_info = models.OneToOneField(ArticleInfo, null=True, blank=True, related_name='detail', verbose_name="内容",
+                                        help_text="内容")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,
-                                                           extensions=[
-                                                               'markdown.extensions.extra',
-                                                               'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc'
-                                                           ])
+                                                   extensions=[
+                                                       'markdown.extensions.extra',
+                                                       'markdown.extensions.codehilite',
+                                                       'markdown.extensions.toc',
+                                                       AbsoluteImageExtension({
+                                                           'base_url': ["https://material.coderap.com"],
+                                                       })
+                                                   ])
         super(ArticleDetail, self).save(*args, **kwargs)
 
     def __str__(self):
