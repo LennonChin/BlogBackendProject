@@ -2,17 +2,13 @@
 __author__ = 'LennonChin'
 __date__ = '2017/12/2 12:52'
 
-import hashlib
-
 from django_filters.rest_framework import DjangoFilterBackend
-
-from rest_framework import viewsets, filters, status
+from rest_framework import viewsets, filters, status, mixins
 from rest_framework.response import Response
 
 from .models import ArticleInfo
 from .serializers import ArticleBaseInfoSerializer, ArticleDetailInfoSerializer
 from .filters import ArticleFilter
-
 from base.utils import CustomeLimitOffsetPagination
 
 
@@ -41,7 +37,7 @@ class ArticleBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class ArticleDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
+class ArticleDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     List:
         文章列表页

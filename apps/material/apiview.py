@@ -7,17 +7,15 @@
 # @Software: PyCharm
 
 from django_filters.rest_framework import DjangoFilterBackend
-
 from rest_framework import mixins, viewsets, filters
+# 搜索相关
+from drf_haystack.viewsets import HaystackViewSet
 
 from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo, MaterialCommentInfo
 from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, \
     MaterialPostBaseInfoSerializer, CommentDetailInfoSerializer, CreateCommentSerializer, PostBaseInfoSearchSerializer
 from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter, CommentFilter
 from base.utils import CustomeLimitOffsetPagination, CustomePageNumberPagination
-
-# 搜索相关
-from drf_haystack.viewsets import HaystackViewSet
 
 
 class CategoryListViewset(viewsets.ReadOnlyModelViewSet):

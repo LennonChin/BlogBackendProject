@@ -3,14 +3,12 @@ __author__ = 'LennonChin'
 __date__ = '2017/12/2 12:52'
 
 from django_filters.rest_framework import DjangoFilterBackend
-
-from rest_framework import status, viewsets, filters
+from rest_framework import status, viewsets, filters, mixins
 from rest_framework.response import Response
 
 from .models import MovieInfo
 from .serializers import MovieBaseInfoSerializer, MovieDetailInfoSerializer
 from .filters import MovieFilter
-
 from base.utils import CustomeLimitOffsetPagination
 
 
@@ -39,7 +37,7 @@ class MovieBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class MovieDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
+class MovieDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     List:
         文章列表页
