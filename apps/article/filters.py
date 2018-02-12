@@ -27,4 +27,4 @@ class ArticleFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = ArticleInfo
-        fields = ['time_min', 'time_max', 'is_hot', 'is_recommend']
+        fields = ['time_min', 'time_max', 'is_hot', 'is_recommend', 'is_banner']

@@ -48,7 +48,7 @@ class ArticleDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericVi
     # 过滤，搜索，排序
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
-    ordering_fields = ('click_num', 'like_num', 'comment_num')
+    ordering_fields = ('click_num', 'like_num', 'comment_num', 'add_time')
 
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination

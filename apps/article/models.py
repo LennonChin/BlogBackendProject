@@ -35,10 +35,7 @@ class ArticleDetail(models.Model):
                                                    extensions=[
                                                        'markdown.extensions.extra',
                                                        'markdown.extensions.codehilite',
-                                                       'markdown.extensions.toc',
-                                                       AbsoluteImageExtension({
-                                                           'base_url': ["https://material.coderap.com"],
-                                                       })
+                                                       'markdown.extensions.toc'
                                                    ])
         super(ArticleDetail, self).save(*args, **kwargs)
 
