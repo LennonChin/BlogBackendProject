@@ -115,17 +115,6 @@ class QiniuTokenViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
         elif 'REMOTE_ADDR' in request.META:
             ip = request.META['REMOTE_ADDR']
 
-        # ten_second_age = datetime.now() - timedelta(hours=0, minutes=0, seconds=10)
-        # token_records = QiniuTokenRecord.objects.filter(ip=ip)
-        # if len(token_records):
-        #     token_record = token_records[0]
-        #     if token_record.add_time < ten_second_age:
-        #         # 验证码过期
-        #         context = {
-        #             "error": '请求太频繁'
-        #         }
-        #         return Response(context, status=status.HTTP_429_TOO_MANY_REQUESTS)
-
         # 生成Token返回
         object_name = generate_qiniu_random_filename(64)
         object_name, token, base_url, expire_time = generate_qiniu_token(object_name, use_type)

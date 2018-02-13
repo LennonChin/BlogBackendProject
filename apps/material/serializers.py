@@ -11,10 +11,7 @@ from material.models import MaterialCategory, MaterialTag, MaterialLicense, Post
     MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 from user.serializers import GuestSerializer
-
-# 搜索
-from drf_haystack.serializers import HaystackSerializer, HighlighterMixin
-from .search_indexes import PostBaseInfoIndex
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 class CategorySerializer3(serializers.ModelSerializer):
@@ -147,6 +144,10 @@ class CreateCommentSerializer(serializers.ModelSerializer):
 
 class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
+    front_image = serializers.SerializerMethodField()
+
+    def get_front_image(self, article):
+        return "{0}{1}".format(MEDIA_URL_PREFIX, article.front_image)
 
     class Meta:
         model = PostBaseInfo
@@ -174,13 +175,3 @@ class MaterialMasterSerializer(serializers.ModelSerializer):
         model = MaterialMaster
         fields = "__all__"
 
-
-# 搜索相关
-class PostBaseInfoSearchSerializer(HaystackSerializer, HighlighterMixin):
-
-    highlighter_css_class = "keyword"
-    highlighter_html_tag = "em"
-
-    class Meta:
-        index_classes = [PostBaseInfoIndex, ]
-        fields = ['title', 'subtitle', 'abstract', 'desc', 'author']

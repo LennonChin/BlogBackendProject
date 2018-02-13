@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from .models import AlbumInfo, AlbumPhoto
 from material.serializers import SingleLevelCategorySerializer, TagSerializer, PictureSerializer
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 class AlbumDetailSerializer(serializers.ModelSerializer):
@@ -26,6 +27,11 @@ class AlbumDetailInfoSerializer(serializers.ModelSerializer):
 
 
 class AlbumBaseInfoSerializer(serializers.ModelSerializer):
+    front_image = serializers.SerializerMethodField()
+
+    def get_front_image(self, article):
+        return "{0}{1}".format(MEDIA_URL_PREFIX, article.front_image)
+
     class Meta:
         model = AlbumInfo
         fields = ('id', 'title', 'desc', 'author', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',

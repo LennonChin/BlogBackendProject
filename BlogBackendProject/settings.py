@@ -14,7 +14,7 @@ import os
 import sys
 
 from .private import DATABASE_CONFIG, EMAIL_CONFIG, PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, \
-    PRIVATE_QINIU_BUCKET_DOMAIN, PRIVATE_QINIU_BUCKET_NAME
+    PRIVATE_QINIU_BUCKET_DOMAIN, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_MEDIA_URL_PREFIX
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 ]
 
 PERSONAL_APPS = [
-    'haystack',
     'base.apps.BaseConfig',
     'index',
     'material.apps.MaterialConfig',
@@ -179,18 +178,8 @@ REST_FRAMEWORK = {
         'anon': '100000/day',
         'user': '100000/day'
     },
-    'UPLOADED_FILES_USE_URL': True
+    'UPLOADED_FILES_USE_URL': False
 }
-
-# haystack全文搜索配置
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'BlogBackendProject.whoosh_cn_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
-    },
-}
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # email setting
 EMAIL_HOST = EMAIL_CONFIG['EMAIL_HOST']
@@ -200,16 +189,16 @@ EMAIL_HOST_PASSWORD = EMAIL_CONFIG['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = EMAIL_CONFIG['EMAIL_USE_TLS']
 EMAIL_FROM = EMAIL_CONFIG['EMAIL_FROM']
 
-# QINIU
+# Qiniu存储
+QINIU_ACCESS_KEY = PRIVATE_QINIU_ACCESS_KEY
+QINIU_SECRET_KEY = PRIVATE_QINIU_SECRET_KEY
+QINIU_BUCKET_NAME = PRIVATE_QINIU_BUCKET_NAME
+QINIU_BUCKET_DOMAIN = PRIVATE_QINIU_BUCKET_DOMAIN
+QINIU_SECURE_URL = False
 
-# QINIU_ACCESS_KEY = PRIVATE_QINIU_ACCESS_KEY
-# QINIU_SECRET_KEY = PRIVATE_QINIU_SECRET_KEY
-# QINIU_BUCKET_NAME = PRIVATE_QINIU_BUCKET_NAME['post']
-# QINIU_BUCKET_DOMAIN = PRIVATE_QINIU_BUCKET_DOMAIN
-# QINIU_SECURE_URL = False
-#
-# DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuMediaStorage'
+DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuMediaStorage'
 
-# Douban
+MEDIA_URL_PREFIX = PRIVATE_MEDIA_URL_PREFIX
 
+# Douban Api
 DOUBAN_API_URL = 'https://api.douban.com/v2'

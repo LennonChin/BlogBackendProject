@@ -6,7 +6,8 @@ from rest_framework import serializers
 
 from article.models import ArticleInfo, ArticleDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer, LicenseSerializer
-from BlogBackendProject.private import PRIVATE_MEDIA_URL_PREFIX
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
+
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,10 +29,10 @@ class ArticleDetailInfoSerializer(serializers.ModelSerializer):
 
 class ArticleBaseInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
-    # front_image = serializers.SerializerMethodField()
-    #
-    # def get_front_image(self, article):
-    #     return "{0}{1}".format(PRIVATE_MEDIA_URL_PREFIX, article.front_image)
+    front_image = serializers.SerializerMethodField()
+
+    def get_front_image(self, article):
+        return "{0}{1}".format(MEDIA_URL_PREFIX, article.front_image)
 
     class Meta:
         model = ArticleInfo

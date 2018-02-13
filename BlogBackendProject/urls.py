@@ -13,12 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import xadmin
+
 from django.conf.urls import url, include
 from django.contrib import admin
-from BlogBackendProject.settings import MEDIA_ROOT
 from django.views.static import serve
-import xadmin
-from haystack.views import SearchView
+from django.views.generic import TemplateView
 
 # Django Rest Framework
 from rest_framework.documentation import include_docs_urls
@@ -28,14 +28,14 @@ from rest_framework.authtoken import views
 from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
+from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset, BookNoteDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
-    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset, PostBaseInfoSearchSearchViewset
-
+    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
 from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTokenViewset
 
-from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset, BookNoteDetailInfoListViewset
+from BlogBackendProject.settings import MEDIA_ROOT
 
 router = DefaultRouter()
 
@@ -83,12 +83,8 @@ router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
 # 七牛云token
 router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 
-# 搜索
-router.register("search", PostBaseInfoSearchSearchViewset, base_name="search")
-
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
-    url(r'^admin/', admin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     # drf自带认证模式
     url(r'^api-token-auth/', views.obtain_auth_token),
@@ -96,6 +92,6 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # 文档
     url(r'docs/', include_docs_urls(title="文档", public=False)),
-    # 搜索
-    # url(r'^search/', SearchView(), name='haystack_search'),
+    # 前端页面入口
+    url(r'^.*$', TemplateView.as_view(template_name="index.html"))
 ]

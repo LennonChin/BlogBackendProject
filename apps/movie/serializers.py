@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from movie.models import MovieInfo, MovieDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 class MovieDetailSerializer(serializers.ModelSerializer):
@@ -27,6 +28,10 @@ class MovieDetailInfoSerializer(serializers.ModelSerializer):
 
 class MovieBaseInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
+    front_image = serializers.SerializerMethodField()
+
+    def get_front_image(self, article):
+        return "{0}{1}".format(MEDIA_URL_PREFIX, article.front_image)
 
     class Meta:
         model = MovieInfo

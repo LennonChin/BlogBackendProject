@@ -93,11 +93,7 @@ def generate_qiniu_token(object_name, use_type, expire_time=600):
     :param expire_time: token过期时间，默认为600秒，即十分钟
     :return: 
     """
-    bucket_name = PRIVATE_QINIU_BUCKET_NAME['comment']
-    if use_type in PRIVATE_QINIU_BUCKET_NAME:
-        bucket_name = PRIVATE_QINIU_BUCKET_NAME[use_type]
-    else:
-        bucket_name = PRIVATE_QINIU_BUCKET_NAME['comment']
+    bucket_name = PRIVATE_QINIU_BUCKET_NAME
     from qiniu import Auth
     # 需要填写你的 Access Key 和 Secret Key
     access_key = PRIVATE_QINIU_ACCESS_KEY

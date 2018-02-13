@@ -8,12 +8,10 @@
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins, viewsets, filters
-# 搜索相关
-from drf_haystack.viewsets import HaystackViewSet
 
 from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo, MaterialCommentInfo
 from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, \
-    MaterialPostBaseInfoSerializer, CommentDetailInfoSerializer, CreateCommentSerializer, PostBaseInfoSearchSerializer
+    MaterialPostBaseInfoSerializer, CommentDetailInfoSerializer, CreateCommentSerializer
 from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter, CommentFilter
 from base.utils import CustomeLimitOffsetPagination, CustomePageNumberPagination
 
@@ -108,11 +106,3 @@ class CommentDetailListViewset(mixins.ListModelMixin, mixins.CreateModelMixin, v
         elif self.action == "create":
             return CreateCommentSerializer
         return CommentDetailInfoSerializer
-
-
-# 搜索相关
-class PostBaseInfoSearchSearchViewset(HaystackViewSet):
-    serializer_class = PostBaseInfoSearchSerializer
-
-    class Meta:
-        index_models = [PostBaseInfo, ]

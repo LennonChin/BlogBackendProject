@@ -52,7 +52,7 @@ class EmailCodeViewset(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.
             ten_minutes_ago = datetime.now() - timedelta(hours=0, minutes=10, seconds=0)
             code_record = EmailVerifyRecord.objects.filter(email=email, code=code)[0]
             if code_record:
-                if code_record.send_time > ten_minutes_ago:
+                if code_record.send_time.replace(tzinfo=None) > ten_minutes_ago:
                     # 验证码过期
                     context = {
                         "error": '验证码已过期，请重试'
