@@ -98,6 +98,12 @@ class BookNoteInfoAdmin(object):
     inlines = [ArticleTagInline, BookNoteDetailAdmin]
 
 
+    def save_models(self):
+        # 手动设置类型
+        self.new_obj.post_type = "book/note"
+        self.new_obj.save()
+
+
 # 资源信息
 class BookResourceAdmin(object):
     list_display = ['book', 'name', "download", "add_time"]
