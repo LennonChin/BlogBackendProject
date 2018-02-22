@@ -2,7 +2,8 @@ from django.db import models
 import markdown
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo
-from utils import AbsoluteImageExtension
+from utils.RelativeImageExtension import RelativeImageExtension
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 # Create your models here.
@@ -35,7 +36,12 @@ class ArticleDetail(models.Model):
                                                    extensions=[
                                                        'markdown.extensions.extra',
                                                        'markdown.extensions.codehilite',
-                                                       'markdown.extensions.toc'
+                                                       'markdown.extensions.toc',
+                                                       RelativeImageExtension({
+                                                           'base_urls': [
+                                                               MEDIA_URL_PREFIX
+                                                           ]
+                                                       })
                                                    ])
         super(ArticleDetail, self).save(*args, **kwargs)
 

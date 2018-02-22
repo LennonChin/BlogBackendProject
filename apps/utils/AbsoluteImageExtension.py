@@ -15,14 +15,14 @@ from markdown import Extension
 from markdown.treeprocessors import Treeprocessor
 
 
-class AbsoluteImagesExtension(Extension):
+class AbsoluteImageExtension(Extension):
     """ Absolute Images Extension """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, configs, *args, **kwargs):
         """Initialize."""
 
         self.config = copy.deepcopy(configs)
-        super(AbsoluteImagesExtension, self).__init__(*args, **kwargs)
+        super(AbsoluteImageExtension, self).__init__(*args, **kwargs)
 
     def extendMarkdown(self, md, md_globals):
         absolute_images = AbsoluteImagesTreeprocessor(md)
@@ -52,7 +52,7 @@ class AbsoluteImagesTreeprocessor(Treeprocessor):
 
 def makeExtension(configs={}):
     """ Return an instance of the AbsoluteImagesExtension """
-    return AbsoluteImagesExtension(configs=configs)
+    return AbsoluteImageExtension(configs=configs)
 
 
 if __name__ == '__main__':
@@ -67,7 +67,7 @@ if __name__ == '__main__':
         'base_url': ["https://material.coderap.com"],
     }
 
-    absoluteImagesExtension = AbsoluteImagesExtension(configs)
+    absoluteImagesExtension = AbsoluteImageExtension(configs)
     md = markdown.markdown(text, extensions=['markdown.extensions.extra',
                                              'markdown.extensions.codehilite',
                                              'markdown.extensions.toc',

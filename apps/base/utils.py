@@ -56,9 +56,10 @@ def send_email(receive_name, email, send_type="comment"):
         random_str = generate_code(4)
 
     if send_type == "comment":
-        email_title = "评论-激活邮箱"
+        email_title = "Diomedes博客评论-验证邮箱，验证码：{0}".format(random_str)
         email_content = "您的验证码是：{0}".format(random_str)
         email_body = loader.render_to_string('emailMessage.html', {
+            'base_url': 'https://blog.coderap.com',
             'receive_name': receive_name,
             'email_context': email_content
         })

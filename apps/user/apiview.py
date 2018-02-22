@@ -49,7 +49,7 @@ class EmailCodeViewset(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.
             }
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
         else:
-            ten_minutes_ago = datetime.now() - timedelta(hours=0, minutes=10, seconds=0)
+            ten_minutes_ago = datetime.now() - timedelta(hours=0, minutes=30, seconds=0)
             code_record = EmailVerifyRecord.objects.filter(email=email, code=code)[0]
             if code_record:
                 if code_record.send_time.replace(tzinfo=None) > ten_minutes_ago:

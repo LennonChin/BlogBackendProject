@@ -5,6 +5,8 @@ from datetime import datetime
 import markdown
 
 from user.models import GuestProfile
+from utils.RelativeImageExtension import RelativeImageExtension
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 # Create your models here.
@@ -115,7 +117,6 @@ class MaterialPicture(models.Model):
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
     image = models.ImageField(upload_to="material/picture/image/%Y/%m", null=True, blank=True, verbose_name="图片",
                               help_text="图片")
-    # thumb = models.ImageField(upload_to="picture/image/thumb/%Y/%m", blank=True, null=True, blank=True, verbose_name="缩略图", help_text="缩略图")
     camera = models.ForeignKey(MaterialCamera, null=True, blank=True, verbose_name="拍摄相机", help_text="拍摄相机")
     link = models.URLField(null=True, blank=True, verbose_name="链接", help_text="链接")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
@@ -167,7 +168,8 @@ class PostBaseInfo(models.Model):
     is_banner = models.BooleanField(default=False, verbose_name="是否是Banner", help_text="是否是Banner")
     is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
     browse_password = models.CharField(max_length=20, null=True, blank=True, verbose_name="浏览密码", help_text="浏览密码")
-    browse_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密", help_text="浏览密码加密")
+    browse_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密",
+                                               help_text="浏览密码加密")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
 
     def save(self, *args, **kwargs):
@@ -191,7 +193,8 @@ class MaterialCommentInfo(models.Model):
     """
     post = models.ForeignKey(PostBaseInfo, null=False, blank=False, verbose_name='所属文章')
     author = models.ForeignKey(GuestProfile, null=True, blank=True, related_name="comments", verbose_name='作者')
-    reply_to_author = models.ForeignKey(GuestProfile, null=True, blank=True, related_name="be_comments", verbose_name='被回复人')
+    reply_to_author = models.ForeignKey(GuestProfile, null=True, blank=True, related_name="be_comments",
+                                        verbose_name='被回复人')
     comment_level = models.IntegerField(default=0, verbose_name="评论级别", help_text="评论级别")
     parent_comment = models.ForeignKey("self", null=True, blank=True, related_name="sub_comment", verbose_name="根评论",
                                        help_text="根评论")
@@ -223,14 +226,20 @@ class MaterialCommentDetail(models.Model):
                                         help_text="基本信息")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(null=True, blank=True, verbose_name="处理后内容", help_text="处理后内容")
-    update_time = models.DateTimeField(default=datetime.now, null=True, blank=True, verbose_name="修改时间", help_text="修改时间")
+    update_time = models.DateTimeField(default=datetime.now, null=True, blank=True, verbose_name="修改时间",
+                                       help_text="修改时间")
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,
                                                    extensions=[
                                                        'markdown.extensions.extra',
                                                        'markdown.extensions.codehilite',
-                                                       'markdown.extensions.toc'
+                                                       'markdown.extensions.toc',
+                                                       RelativeImageExtension({
+                                                           'base_urls': [
+                                                               MEDIA_URL_PREFIX
+                                                           ]
+                                                       })
                                                    ])
         super(MaterialCommentDetail, self).save(*args, **kwargs)
 

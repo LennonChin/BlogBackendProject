@@ -37,7 +37,7 @@ class EmailSerializer(serializers.Serializer):
         # 验证发送频率
         ten_minutes_ago = datetime.now() - timedelta(hours=0, minutes=0, seconds=30)
         if EmailVerifyRecord.objects.filter(send_time__gt=ten_minutes_ago, email=email):
-            raise serializers.ValidationError("距离上一次发送未超过10分钟")
+            raise serializers.ValidationError("请求发送过于频繁，请间隔30秒后重试")
 
         return email
 

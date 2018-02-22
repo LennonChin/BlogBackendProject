@@ -5,7 +5,8 @@ from datetime import datetime
 from django.db import models
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo
-from BlogBackendProject.settings import DOUBAN_API_URL
+from BlogBackendProject.settings import DOUBAN_API_URL, MEDIA_URL_PREFIX
+from utils.RelativeImageExtension import RelativeImageExtension
 
 
 # Create your models here.
@@ -60,7 +61,12 @@ class BookDetail(models.Model):
                                                    extensions=[
                                                        'markdown.extensions.extra',
                                                        'markdown.extensions.codehilite',
-                                                       'markdown.extensions.toc'
+                                                       'markdown.extensions.toc',
+                                                       RelativeImageExtension({
+                                                           'base_urls': [
+                                                               MEDIA_URL_PREFIX
+                                                           ]
+                                                       })
                                                    ])
         # 豆瓣信息
         if self.is_update_douban_info:
@@ -147,7 +153,12 @@ class BookNoteDetail(models.Model):
                                                    extensions=[
                                                        'markdown.extensions.extra',
                                                        'markdown.extensions.codehilite',
-                                                       'markdown.extensions.toc'
+                                                       'markdown.extensions.toc',
+                                                       RelativeImageExtension({
+                                                           'base_urls': [
+                                                               MEDIA_URL_PREFIX
+                                                           ]
+                                                       })
                                                    ])
         super(BookNoteDetail, self).save(*args, **kwargs)
 

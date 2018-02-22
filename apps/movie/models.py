@@ -2,6 +2,9 @@ import markdown
 from django.db import models
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo
+from utils.RelativeImageExtension import RelativeImageExtension
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
+
 
 # Create your models here.
 
@@ -28,17 +31,23 @@ class MovieDetail(models.Model):
     """
     电影详细信息
     """
-    movie_info = models.OneToOneField(MovieInfo, null=True, blank=True, related_name='detail', verbose_name="内容", help_text="内容")
+    movie_info = models.OneToOneField(MovieInfo, null=True, blank=True, related_name='detail', verbose_name="内容",
+                                      help_text="内容")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,
-                                                           extensions=[
-                                                               'markdown.extensions.extra',
-                                                               'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc'
-                                                           ])
+                                                   extensions=[
+                                                       'markdown.extensions.extra',
+                                                       'markdown.extensions.codehilite',
+                                                       'markdown.extensions.toc',
+                                                       RelativeImageExtension({
+                                                           'base_urls': [
+                                                               MEDIA_URL_PREFIX
+                                                           ]
+                                                       })
+                                                   ])
         super(MovieDetail, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -47,4 +56,3 @@ class MovieDetail(models.Model):
     class Meta:
         verbose_name = "电影详情"
         verbose_name_plural = verbose_name + '列表'
-
