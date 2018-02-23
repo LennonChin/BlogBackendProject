@@ -20,6 +20,7 @@ class BookInfo(PostBaseInfo):
     douban_type = models.CharField(max_length=255, choices=DOUBAN_TYPE, null=True, blank=True, verbose_name="豆瓣资源类型",
                                    help_text="豆瓣资源类型")
     douban_id = models.CharField(max_length=255, null=True, blank=True, verbose_name="豆瓣资源ID", help_text="豆瓣资源ID")
+    douban_infos = models.TextField(null=True, blank=True, verbose_name='豆瓣信息', help_text='豆瓣信息')
     book_isbn10 = models.CharField(max_length=255, null=True, blank=True, verbose_name="isbn10", help_text="isbn10")
     book_isbn13 = models.CharField(max_length=255, null=True, blank=True, verbose_name="isbn13", help_text="isbn13")
     book_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="书名", help_text="书名")
@@ -33,12 +34,47 @@ class BookInfo(PostBaseInfo):
     book_pages = models.CharField(max_length=20, null=True, blank=True, verbose_name="总页数", help_text="总页数")
     book_url = models.URLField(null=True, blank=True, verbose_name="本书豆瓣链接", help_text="本书豆瓣链接")
     book_api = models.URLField(null=True, blank=True, verbose_name="本书API链接", help_text="本书API链接")
+    is_update_douban_info = models.BooleanField(default=False, verbose_name='是否更新', help_text='会自动更新所有未填写的豆瓣信息')
 
     def __str__(self):
         return self.book_name
 
     def save(self, *args, **kwargs):
         self.post_type = 'book'
+        # 豆瓣信息
+        if self.is_update_douban_info:
+            douban_infos = requests.get(
+                '{0}/{1}/{2}'.format(DOUBAN_API_URL, self.douban_type, self.douban_id))
+            douban_infos_dict = json.loads(douban_infos.text)
+            if douban_infos_dict:
+                if not self.book_isbn10:
+                    self.book_isbn10 = douban_infos_dict['isbn10']
+                if not self.book_isbn13:
+                    self.book_isbn13 = douban_infos_dict['isbn13']
+                if not self.book_name:
+                    self.book_name = douban_infos_dict['title']
+                if not self.book_origin_name:
+                    self.book_origin_name = douban_infos_dict['origin_title']
+                if not self.book_image:
+                    self.book_image = douban_infos_dict['image']
+                if not self.book_author:
+                    self.book_author = '，'.join(douban_infos_dict['author'])
+                if not self.book_tags:
+                    self.book_tags = '，'.join(item['name'] for item in douban_infos_dict['tags'])
+                if not self.book_rating:
+                    self.book_rating = douban_infos_dict['rating']['average']
+                if not self.book_publisher:
+                    self.book_publisher = douban_infos_dict['publisher']
+                if not self.publish_date:
+                    self.publish_date = douban_infos_dict['pubdate']
+                if not self.book_pages:
+                    self.book_pages = douban_infos_dict['pages']
+                if not self.book_url:
+                    self.book_url = douban_infos_dict['alt']
+                if not self.book_api:
+                    self.book_api = douban_infos_dict['url']
+                self.douban_infos = douban_infos.text
+            self.is_update_douban_info = False
         super(BookInfo, self).save(*args, **kwargs)
 
     class Meta:
@@ -52,8 +88,6 @@ class BookDetail(models.Model):
     """
     book_info = models.ForeignKey(BookInfo, null=True, blank=True, related_name='details', verbose_name="内容",
                                      help_text="内容")
-    is_update_douban_info = models.BooleanField(default=False, verbose_name='是否更新', help_text='会自动更新所有未填写的豆瓣信息')
-    douban_infos = models.TextField(null=True, blank=True, verbose_name='豆瓣信息', help_text='豆瓣信息')
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
@@ -72,41 +106,7 @@ class BookDetail(models.Model):
                                                            ]
                                                        })
                                                    ])
-        # 豆瓣信息
-        if self.is_update_douban_info:
-            douban_infos = requests.get(
-                '{0}/{1}/{2}'.format(DOUBAN_API_URL, self.book_info.douban_type, self.book_info.douban_id))
-            douban_infos_dict = json.loads(douban_infos.text)
-            if douban_infos_dict:
-                if not self.book_info.book_isbn10:
-                    self.book_info.book_isbn10 = douban_infos_dict['isbn10']
-                if not self.book_info.book_isbn13:
-                    self.book_info.book_isbn13 = douban_infos_dict['isbn13']
-                if not self.book_info.book_name:
-                    self.book_info.book_name = douban_infos_dict['title']
-                if not self.book_info.book_origin_name:
-                    self.book_info.book_origin_name = douban_infos_dict['origin_title']
-                if not self.book_info.book_image:
-                    self.book_info.book_image = douban_infos_dict['image']
-                if not self.book_info.book_author:
-                    self.book_info.book_author = '，'.join(douban_infos_dict['author'])
-                if not self.book_info.book_tags:
-                    self.book_info.book_tags = '，'.join(item['name'] for item in douban_infos_dict['tags'])
-                if not self.book_info.book_rating:
-                    self.book_info.book_rating = douban_infos_dict['rating']['average']
-                if not self.book_info.book_publisher:
-                    self.book_info.book_publisher = douban_infos_dict['publisher']
-                if not self.book_info.publish_date:
-                    self.book_info.publish_date = douban_infos_dict['pubdate']
-                if not self.book_info.book_pages:
-                    self.book_info.book_pages = douban_infos_dict['pages']
-                if not self.book_info.book_url:
-                    self.book_info.book_url = douban_infos_dict['alt']
-                if not self.book_info.book_api:
-                    self.book_info.book_api = douban_infos_dict['url']
-                self.book_info.save()
-            self.douban_infos = douban_infos.text
-        self.is_update_douban_info = False
+
         super(BookDetail, self).save(*args, **kwargs)
 
     def __str__(self):

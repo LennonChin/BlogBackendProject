@@ -12,7 +12,7 @@ from material.serializers import SingleLevelCategorySerializer, TagSerializer, L
 class BookDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookDetail
-        fields = ('formatted_content', 'douban_infos', 'add_time', 'update_time')
+        fields = ('formatted_content', 'add_time', 'update_time')
 
 
 # 笔记
@@ -83,7 +83,7 @@ class BookBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookInfo
         fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner',
-                  'browse_password_encrypt', 'front_image', 'add_time', 'douban_id', 'douban_type', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_tags')
+                  'browse_password_encrypt', 'front_image', 'add_time', 'douban_id', 'douban_type', 'douban_infos', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_rating', 'book_tags')
 
 
 class BookNoteDetialInfoSerializer(serializers.ModelSerializer):
