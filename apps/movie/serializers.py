@@ -31,7 +31,7 @@ class MovieBaseInfoSerializer(serializers.ModelSerializer):
     front_image = serializers.SerializerMethodField()
 
     def get_front_image(self, article):
-        return "{0}{1}".format(MEDIA_URL_PREFIX, article.front_image)
+        return "{0}/{1}".format(MEDIA_URL_PREFIX, article.front_image)
 
     class Meta:
         model = MovieInfo

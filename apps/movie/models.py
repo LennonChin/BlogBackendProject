@@ -6,9 +6,6 @@ from utils.RelativeImageExtension import RelativeImageExtension
 from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
-# Create your models here.
-
-
 class MovieInfo(PostBaseInfo):
     """
     电影基本信息
@@ -25,6 +22,11 @@ class MovieInfo(PostBaseInfo):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        # 手动设置类型
+        self.post_type = 'movie'
+        super(MovieInfo, self).save(*args, **kwargs)
 
 
 class MovieDetail(models.Model):

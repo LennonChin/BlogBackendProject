@@ -41,10 +41,5 @@ class ArticleInfoAdmin(object):
 
     inlines = [ArticleTagInline, ArticleDetailAdmin]
 
-    def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "article"
-        self.new_obj.save()
-
 
 xadmin.site.register(ArticleInfo, ArticleInfoAdmin)

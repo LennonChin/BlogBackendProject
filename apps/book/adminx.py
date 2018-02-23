@@ -53,11 +53,6 @@ class BookInfoAdmin(object):
 
     inlines = [ArticleTagInline, BookDetailAdmin]
 
-    def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "book"
-        self.new_obj.save()
-
 
 # 章节信息的model form
 class BookNoteDetailForm(forms.ModelForm):
@@ -96,12 +91,6 @@ class BookNoteInfoAdmin(object):
         extra = 1
 
     inlines = [ArticleTagInline, BookNoteDetailAdmin]
-
-
-    def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "book/note"
-        self.new_obj.save()
 
 
 # 资源信息

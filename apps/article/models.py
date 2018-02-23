@@ -6,13 +6,14 @@ from utils.RelativeImageExtension import RelativeImageExtension
 from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
-# Create your models here.
-
-
 class ArticleInfo(PostBaseInfo):
     """
     文章基本信息
     """
+
+    def save(self, *args, **kwargs):
+        self.post_type = 'article'
+        super(ArticleInfo, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

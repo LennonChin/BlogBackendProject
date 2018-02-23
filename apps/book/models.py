@@ -9,9 +9,6 @@ from BlogBackendProject.settings import DOUBAN_API_URL, MEDIA_URL_PREFIX
 from utils.RelativeImageExtension import RelativeImageExtension
 
 
-# Create your models here.
-
-
 class BookInfo(PostBaseInfo):
     """
     图书基本信息
@@ -37,12 +34,16 @@ class BookInfo(PostBaseInfo):
     book_url = models.URLField(null=True, blank=True, verbose_name="本书豆瓣链接", help_text="本书豆瓣链接")
     book_api = models.URLField(null=True, blank=True, verbose_name="本书API链接", help_text="本书API链接")
 
+    def __str__(self):
+        return self.book_name
+
+    def save(self, *args, **kwargs):
+        self.post_type = 'book'
+        super(BookInfo, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = "图书"
         verbose_name_plural = verbose_name + '列表'
-
-    def __str__(self):
-        return self.book_name
 
 
 class BookDetail(models.Model):
@@ -134,6 +135,11 @@ class BookNoteInfo(PostBaseInfo):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        # 手动设置类型
+        self.post_type = 'book/note'
+        super(BookNoteInfo, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = "图书笔记"
         verbose_name_plural = verbose_name + '列表'
@@ -174,7 +180,7 @@ class BookResource(models.Model):
     book = models.ForeignKey(BookInfo, verbose_name=u"图书")
     name = models.CharField(max_length=100, verbose_name=u"名称")
     download = models.FileField(max_length=100, upload_to="book/resource/%Y/%m", verbose_name=u"资源文件")
-    add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, verbose_name=u"添加时间")
 
     class Meta:
         verbose_name = u"图书资源"

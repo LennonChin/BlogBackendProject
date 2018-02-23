@@ -5,9 +5,6 @@ from datetime import datetime
 from material.models import MaterialCategory, MaterialTag, MaterialPicture, PostBaseInfo
 
 
-# Create your models here.
-
-
 class AlbumInfo(PostBaseInfo):
     """
     图集基本信息
@@ -15,12 +12,16 @@ class AlbumInfo(PostBaseInfo):
     pictures = models.ManyToManyField(MaterialPicture, through="AlbumPhoto", through_fields=('album', 'picture'),
                                       verbose_name="图片", help_text="图片")
 
-    class Meta:
-        verbose_name = "图集"
-        verbose_name_plural = verbose_name + '列表'
+    def save(self, *args, **kwargs):
+        self.post_type = 'album'
+        super(AlbumInfo, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "图集"
+        verbose_name_plural = verbose_name + '列表'
 
 
 class AlbumPhoto(models.Model):
@@ -29,7 +30,7 @@ class AlbumPhoto(models.Model):
     """
     album = models.ForeignKey(AlbumInfo, null=False, blank=False, verbose_name="图集", help_text="图集")
     picture = models.ForeignKey(MaterialPicture, null=False, blank=False, verbose_name="图片", help_text="图片")
-    add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "图集图片"

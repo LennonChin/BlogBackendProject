@@ -17,11 +17,6 @@ class AlbumInfoAdmin(object):
     search_fields = ('title', 'subtitle', 'abstract', 'desc', 'category')
     exclude = ('post_type', 'browse_password_encrypt')
 
-    def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = 'album'
-        self.new_obj.save()
-
     class AlbumTagInline(object):
         model = PostTag
         style = 'tab'

@@ -51,10 +51,5 @@ class MovieInfoAdmin(object):
 
     inlines = [ArticleTagInline, MovieDetailAdmin]
 
-    def save_models(self):
-        # 手动设置类型
-        self.new_obj.post_type = "movie"
-        self.new_obj.save()
-
 
 xadmin.site.register(MovieInfo, MovieInfoAdmin)
