@@ -51,7 +51,7 @@ class MaterialTag(models.Model):
     subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签别名", help_text="标签别名")
     category = models.ForeignKey(MaterialCategory, null=True, blank=True, verbose_name="类别", help_text="类别")
     color = models.CharField(max_length=20, default="blue", choices=COLOR_TYPE, verbose_name="颜色", help_text="颜色")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "标签"
@@ -77,7 +77,7 @@ class MaterialLicense(models.Model):
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
     link = models.URLField(null=True, blank=True, verbose_name="版权参考链接", help_text="版权参考链接")
     color = models.CharField(max_length=20, default="blue", choices=COLOR_TYPE, verbose_name="颜色", help_text="颜色")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "授权"
@@ -94,7 +94,7 @@ class MaterialCamera(models.Model):
     device = models.CharField(max_length=30, verbose_name="设备", help_text="设备")
     version = models.CharField(max_length=200, verbose_name="版本", help_text="版本")
     environment = models.CharField(max_length=200, verbose_name="环境", help_text="环境")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "相机型号"
@@ -116,7 +116,7 @@ class MaterialPicture(models.Model):
                               help_text="图片")
     camera = models.ForeignKey(MaterialCamera, null=True, blank=True, verbose_name="拍摄相机", help_text="拍摄相机")
     link = models.URLField(null=True, blank=True, verbose_name="链接", help_text="链接")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "图片"
@@ -166,7 +166,7 @@ class PostBaseInfo(models.Model):
     browse_password = models.CharField(max_length=20, null=True, blank=True, verbose_name="浏览密码", help_text="浏览密码")
     browse_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密",
                                                help_text="浏览密码加密")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     def save(self, *args, **kwargs):
         if self.browse_password:
@@ -202,8 +202,7 @@ class MaterialCommentInfo(models.Model):
     is_hot = models.BooleanField(default=False, verbose_name="是否热门", help_text="是否热门")
     is_recommend = models.BooleanField(default=False, verbose_name="是否推荐", help_text="是否推荐")
     is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
-    # 考虑使用auto_now_add替换生成方式
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "评论基本信息"
@@ -253,7 +252,7 @@ class PostTag(models.Model):
     """
     post = models.ForeignKey(PostBaseInfo, null=False, blank=False, verbose_name="文章", help_text="文章")
     tag = models.ForeignKey(MaterialTag, null=False, blank=False, verbose_name="标签", help_text="标签")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "标签"
@@ -274,7 +273,7 @@ class MaterialBanner(models.Model):
     category = models.ForeignKey(MaterialCategory, default='1', null=False, blank=False, verbose_name="类别",
                                  help_text="类别")
     index = models.IntegerField(default=0, verbose_name="顺序", help_text="顺序")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "轮播图"
@@ -293,7 +292,7 @@ class MaterialSocial(models.Model):
     image = models.ImageField(upload_to="material/social/image/%y/%m", null=True, blank=True, verbose_name="图片",
                               help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "社交平台"
@@ -313,7 +312,7 @@ class MaterialMaster(models.Model):
                               help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
     experience = models.FloatField(default=0, verbose_name="熟练度", help_text="熟练度")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
         verbose_name = "技能"

@@ -29,6 +29,7 @@ class BookDetailAdmin(object):
     form = BookDetailForm
     exclude = ['formatted_content']
     model = BookDetail
+    extra = 1
 
     def save_models(self):
         # 转换Markdown为格式化的HTML
@@ -67,6 +68,7 @@ class BookNoteDetailAdmin(object):
     form = BookDetailForm
     exclude = ['formatted_content']
     model = BookNoteDetail
+    extra = 1
 
     def save_models(self):
         # 转换Markdown为格式化的HTML

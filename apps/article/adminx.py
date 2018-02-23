@@ -27,7 +27,7 @@ class ArticleDetailAdmin(object):
     form = ArticleDetailForm
     exclude = ['formatted_content']
     model = ArticleDetail
-    max_num = 1
+    extra = 1
 
 
 class ArticleInfoAdmin(object):

@@ -25,12 +25,15 @@ class ArticleInfo(PostBaseInfo):
 
 class ArticleDetail(models.Model):
     """
-    文章基本信息
+    文章详细信息
     """
-    article_info = models.OneToOneField(ArticleInfo, null=True, blank=True, related_name='detail', verbose_name="内容",
+    article_info = models.ForeignKey(ArticleInfo, null=True, blank=True, related_name='details', verbose_name="内容",
                                         help_text="内容")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
+    update_time = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="修改时间",
+                                       help_text="修改时间")
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,

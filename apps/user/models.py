@@ -17,7 +17,7 @@ class UserProfile(AbstractUser):
     email = models.CharField(max_length=100, null=True, blank=True, verbose_name="邮箱", help_text="邮箱")
     avatar = models.ImageField(upload_to="user/avatar/image/%Y/%m", null=True, blank=True, verbose_name="头像",
                                help_text="头像")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     def __str__(self):
         return self.username
@@ -37,7 +37,7 @@ class GuestProfile(models.Model):
     email = models.CharField(max_length=100, null=True, blank=True, verbose_name="邮箱", help_text="邮箱")
     avatar = models.ImageField(upload_to="user/avatar/image/%Y/%m", default='user/avatar/image/guest.png', null=True,
                                blank=True, verbose_name="头像", help_text="头像")
-    add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     def __str__(self):
         return self.nick_name

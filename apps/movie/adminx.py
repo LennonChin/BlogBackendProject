@@ -28,6 +28,7 @@ class MovieDetailAdmin(object):
     form = MovieDetailForm
     exclude = ['formatted_content']
     model = MovieDetail
+    extra = 1
 
     def save_models(self):
         # 转换Markdown为格式化的HTML

@@ -12,13 +12,13 @@ from BlogBackendProject.settings import MEDIA_URL_PREFIX
 class MovieDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = MovieDetail
-        fields = ('formatted_content',)
+        fields = ('formatted_content', 'add_time', 'update_time')
 
 
 class MovieDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
-    detail = MovieDetailSerializer()
+    details = MovieDetailSerializer(many=True)
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:

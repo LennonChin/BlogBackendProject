@@ -12,14 +12,14 @@ from BlogBackendProject.settings import MEDIA_URL_PREFIX
 class ArticleDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleDetail
-        fields = ('formatted_content',)
+        fields = ('formatted_content', 'add_time', 'update_time')
 
 
 class ArticleDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
     license = LicenseSerializer()
-    detail = ArticleDetailSerializer()
+    details = ArticleDetailSerializer(many=True)
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:

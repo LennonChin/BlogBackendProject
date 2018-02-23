@@ -1,13 +1,13 @@
 {% load staticfiles %}
 
-<div id="editormd">
-    <textarea name="detail-0-origin_content" style="display:none;">{{ body }}</textarea>
+<div id="{{ id }}">
+    <textarea name="{{ name }}" style="display:none;">{{ body }}</textarea>
 </div>
 
 <script type="application/javascript" src="{% static 'vendor/editormd/js/editormd.js' %}"></script>
 <script type="text/javascript">
     $(function () {
-        var editor = editormd("editormd", {
+        var editor = editormd("{{ id }}", {
             width: "100%",
             height: 500,
             // theme : "dark",

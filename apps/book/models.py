@@ -50,12 +50,15 @@ class BookDetail(models.Model):
     """
     图书详细信息
     """
-    book_info = models.OneToOneField(BookInfo, null=True, blank=True, related_name='detail', verbose_name="内容",
+    book_info = models.ForeignKey(BookInfo, null=True, blank=True, related_name='details', verbose_name="内容",
                                      help_text="内容")
     is_update_douban_info = models.BooleanField(default=False, verbose_name='是否更新', help_text='会自动更新所有未填写的豆瓣信息')
     douban_infos = models.TextField(null=True, blank=True, verbose_name='豆瓣信息', help_text='豆瓣信息')
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
+    update_time = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="修改时间",
+                                       help_text="修改时间")
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,
@@ -147,12 +150,15 @@ class BookNoteInfo(PostBaseInfo):
 
 class BookNoteDetail(models.Model):
     """
-    图书笔记基本信息
+    图书笔记详细信息
     """
-    book_note_info = models.OneToOneField(BookNoteInfo, null=True, blank=True, related_name='detail', verbose_name="内容",
+    book_note_info = models.ForeignKey(BookNoteInfo, null=True, blank=True, related_name='details', verbose_name="内容",
                                           help_text="内容")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
+    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
+    update_time = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="修改时间",
+                                       help_text="修改时间")
 
     def save(self, *args, **kwargs):
         self.formatted_content = markdown.markdown(self.origin_content,

@@ -15,7 +15,7 @@ class QiniuTokenRecord(models.Model):
     use_type = models.CharField(max_length=15, choices=CODE_TYPE, verbose_name="使用类型", help_text="使用类型")
     add_time = models.DateTimeField(auto_now_add=True, verbose_name="发送时间", help_text="发送时间")
 
-    def __unicode__(self):
+    def __str__(self):
         return '{0} [{1}]'.format(self.ip, self.token)
 
     class Meta:
