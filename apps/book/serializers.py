@@ -43,9 +43,20 @@ class BookNoteBaseInfoSerializer1(serializers.ModelSerializer):
         exclude = ('browse_password',)
 
 
+class BookBaseInfoSerializer(serializers.ModelSerializer):
+    category = SingleLevelCategorySerializer()
+    tags = TagSerializer(many=True)
+
+    class Meta:
+        model = BookInfo
+        fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner',
+                  'browse_password_encrypt', 'front_image', 'add_time', 'douban_id', 'douban_type', 'douban_infos', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_rating', 'book_tags')
+
+
 class BookNoteBaseInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
+    book = BookBaseInfoSerializer()
     sub_note = BookNoteBaseInfoSerializer1(many=True)
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
@@ -74,16 +85,6 @@ class BookDetailInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookInfo
         exclude = ('browse_password',)
-
-
-class BookBaseInfoSerializer(serializers.ModelSerializer):
-    category = SingleLevelCategorySerializer()
-    tags = TagSerializer(many=True)
-
-    class Meta:
-        model = BookInfo
-        fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner',
-                  'browse_password_encrypt', 'front_image', 'add_time', 'douban_id', 'douban_type', 'douban_infos', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_rating', 'book_tags')
 
 
 class BookNoteDetialInfoSerializer(serializers.ModelSerializer):

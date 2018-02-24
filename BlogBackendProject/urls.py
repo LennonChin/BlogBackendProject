@@ -28,7 +28,7 @@ from rest_framework.authtoken import views
 from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
-from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset, BookNoteDetailInfoListViewset
+from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset, BookNoteBaseInfoListViewset, BookNoteDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
     MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
@@ -62,6 +62,7 @@ router.register(r'bookBaseInfos', BookBaseInfoListViewset, base_name='bookBaseIn
 router.register(r'bookDetailInfos', BookDetailInfoListViewset, base_name='bookDetailInfos')
 
 # 图书笔记
+router.register(r'bookNoteBaseInfos', BookNoteBaseInfoListViewset, base_name='bookNoteBaseInfos')
 router.register(r'bookNoteDetailInfos', BookNoteDetailInfoListViewset, base_name='bookNoteDetailInfos')
 
 # 时光轴
