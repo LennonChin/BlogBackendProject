@@ -13,17 +13,31 @@ class MaterialCategory(models.Model):
     """
     素材类别
     """
-    CATEGORY_TYPE = (
+    CATEGORY_LEVEL = (
         ("1", "一级类目"),
         ("2", "二级类目"),
         ("3", "三级类目")
     )
+    CATEGORY_TYPE = (
+        ("articles", "文章总分类"),
+        ("articles/category", "文章分类"),
+        ("albums", "图集总分类"),
+        ("albums/category", "图集分类"),
+        ("movies", "电影总分类"),
+        ("movies/category", "电影分类"),
+        ("readings", "阅读总分类"),
+        ("readings/category", "阅读分类"),
+        ("books", "书籍总分类"),
+        ("books/category", "书籍分类"),
+        ("book/notes", "阅读笔记总分类"),
+        ("book/notes/category", "阅读笔记分类"),
+    )
     name = models.CharField(max_length=30, default="", verbose_name="类别名", help_text="类别名")
     subname = models.CharField(max_length=30, default="", verbose_name="别名", help_text="别名")
-    code = models.CharField(max_length=30, default="", verbose_name="code", help_text="code")
+    category_type = models.CharField(max_length=30, choices=CATEGORY_TYPE, verbose_name="路由编码", help_text="用于配置路由跳转")
     desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
     image = models.ImageField(upload_to="material/category/image/%Y/%m", null=True, blank=True, help_text="图片")
-    category_type = models.CharField(max_length=20, choices=CATEGORY_TYPE, verbose_name="类目级别", help_text="类目级别")
+    category_level = models.CharField(max_length=20, choices=CATEGORY_LEVEL, verbose_name="类目级别", help_text="类目级别")
     parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="父类目级别", help_text="父目录",
                                         related_name="sub_category")
     is_tab = models.BooleanField(default=False, verbose_name="是否导航", help_text="是否导航")

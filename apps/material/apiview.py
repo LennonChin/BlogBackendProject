@@ -27,8 +27,8 @@ class CategoryListViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = CategorySerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CategoryFilter
-    search_fields = ('name', 'code', 'desc')
-    ordering_fields = ('category_type', 'is_tab')
+    search_fields = ('name', 'category_type', 'desc')
+    ordering_fields = ('category_level', 'is_tab')
     ordering = ('id',)
 
 
@@ -43,8 +43,8 @@ class SingleLevelCategoryListViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = SingleLevelCategorySerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CategoryFilter
-    search_fields = ('name', 'code', 'desc')
-    ordering_fields = ('category_type', 'is_tab')
+    search_fields = ('name', 'category_type', 'desc')
+    ordering_fields = ('category_level', 'is_tab')
     ordering = ('id',)
 
 

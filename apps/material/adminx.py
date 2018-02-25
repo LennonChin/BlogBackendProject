@@ -15,7 +15,7 @@ from .models import MaterialCategory, MaterialTag, MaterialLicense, MaterialPict
 
 
 class MaterialCategoryAdmin(object):
-    list_display = ['name', 'code', "desc", "category_type", "parent_category", "is_tab", "add_time"]
+    list_display = ['name', "desc", "category_type", 'category_level', "parent_category", "is_tab", "add_time"]
     list_editable = ["is_tab", ]
     search_fields = ['name', ]
 
