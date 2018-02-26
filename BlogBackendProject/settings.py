@@ -91,8 +91,7 @@ ROOT_URLCONF = 'BlogBackendProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,9 +150,12 @@ MEDIA_ROOT = ''
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
+# 部署时收集静态文件需要的目录配置
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 测试环境
 # MEDIA_URL = '/media/'

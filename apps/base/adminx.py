@@ -22,8 +22,10 @@ class GlobalSettings(object):
 
 
 class SiteInfoAdmin(object):
-    list_display = ['name', 'name_en', "desc", "copyright", "icp"]
-    search_fields = ['name', 'name_en', 'is_live']
+    list_display = ['name', 'name_en', 'is_live', 'is_force_refresh', "desc", "copyright", "icp"]
+    list_editable = ["is_force_refresh", '']
+    search_fields = ['name', 'name_en']
+    exclude = ['browse_password_encrypt']
 
     class NavigationLinkInline(object):
         model = SiteInfoNavigation

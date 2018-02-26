@@ -37,6 +37,8 @@ from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTok
 
 from BlogBackendProject.settings import MEDIA_ROOT
 
+from index.views import IndexView
+
 router = DefaultRouter()
 
 # 素材相关
@@ -94,5 +96,5 @@ urlpatterns = [
     # 文档
     url(r'docs/', include_docs_urls(title="文档", public=False)),
     # 前端页面入口
-    url(r'^.*$', TemplateView.as_view(template_name="index.html"))
+    url(r'^.*$', IndexView.as_view(), name="index")
 ]

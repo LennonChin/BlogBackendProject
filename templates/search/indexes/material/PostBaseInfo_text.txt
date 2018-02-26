@@ -1,6 +1,0 @@
-{{ object.text }}
-{{ object.title }}
-{{ object.subtitle }}
-{{ object.abstract }}
-{{ object.desc }}
-{{ object.author }}

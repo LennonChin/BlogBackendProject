@@ -1,4 +1,4 @@
-from datetime import datetime
+import hashlib
 
 from django.db import models
 
@@ -33,14 +33,25 @@ class SiteInfo(models.Model):
     copyright = models.CharField(default="", max_length=100, verbose_name="版权", help_text="版权")
     icp = models.CharField(default="", max_length=20, verbose_name="ICP", help_text="ICP")
     is_live = models.BooleanField(default=False, verbose_name="是否激活", help_text="是否激活")
+    is_force_refresh = models.BooleanField(default=False, verbose_name="是否强制刷新", help_text="是否强制刷新")
+    access_password = models.CharField(max_length=20, null=True, blank=True, verbose_name="访问密码", help_text="浏览密码")
+    access_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密",
+                                               help_text="访问密码加密")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if self.access_password:
+            md5 = hashlib.md5()
+            md5.update(self.access_password.encode('utf8'))
+            self.access_password_encrypt = md5.hexdigest()
+        super(SiteInfo, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "网站信息"
         verbose_name_plural = verbose_name + '列表'
-
-    def __str__(self):
-        return self.name
 
 
 class BloggerInfo(models.Model):

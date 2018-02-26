@@ -1,8 +1,7 @@
 import hashlib
-from django.db import models
-
-from datetime import datetime
 import markdown
+
+from django.db import models
 
 from user.models import GuestProfile
 from utils.RelativeImageExtension import RelativeImageExtension

@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from .models import SiteInfo, BloggerInfo, NavigationLink, FriendLink
 from material.serializers import MaterialMasterSerializer, MaterialSocialSerializer
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 class NavigationLinkSerializer(serializers.ModelSerializer):
@@ -17,10 +18,14 @@ class NavigationLinkSerializer(serializers.ModelSerializer):
 
 class SiteInfoSerializer(serializers.ModelSerializer):
     navigations = NavigationLinkSerializer(many=True)
+    icon = serializers.SerializerMethodField()
+
+    def get_icon(self, site_info):
+        return "{0}/{1}".format(MEDIA_URL_PREFIX, site_info.icon)
 
     class Meta:
         model = SiteInfo
-        fields = "__all__"
+        fields = ('name', 'name_en', 'desc', 'icon', 'navigations', 'copyright', 'icp')
 
 
 class BloggerInfoSerializer(serializers.ModelSerializer):
