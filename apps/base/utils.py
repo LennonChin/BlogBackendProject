@@ -63,6 +63,7 @@ def send_email(receive_name, email, send_type="comment"):
             'receive_name': receive_name,
             'email_context': email_content
         })
+
         message = EmailMessage(email_title, email_body, EMAIL_FROM, [email])
         message.content_subtype = "html"  # Main content is now text/html
         send_status = message.send()

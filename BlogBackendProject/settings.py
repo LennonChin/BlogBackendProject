@@ -29,7 +29,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = '#vam9e79q3!tq8pje@19!3z8c#seafwogk)%i8)e$83nmftgfg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -188,11 +188,12 @@ REST_FRAMEWORK = {
 }
 
 # email setting
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = EMAIL_CONFIG['EMAIL_HOST']
 EMAIL_PORT = EMAIL_CONFIG['EMAIL_PORT']
 EMAIL_HOST_USER = EMAIL_CONFIG['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = EMAIL_CONFIG['EMAIL_HOST_PASSWORD']
-EMAIL_USE_TLS = EMAIL_CONFIG['EMAIL_USE_TLS']
+EMAIL_USE_SSL = EMAIL_CONFIG['EMAIL_USE_SSL']
 EMAIL_FROM = EMAIL_CONFIG['EMAIL_FROM']
 
 # Qiniu存储

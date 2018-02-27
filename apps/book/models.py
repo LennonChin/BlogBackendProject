@@ -17,6 +17,8 @@ class BookInfo(PostBaseInfo):
         ("book", "图书"),
         ("movie", "电影")
     )
+    is_reading = models.BooleanField(default=False, verbose_name='是否正在阅读', help_text='是否正在阅读')
+    read_precentage = models.FloatField(default=0.0, null=True, blank=True, verbose_name='阅读进度', help_text='阅读进度')
     douban_type = models.CharField(max_length=255, choices=DOUBAN_TYPE, null=True, blank=True, verbose_name="豆瓣资源类型",
                                    help_text="豆瓣资源类型")
     douban_id = models.CharField(max_length=255, null=True, blank=True, verbose_name="豆瓣资源ID", help_text="豆瓣资源ID")
@@ -126,7 +128,7 @@ class BookNoteInfo(PostBaseInfo):
         ("2", "二级"),
         ("3", "三级")
     )
-    book = models.ForeignKey(BookInfo, null=True, blank=True, verbose_name=u"图书")
+    book = models.ForeignKey(BookInfo, null=True, blank=True, verbose_name='图书', help_text="图书")
     note_type = models.CharField(max_length=20, null=True, blank=True, choices=NOTE_TYPE, verbose_name="笔记级别",
                                  help_text="笔记级别")
     parent_note = models.ForeignKey("self", null=True, blank=True, verbose_name="父笔记", help_text="父笔记",
