@@ -167,14 +167,14 @@ MEDIA_ROOT = ''
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication', # 会引起前台Ajax出现跨域无法访问的问题
         # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
+        'utils.CustomAuthentication.AnonymousBrowseAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer'
     ),
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.AnonRateThrottle',

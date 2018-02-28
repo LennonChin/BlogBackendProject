@@ -75,7 +75,7 @@ def send_email(receive_name, email, send_type="comment"):
             email_record.email = email
             email_record.send_type = send_type
             email_record.save()
-            return int(send_status)
+        return int(send_status)
 
 
 def generate_qiniu_random_filename(length):
