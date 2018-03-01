@@ -14,7 +14,7 @@ import os
 import sys
 
 from .private import DATABASE_CONFIG, EMAIL_CONFIG, PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, \
-    PRIVATE_QINIU_BUCKET_DOMAIN, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_MEDIA_URL_PREFIX
+    PRIVATE_QINIU_BUCKET_DOMAIN, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_MEDIA_URL_PREFIX, PRIVATE_SITE_BASE_URL
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -99,6 +99,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',  # 用于在模板中使用{{MEDIA_URL}}
             ],
         },
     },
@@ -144,37 +145,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_URL = ''
-MEDIA_ROOT = ''
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
-
-# 部署时收集静态文件需要的目录配置
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# 测试环境
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# 线上环境，从七牛云读取
-MEDIA_URL = ''
-MEDIA_ROOT = ''
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication', # 会引起前台Ajax出现跨域无法访问的问题
         # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
+        'utils.CustomAuthentication.AnonymousBrowseAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer'
     ),
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.AnonRateThrottle',
@@ -205,7 +185,30 @@ QINIU_SECURE_URL = False
 
 DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuMediaStorage'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
+# 部署时收集静态文件需要的目录配置
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# 测试环境
+# MEDIA_URL = ''
+# MEDIA_ROOT = ''
+
+# 线上环境，从七牛云读取
+MEDIA_URL = 'https://material.coderap.com/'
+MEDIA_ROOT = ''
+
+
+# 站点Media资源前缀网址
 MEDIA_URL_PREFIX = PRIVATE_MEDIA_URL_PREFIX
+
+# 站点网址
+SITE_BASE_URL = PRIVATE_SITE_BASE_URL
 
 # Douban Api
 DOUBAN_API_URL = 'https://api.douban.com/v2'

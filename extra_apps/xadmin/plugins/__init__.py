@@ -2,7 +2,7 @@
 PLUGINS = (
     'actions', 
     'filters', 
-    # 'bookmark',
+    'bookmark', 
     'export', 
     'layout', 
     'refresh',
@@ -20,7 +20,7 @@ PLUGINS = (
     'images', 
     'auth', 
     'multiselect', 
-    # 'themes',
+    'themes', 
     'aggregation', 
     'mobile', 
     'passwords',
@@ -28,7 +28,7 @@ PLUGINS = (
     'language', 
     'quickfilter',
     'sortablelist',
-    'ueditor'
+	'importexport'
 )
 
 

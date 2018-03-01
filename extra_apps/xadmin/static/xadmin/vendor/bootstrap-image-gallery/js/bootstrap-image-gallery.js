@@ -18,7 +18,7 @@
         // Register as an anonymous AMD module:
         define([
             'jquery',
-            'load-images',
+            'load-image',
             'bootstrap'
         ], factory);
     } else {
@@ -40,23 +40,23 @@
         // Selector for gallery links:
         selector: null,
         // The filter for the selected gallery links (e.g. set to ":odd" to
-        // filter out label and thumbnail linking twice to the same images):
+        // filter out label and thumbnail linking twice to the same image):
         filter: '*',
-        // The index of the first gallery images to show:
+        // The index of the first gallery image to show:
         index: 0,
-        // The href of the first gallery images to show (overrides index):
+        // The href of the first gallery image to show (overrides index):
         href: null,
         // The range of images around the current one to preload:
         preloadRange: 2,
-        // Offset of images width to viewport width:
+        // Offset of image width to viewport width:
         offsetWidth: 100,
-        // Offset of images height to viewport height:
+        // Offset of image height to viewport height:
         offsetHeight: 230,
         // Set to true to display images as canvas elements:
         canvas: false,
-        // Shows the next images after the given time in ms (0 = disabled):
+        // Shows the next image after the given time in ms (0 = disabled):
         slideshow: 0,
-        // Defines the images division for previous/next clicks:
+        // Defines the image division for previous/next clicks:
         imageClickDivision: 0.5
     });
     var originalShow = $.fn.modal.Constructor.prototype.show,
@@ -131,11 +131,11 @@
             this.stopSlideShow();
             modal.trigger('beforeLoad');
             // The timeout prevents displaying a loading status,
-            // if the images has already been loaded:
+            // if the image has already been loaded:
             this._loadingTimeout = window.setTimeout(function () {
                 modal.addClass('modal-loading');
             }, 100);
-            oldImg = modal.find('.modal-images').children('img').removeClass('in');
+            oldImg = modal.find('.modal-image').children('img').removeClass('in');
             // The timeout allows transition effects to finish:
             window.setTimeout(function () {
                 oldImg.remove();
@@ -163,7 +163,7 @@
             var modal = this.$element,
                 transition = $.support.transition && modal.hasClass('fade'),
                 method = transition ? modal.animate : modal.css,
-                modalImage = modal.find('.modal-images'),
+                modalImage = modal.find('.modal-image'),
                 clone,
                 forceReflow;
             modalImage.css({
@@ -271,7 +271,7 @@
         initGalleryEvents: function () {
             var $this = this,
                 modal = this.$element;
-            modal.find('.modal-images').on('click.modal-gallery', function (e) {
+            modal.find('.modal-image').on('click.modal-gallery', function (e) {
                 var modalImage = $(this);
                 if ($this.$links.length === 1) {
                     $this.hide();
@@ -308,7 +308,7 @@
             var modal = this.$element;
             this.abortLoad();
             this.stopSlideShow();
-            modal.find('.modal-images, .modal-prev, .modal-next, .modal-slideshow')
+            modal.find('.modal-image, .modal-prev, .modal-next, .modal-slideshow')
                 .off('click.modal-gallery');
             $(document)
                 .off('keydown.modal-gallery')

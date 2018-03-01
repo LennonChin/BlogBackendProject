@@ -7,6 +7,11 @@
     <script>
         window.__access_auth__ = '{{ site_infos.access_password_encrypt }}';
         window.__force_refresh__ = '{{ site_infos.is_force_refresh }}' === 'True';
+        window.__category_info__ = {
+            article: 1,
+            reading: 2,
+            album: 3
+        };
     </script>
     <link href=/static/css/app.9eb7f5a8ab9efef021f786ea8d7a562c.css rel=stylesheet>
 </head>
