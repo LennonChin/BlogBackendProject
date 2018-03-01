@@ -203,7 +203,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = 'https://material.coderap.com/'
 MEDIA_ROOT = ''
 
-
 # 站点Media资源前缀网址
 MEDIA_URL_PREFIX = PRIVATE_MEDIA_URL_PREFIX
 

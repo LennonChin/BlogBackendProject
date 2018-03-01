@@ -5764,7 +5764,7 @@ a.list-group-item.active:focus .list-group-item-text {
 
 .panel-group .panel {
   margin-bottom: 0;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 4px;
 }
 

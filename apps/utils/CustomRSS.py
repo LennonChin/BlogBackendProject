@@ -6,7 +6,6 @@
 # @File    : CustomRSS.py
 # @Software: PyCharm
 
-
 from django.contrib.syndication.views import Feed
 from material.models import PostBaseInfo
 

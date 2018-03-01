@@ -88,7 +88,6 @@ router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
 router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 
 urlpatterns = [
-    # url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     url(r'^rss/$', LatestEntriesFeed()),
