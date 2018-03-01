@@ -76,14 +76,14 @@ vendors = {
                     'xadmin/vendor/flot/jquery.flot.resize.js','xadmin/vendor/flot/jquery.flot.aggregate.js','xadmin/vendor/flot/jquery.flot.categories.js']
         }
     },
-    "images-gallery": {
+    "image-gallery": {
         "css": {
-            'dev': 'xadmin/vendor/bootstrap-images-gallery/css/bootstrap-images-gallery.css',
-            'production': 'xadmin/vendor/bootstrap-images-gallery/css/bootstrap-images-gallery.css',
+            'dev': 'xadmin/vendor/bootstrap-image-gallery/css/bootstrap-image-gallery.css',
+            'production': 'xadmin/vendor/bootstrap-image-gallery/css/bootstrap-image-gallery.css',
         },
         "js": {
-            'dev': ['xadmin/vendor/load-images/load-images.js', 'xadmin/vendor/bootstrap-images-gallery/js/bootstrap-images-gallery.js'],
-            'production': ['xadmin/vendor/load-images/load-images.min.js', 'xadmin/vendor/bootstrap-images-gallery/js/bootstrap-images-gallery.js']
+            'dev': ['xadmin/vendor/load-image/load-image.js', 'xadmin/vendor/bootstrap-image-gallery/js/bootstrap-image-gallery.js'],
+            'production': ['xadmin/vendor/load-image/load-image.min.js', 'xadmin/vendor/bootstrap-image-gallery/js/bootstrap-image-gallery.js']
         }
     },
     "select": {

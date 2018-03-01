@@ -8,7 +8,7 @@ from xadmin.views import BaseAdminPlugin, ModelFormAdminView, DetailAdminView, L
 
 def get_gallery_modal():
     return """
-        <!-- modal-gallery is the modal dialog used for the images gallery -->
+        <!-- modal-gallery is the modal dialog used for the image gallery -->
         <div id="modal-gallery" class="modal modal-gallery fade" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -16,7 +16,7 @@ def get_gallery_modal():
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"></h4>
               </div>
-              <div class="modal-body"><div class="modal-images"><h1 class="loader"><i class="fa-spinner fa-spin fa fa-large loader"></i></h1></div></div>
+              <div class="modal-body"><div class="modal-image"><h1 class="loader"><i class="fa-spinner fa-spin fa fa-large loader"></i></h1></div></div>
               <div class="modal-footer">
                   <a class="btn btn-info modal-prev"><i class="fa fa-arrow-left"></i> <span>%s</span></a>
                   <a class="btn btn-primary modal-next"><span>%s</span> <i class="fa fa-arrow-right"></i></a>
@@ -76,8 +76,8 @@ class ModelDetailPlugin(BaseAdminPlugin):
     # Media
     def get_media(self, media):
         if self.include_image:
-            media = media + self.vendor('images-gallery.js',
-                                        'images-gallery.css')
+            media = media + self.vendor('image-gallery.js',
+                                        'image-gallery.css')
         return media
 
     def block_before_fieldsets(self, context, node):
@@ -102,7 +102,7 @@ class ModelListPlugin(BaseAdminPlugin):
 
     # Media
     def get_media(self, media):
-        return media + self.vendor('images-gallery.js', 'images-gallery.css')
+        return media + self.vendor('image-gallery.js', 'image-gallery.css')
 
     def block_results_top(self, context, node):
         return '<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">'

@@ -303,7 +303,7 @@ a[class^="icon-"]:before, a[class*=" icon-"]:before {
 
 /** fix navbar input-append and input-prepend margin **/
 .navbar .navbar-brand {
-  max-width: 800px;
+  max-width: 400px;
 }
 
 /** import for bp3.0 */
