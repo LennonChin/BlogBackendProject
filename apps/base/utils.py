@@ -68,14 +68,16 @@ def send_email(receive_name, email, send_type="comment"):
         message.content_subtype = "html"  # Main content is now text/html
         send_status = message.send()
         if int(send_status) == 1:
-            print('验证码：' + random_str)
             # 保存验证码
             email_record = EmailVerifyRecord()
             email_record.code = random_str
             email_record.email = email
             email_record.send_type = send_type
+            email_record.send_time = datetime.utcnow()
             email_record.save()
             return int(send_status)
+        else:
+            return 0
 
 
 def generate_qiniu_random_filename(length):

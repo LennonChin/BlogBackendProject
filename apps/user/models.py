@@ -61,7 +61,7 @@ class EmailVerifyRecord(models.Model):
     code = models.CharField(max_length=20, verbose_name="验证码", help_text="验证码")
     email = models.EmailField(max_length=50, verbose_name="邮箱", help_text="邮箱")
     send_type = models.CharField(max_length=15, choices=CODE_TYPE, verbose_name="验证码类型", help_text="验证码类型")
-    send_time = models.DateTimeField(auto_now_add=True, verbose_name="发送时间", help_text="发送时间")
+    send_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="发送时间", help_text="发送时间")
 
     def __str__(self):
         return '{0} [{1}]'.format(self.code, self.email)
