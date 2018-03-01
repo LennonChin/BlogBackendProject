@@ -5,7 +5,7 @@ from django.db import models
 
 from user.models import GuestProfile
 from utils.RelativeImageExtension import RelativeImageExtension
-from BlogBackendProject.settings import MEDIA_URL_PREFIX
+from BlogBackendProject.settings import MEDIA_URL_PREFIX, SITE_BASE_URL
 
 
 class MaterialCategory(models.Model):
@@ -187,6 +187,10 @@ class PostBaseInfo(models.Model):
             md5.update(self.browse_password.encode('utf8'))
             self.browse_password_encrypt = md5.hexdigest()
         super(PostBaseInfo, self).save(*args, **kwargs)
+
+    # 该方法主要用于RSS中返回文章访问链接
+    def get_absolute_url(self):
+        return '{0}/{1}/{2}'.format(SITE_BASE_URL, self.post_type, self.id)
 
     class Meta:
         verbose_name = "所有博文"

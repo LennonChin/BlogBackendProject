@@ -15,7 +15,8 @@ from rest_framework.pagination import LimitOffsetPagination
 
 from user.models import EmailVerifyRecord
 from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_MEDIA_URL_PREFIX
-from BlogBackendProject.settings import EMAIL_FROM
+from BlogBackendProject.settings import EMAIL_FROM, SITE_BASE_URL
+
 
 # 分页
 class CustomePageNumberPagination(PageNumberPagination):
@@ -59,7 +60,7 @@ def send_email(receive_name, email, send_type="comment"):
         email_title = "Diomedes博客评论-验证邮箱，验证码：{0}".format(random_str)
         email_content = "您的验证码是：{0}".format(random_str)
         email_body = loader.render_to_string('emailMessage.html', {
-            'base_url': 'https://blog.coderap.com',
+            'base_url': SITE_BASE_URL,
             'receive_name': receive_name,
             'email_context': email_content
         })

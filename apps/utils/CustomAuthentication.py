@@ -23,10 +23,14 @@ class AnonymousBrowseAuthentication(authentication.BaseAuthentication):
         if not token:
             raise exceptions.AuthenticationFailed('Illegal Request')
 
-        decode_time, decode_url = bytes.decode(base64.b64decode(token)).split('*')
+        try:
+            decode_time, decode_url = bytes.decode(base64.b64decode(token)).split('*')
+        except Exception as e:
+            raise exceptions.AuthenticationFailed('Illegal Request')
+
         utc_second = calendar.timegm(datetime.utcnow().timetuple())
 
-        if abs(int(decode_time) - int(utc_second)) > 60 * 10:
+        if abs(int(decode_time) - int(utc_second)) > 60 * 3:
             raise exceptions.AuthenticationFailed('Illegal Request')
 
         local_path = '{0}{1}{2}'.format('https://', request.META['SERVER_NAME'], request.META['PATH_INFO'])

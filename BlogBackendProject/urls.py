@@ -16,15 +16,15 @@ Including another URLconf
 import xadmin
 
 from django.conf.urls import url, include
-from django.contrib import admin
 from django.views.static import serve
-from django.views.generic import TemplateView
+# from django.contrib import admin
 
 # Django Rest Framework
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 
+# API路由
 from article.apiview import ArticleBaseInfoListViewset, ArticleDetailInfoListViewset
 from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
@@ -38,6 +38,7 @@ from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTok
 from BlogBackendProject.settings import MEDIA_ROOT
 
 from index.views import IndexView
+from utils.CustomRSS import LatestEntriesFeed
 
 router = DefaultRouter()
 
@@ -87,8 +88,10 @@ router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
 router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 
 urlpatterns = [
+    # url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    url(r'^rss/$', LatestEntriesFeed()),
     # drf自带认证模式
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'^api/', include(router.urls)),
