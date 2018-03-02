@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from .models import BookInfo, BookDetail, BookNoteInfo, BookNoteDetail
 from material.serializers import SingleLevelCategorySerializer, TagSerializer, LicenseSerializer
+from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 # 图书详细信息
@@ -37,6 +38,11 @@ class BookNoteBaseInfoSerializer1(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     sub_note = BookNoteBaseInfoSerializer2(many=True)
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
+    front_image = serializers.SerializerMethodField()
+
+    def get_front_image(self, book_note):
+        if book_note.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, book_note.front_image)
 
     class Meta:
         model = BookNoteInfo
@@ -46,11 +52,16 @@ class BookNoteBaseInfoSerializer1(serializers.ModelSerializer):
 class BookBaseInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
+    front_image = serializers.SerializerMethodField()
+
+    def get_front_image(self, book):
+        if book.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, book.front_image)
 
     class Meta:
         model = BookInfo
         fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner',
-                  'browse_password_encrypt', 'front_image', 'is_reading', 'read_precentage', 'add_time', 'douban_id', 'douban_type', 'douban_infos', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_rating', 'book_tags')
+                  'browse_password_encrypt', 'front_image', 'front_image_type', 'is_reading', 'read_precentage', 'add_time', 'douban_id', 'douban_type', 'douban_infos', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_rating', 'book_tags')
 
 
 class BookNoteBaseInfoSerializer(serializers.ModelSerializer):

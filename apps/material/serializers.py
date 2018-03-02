@@ -146,8 +146,9 @@ class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     front_image = serializers.SerializerMethodField()
 
-    def get_front_image(self, article):
-        return "{0}/{1}".format(MEDIA_URL_PREFIX, article.front_image)
+    def get_front_image(self, post):
+        if post.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, post.front_image)
 
     class Meta:
         model = PostBaseInfo
@@ -165,9 +166,15 @@ class MaterialBannerSerializer(serializers.ModelSerializer):
 
 
 class MaterialSocialSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, social):
+        if social.image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, social.image)
+
     class Meta:
         model = MaterialSocial
-        fields = "__all__"
+        fields = ('id', 'name', 'image', 'url', 'desc')
 
 
 class MaterialMasterSerializer(serializers.ModelSerializer):

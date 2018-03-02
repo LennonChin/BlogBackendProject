@@ -30,8 +30,9 @@ class MovieBaseInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     front_image = serializers.SerializerMethodField()
 
-    def get_front_image(self, article):
-        return "{0}/{1}".format(MEDIA_URL_PREFIX, article.front_image)
+    def get_front_image(self, movie):
+        if movie.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, movie.front_image)
 
     class Meta:
         model = MovieInfo

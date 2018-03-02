@@ -21,7 +21,7 @@ class MaterialCategoryAdmin(object):
 
 
 class MaterialTagAdmin(object):
-    list_display = ['name', 'subname', "category"]
+    list_display = ['name', 'subname', 'color', 'category']
     search_fields = ['name', ]
 
 

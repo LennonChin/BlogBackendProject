@@ -21,7 +21,8 @@ class SiteInfoSerializer(serializers.ModelSerializer):
     icon = serializers.SerializerMethodField()
 
     def get_icon(self, site_info):
-        return "{0}/{1}".format(MEDIA_URL_PREFIX, site_info.icon)
+        if site_info.icon:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, site_info.icon)
 
     class Meta:
         model = SiteInfo
@@ -31,6 +32,16 @@ class SiteInfoSerializer(serializers.ModelSerializer):
 class BloggerInfoSerializer(serializers.ModelSerializer):
     socials = MaterialSocialSerializer(many=True)
     masters = MaterialMasterSerializer(many=True)
+    avatar = serializers.SerializerMethodField()
+    background = serializers.SerializerMethodField()
+
+    def get_avatar(self, blogger_info):
+        if blogger_info.avatar:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, blogger_info.avatar)
+
+    def get_background(self, blogger_info):
+        if blogger_info.background:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, blogger_info.background)
 
     class Meta:
         model = BloggerInfo

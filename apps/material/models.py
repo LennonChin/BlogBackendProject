@@ -54,16 +54,10 @@ class MaterialTag(models.Model):
     """
     素材标签
     """
-    COLOR_TYPE = (
-        ("blue", "蓝色"),
-        ("green", "绿色"),
-        ("red", "红色"),
-        ("orange", "黄色")
-    )
     name = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签名", help_text="标签名")
     subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签别名", help_text="标签别名")
     category = models.ForeignKey(MaterialCategory, null=True, blank=True, verbose_name="类别", help_text="类别")
-    color = models.CharField(max_length=20, default="blue", choices=COLOR_TYPE, verbose_name="颜色", help_text="颜色")
+    color = models.CharField(max_length=20, default="blue", verbose_name="颜色", help_text="颜色")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     class Meta:
@@ -168,7 +162,7 @@ class PostBaseInfo(models.Model):
     like_num = models.IntegerField(default=0, verbose_name="点赞数", help_text="点赞数")
     comment_num = models.IntegerField(default=0, verbose_name="评论数", help_text="评论数")
     front_image = models.ImageField(upload_to="material/post/image/%y/%m", null=True, blank=True, verbose_name="封面图",
-                                    help_text="大图833*217")
+                                    help_text="大图833*217，小图243*207")
     front_image_type = models.CharField(max_length=20, default="0", choices=FRONT_IMAGE_TYPE, verbose_name="封面图类别",
                                         help_text="封面图类别")
     license = models.ForeignKey(MaterialLicense, null=True, blank=True, verbose_name="版权", help_text="版权")
