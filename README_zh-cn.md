@@ -1,10 +1,26 @@
 # 前后端分离的博客项目-后端工程
 
+博客已上线，欢迎浏览：[https://blog.coderap.com/](https://blog.coderap.com/)
+
 > [English description](https://github.com/LennonChin/BlogBackendProject/blob/master/README.md)
 
 > 该仓库存放了博客项目的后端代码，使用Django及Django Rest Framework搭建。
 
 > 注：与该仓库配合的前端代码仓库链接在此[BlogBackendProject](https://github.com/LennonChin/Blog-Frontend-Project)，前端代码使用Vue.js + Vue-Router + iView.js实现。
+
+后端控制台效果展示：
+
+![首页](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend1.png)
+
+![图书列表页](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend2.png)
+
+![所有博文列表](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend3.png)
+
+![添加文章](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend4.png)
+
+![添加文章](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend5.png)
+
+![添加文章](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend6.png)
 
 ## 整体技术栈
 
@@ -12,7 +28,7 @@
 
 2. 主要依赖
 
-- [Django==1.11.3](https://github.com/django/django)
+- [Django==1.10.8](https://github.com/django/django)
 - [djangorestframework==3.6.3](https://github.com/encode/django-rest-framework)
 
 > 注：更多技术栈依赖请查看`requirements.txt`文件

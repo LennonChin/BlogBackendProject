@@ -1,10 +1,26 @@
 # Front and back end of the separation of the blog project - back-end projects
 
+Blog has been online, welcome to browse：[https://blog.coderap.com/](https://blog.coderap.com/)
+
 > [中文版说明](https://github.com/LennonChin/BlogBackendProject/blob/master/README_zh-cn.md)
 
 > This repository stores the backend code for blog entries, built using Django and the Django Rest Framework.
 
 > Note: The front-end code repository linked to this repository is linked here [Blog-Frontend-Project] (https://github.com/LennonChin/Blog-Frontend-Project) and the front-end code is implemented using Vue.js + Vue-Router + iView.js.
+
+Control Panel effect display：：
+
+![Home Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend1.png)
+
+![Book List Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend2.png)
+
+![All Post List Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend3.png)
+
+![Add Article Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend4.png)
+
+![Add Article Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend5.png)
+
+![Add Article Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend6.png)
 
 ## Overall technology stack
 
@@ -12,7 +28,7 @@
 
 2. Mainly dependent
 
-- [Django==1.11.3](https://github.com/django/django)
+- [Django==1.10.8](https://github.com/django/django)
 - [djangorestframework==3.6.3](https://github.com/encode/django-rest-framework)
 
 > Note: For more technical stack dependencies, see the `requirements.txt` file
