@@ -58,7 +58,7 @@ def send_email(receive_name, email, send_type="comment"):
     if send_type == "comment":
         email_title = "Diomedes博客评论-验证邮箱，验证码：{0}".format(random_str)
         email_content = "您的验证码是：{0}".format(random_str)
-        email_body = loader.render_to_string('emailMessage.html', {
+        email_body = loader.render_to_string('CommentCodeEmail.html', {
             'base_url': 'https://blog.coderap.com',
             'receive_name': receive_name,
             'email_context': email_content
@@ -78,6 +78,19 @@ def send_email(receive_name, email, send_type="comment"):
             return int(send_status)
         else:
             return 0
+
+    if send_type == 'reply_comment':
+        email_title = "Diomedes博客评论-收到回复"
+        email_content = "回复内容：{0}".format(random_str)
+        email_body = loader.render_to_string('ReplyCommentEmail.html', {
+            'base_url': 'https://blog.coderap.com',
+            'receive_name': receive_name,
+            'email_context': email_content
+        })
+
+        message = EmailMessage(email_title, email_body, EMAIL_FROM, [email])
+        message.content_subtype = "html"  # Main content is now text/html
+        return message.send()
 
 
 def generate_qiniu_random_filename(length):

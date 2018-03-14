@@ -11,6 +11,8 @@ from material.models import MaterialCategory, MaterialTag, MaterialLicense, Post
     MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 from user.serializers import GuestSerializer
+from user.models import GuestProfile
+from base.utils import send_email
 from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
@@ -135,6 +137,12 @@ class CreateCommentSerializer(serializers.ModelSerializer):
         post = comment_info.post
         post.comment_num += 1
         post.save()
+        # 评论成功后给被回复人发送邮件
+        if comment_info.reply_to_author_id:
+            guest = GuestProfile.objects.filter(id=comment_info.reply_to_author_id)
+            if guest and guest.email:
+                send_email(guest.nick_name, guest.email, send_type='reply_comment')
+
         return comment_info
 
     class Meta:
