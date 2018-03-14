@@ -14,8 +14,10 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.pagination import LimitOffsetPagination
 
 from user.models import EmailVerifyRecord
-from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_MEDIA_URL_PREFIX
+from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, \
+    PRIVATE_MEDIA_URL_PREFIX
 from BlogBackendProject.settings import EMAIL_FROM
+
 
 # 分页
 class CustomePageNumberPagination(PageNumberPagination):
@@ -34,7 +36,6 @@ class CustomeLimitOffsetPagination(LimitOffsetPagination):
     min_offset = 0
 
 
-
 def generate_code(length):
     """
     生成四位数字的验证码
@@ -50,7 +51,6 @@ def generate_code(length):
 
 # 发送邮件
 def send_email(receive_name, email, send_type="comment"):
-
     random_str = generate_code(4)
     if send_type == "comment":
         random_str = generate_code(4)
@@ -115,3 +115,121 @@ def generate_qiniu_token(object_name, use_type, expire_time=600):
     base_url = PRIVATE_MEDIA_URL_PREFIX
 
     return (object_name, token, base_url, expire_time)
+
+
+# 关于Python Markdown使用Bleach过滤XSS风险的配置
+
+#: List of allowed tags
+ALLOWED_TAGS = [
+    'abbr',
+    'acronym',
+    'address',
+    'area',
+    'article',
+    'aside',
+    'audio',
+    'b',
+    'base',
+    'bdi',
+    'bdo',
+    'big',
+    'blockquote',
+    'br',
+    'caption',
+    'cite',
+    'code',
+    'col',
+    'colgroup',
+    'command',
+    'dd',
+    'del',
+    'details',
+    'div',
+    'dfn',
+    'dl',
+    'dt',
+    'em',
+    'embed',
+    'fieldset',
+    'figcaption',
+    'figure',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'h7',
+    'head',
+    'header',
+    'hr',
+    'i',
+    'img',
+    'input',
+    'ins',
+    'kbd',
+    'keygen',
+    'label',
+    'legend',
+    'li',
+    'map',
+    'mark',
+    'menu',
+    'nav',
+    'object',
+    'ol',
+    'optgroup',
+    'option',
+    'output',
+    'p',
+    'param',
+    'pre',
+    'progress',
+    'q',
+    'rp',
+    'rt',
+    'ruby',
+    's',
+    'samp',
+    'section',
+    'select',
+    'small',
+    'source',
+    'span',
+    'strike',
+    'strong',
+    'style',
+    'sub',
+    'summary',
+    'sup',
+    'table',
+    'tbody',
+    'td',
+    'textarea',
+    'tfoot',
+    'th',
+    'thead',
+    'time',
+    'tr',
+    'track',
+    'tt',
+    'u',
+    'ul',
+    'var',
+    'video',
+    'wbr',
+    'xmp',
+]
+
+#: Map of allowed attributes by tag
+ALLOWED_ATTRIBUTES = {
+    'a': ['title'],
+    'abbr': ['title'],
+    'acronym': ['title'],
+}
+
+#: List of allowed styles
+ALLOWED_STYLES = []
+
+#: List of allowed protocols
+ALLOWED_PROTOCOLS = ['http', 'https', 'mailto']
