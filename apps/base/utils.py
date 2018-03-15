@@ -17,6 +17,7 @@ from user.models import EmailVerifyRecord
 from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, \
     PRIVATE_MEDIA_URL_PREFIX
 from BlogBackendProject.settings import EMAIL_FROM
+from BlogBackendProject.settings import SITE_BASE_URL
 
 
 # 分页
@@ -50,19 +51,19 @@ def generate_code(length):
 
 
 # 发送邮件
-def send_email(receive_name, email, send_type="comment"):
-    random_str = generate_code(4)
-    if send_type == "comment":
-        random_str = generate_code(4)
+def send_email(email_info, email, send_type="comment"):
 
     if send_type == "comment":
+        random_str = generate_code(4)
         email_title = "Diomedes博客评论-验证邮箱，验证码：{0}".format(random_str)
-        email_content = "您的验证码是：{0}".format(random_str)
-        email_body = loader.render_to_string('CommentCodeEmail.html', {
-            'base_url': 'https://blog.coderap.com',
-            'receive_name': receive_name,
-            'email_context': email_content
-        })
+        context = {
+            'email_info': {
+                'base_url': SITE_BASE_URL,
+                'receive_name': email_info['receive_name'],
+                'code': random_str
+            }
+        }
+        email_body = loader.render_to_string('CommentCodeEmail.html', context)
 
         message = EmailMessage(email_title, email_body, EMAIL_FROM, [email])
         message.content_subtype = "html"  # Main content is now text/html
@@ -81,12 +82,10 @@ def send_email(receive_name, email, send_type="comment"):
 
     if send_type == 'reply_comment':
         email_title = "Diomedes博客评论-收到回复"
-        email_content = "回复内容：{0}".format(random_str)
-        email_body = loader.render_to_string('ReplyCommentEmail.html', {
-            'base_url': 'https://blog.coderap.com',
-            'receive_name': receive_name,
-            'email_context': email_content
-        })
+        context = {
+            'email_info': email_info
+        }
+        email_body = loader.render_to_string('ReplyCommentEmail.html', context)
 
         message = EmailMessage(email_title, email_body, EMAIL_FROM, [email])
         message.content_subtype = "html"  # Main content is now text/html
