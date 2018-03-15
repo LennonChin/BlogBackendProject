@@ -156,7 +156,10 @@ class CreateCommentSerializer(serializers.ModelSerializer):
                     'unsubscribe_url': '{0}/{1}/?id={2}'.format(SITE_BASE_URL, 'unsubscribe', guest.uuid),
                     'subscribe_url': '{0}/{1}/?id={2}'.format(SITE_BASE_URL, 'subscribe', guest.uuid),
                 }
-                send_email(email_info, guest.email, send_type='reply_comment')
+                try:
+                    send_email(email_info, guest.email, send_type='reply_comment')
+                except Exception as e:
+                    pass
 
         return comment_info
 
