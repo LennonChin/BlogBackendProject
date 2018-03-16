@@ -84,6 +84,7 @@ DATABASE_CONFIG = {
     "USER": '', # 数据库用户名
     "PASSWORD": '', # 数据库密码
     "HOST": '', # 数据库地址
+    'PORT': 3306, # 数据库端口，MySQL为3306
     'OPTIONS': {
         "init_command": "SET default_storage_engine=INNODB;",
     }
@@ -95,7 +96,7 @@ EMAIL_CONFIG = {
     'EMAIL_PORT': 25, # 邮件服务器端口，一般为25
     'EMAIL_HOST_USER': "", # 邮件服务器账号
     'EMAIL_HOST_PASSWORD': "", # 邮件服务器密码
-    'EMAIL_USE_TLS': False, # 是否使用TLS加密连接，一般不使用
+    'EMAIL_USE_SSL': False, # 是否使用SSL加密连接，一般不使用
     'EMAIL_FROM': "" # 该项一般与EMAIL_HOST相同
 }
 
@@ -105,7 +106,8 @@ PRIVATE_QINIU_SECRET_KEY = '' # 七牛云Secret key
 PRIVATE_QINIU_BUCKET_DOMAIN = '' # 七牛云Bucket域
 PRIVATE_QINIU_BUCKET_NAME = '' # 七牛云Bucket名称
 
-PRIVATE_MEDIA_URL_PREFIX = '' # 访问七牛云时使用的资源前缀
+PRIVATE_MEDIA_URL_PREFIX = '' # 站点Media资源前缀网址，访问七牛云时使用的资源前缀
+PRIVATE_SITE_BASE_URL = '' # 站点网址
 ```
 
 6. 配置以上内容后，使用下面的命令迁移表

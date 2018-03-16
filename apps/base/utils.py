@@ -133,6 +133,7 @@ def generate_qiniu_token(object_name, use_type, expire_time=600):
 
 #: List of allowed tags
 ALLOWED_TAGS = [
+    'a',
     'abbr',
     'acronym',
     'address',
@@ -235,7 +236,7 @@ ALLOWED_TAGS = [
 
 #: Map of allowed attributes by tag
 ALLOWED_ATTRIBUTES = {
-    'a': ['title'],
+    'a': ['href', 'title'],
     'abbr': ['title'],
     'acronym': ['title'],
 }

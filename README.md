@@ -84,6 +84,7 @@ DATABASE_CONFIG = {
     "USER": '', # database user name
     "PASSWORD": '', # database password
     "HOST": '', # database address
+    'PORT': 3306, # database access port，MySQL is 3306 default
     'OPTIONS': {
         "init_command": "SET default_storage_engine = INNODB;",
     }
@@ -106,6 +107,7 @@ PRIVATE_QINIU_BUCKET_DOMAIN = '' # Qiniu Bucket domain
 PRIVATE_QINIU_BUCKET_NAME = '' # Qiniu name
 
 PRIVATE_MEDIA_URL_PREFIX = '' # Resource prefix used when accessing Cattle Cloud
+PRIVATE_SITE_BASE_URL = '' # Site URL, for example as you site access domain
 ```
 6. Configure the above configs, use the following command to migrate the table:
 

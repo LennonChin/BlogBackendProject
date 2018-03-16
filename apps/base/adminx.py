@@ -22,7 +22,7 @@ class GlobalSettings(object):
 
 
 class SiteInfoAdmin(object):
-    list_display = ['name', 'name_en', 'is_live', 'is_force_refresh', "desc", "copyright", "icp"]
+    list_display = ['name', 'name_en', 'is_live', 'is_force_refresh', "desc", "copyright", "icp", 'access_password']
     list_editable = ["is_force_refresh", '']
     search_fields = ['name', 'name_en']
     exclude = ['browse_password_encrypt']
