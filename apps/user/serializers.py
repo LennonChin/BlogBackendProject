@@ -14,9 +14,17 @@ from base.const import REGEX_EMAIL
 
 
 class GuestSerializer(serializers.ModelSerializer):
+    is_blogger = serializers.SerializerMethodField()
+
+    def get_is_blogger(self, guest):
+        if guest.email:
+            return guest.email == '243316474@qq.com'
+        else:
+            return False
+
     class Meta:
         model = GuestProfile
-        fields = ('id', 'nick_name', 'avatar')
+        fields = ('id', 'nick_name', 'avatar', 'is_blogger')
 
 
 class EmailSerializer(serializers.Serializer):
