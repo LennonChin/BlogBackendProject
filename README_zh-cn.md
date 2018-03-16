@@ -127,6 +127,8 @@ PRIVATE_SITE_BASE_URL = '' # 站点网址
 
 默认情况下，如果你运行后启动的evelopment Server为`127.0.0.1:8000`，则提供的接口访问地址为`http://127.0.0.1:8000/api`，后台管理地址为`http://127.0.0.1:8000/xadmin`。
 
+同时，如果想要让前端访问到后台的接口，需要在后台的基础配置-网站配置中填写站点信息，最重要的是需要填写`API接口BaseURL`项为你前端页面访问的接口API。
+
 ## License
 
 [Apache-2.0](https://opensource.org/licenses/Apache-2.0)

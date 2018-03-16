@@ -126,6 +126,8 @@ PRIVATE_SITE_BASE_URL = '' # Site URL, for example as you site access domain
 
 By default, if you run the evelopment Server after running '127.0.0.1: 8000`, the provided interface is at http://127.0.0.1:8000/api`, background management address `http://127.0.0.1: 8000/xadmin`.
 
+At the same time, if you want the front-end to access the back-end interface, you need to fill in the site information in the back-end of the basic configuration - Web site configuration, the most important thing is to fill in the `API interface BaseURL` entry for your front-end page to access the interface API.
+
 ## License
 
 [Apache-2.0] (https://opensource.org/licenses/Apache-2.0)
