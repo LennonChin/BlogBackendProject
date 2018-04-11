@@ -29,7 +29,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = '#vam9e79q3!tq8pje@19!3z8c#seafwogk)%i8)e$83nmftgfg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 PERSONAL_APPS = [
+    'haystack',
     'base.apps.BaseConfig',
     'index',
     'material.apps.MaterialConfig',
@@ -65,7 +66,7 @@ EXTRA_APPS = [
     'crispy_forms',
     'pagedown',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
 ]
 
 INSTALLED_APPS += PERSONAL_APPS + EXTRA_APPS
@@ -151,10 +152,11 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.SessionAuthentication', # 会引起前台Ajax出现跨域无法访问的问题
         # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
-        'utils.CustomAuthentication.AnonymousBrowseAuthentication',
+        # 'utils.CustomAuthentication.AnonymousBrowseAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.AnonRateThrottle',
@@ -166,6 +168,16 @@ REST_FRAMEWORK = {
     },
     'UPLOADED_FILES_USE_URL': False
 }
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # For Whoosh:
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        'INCLUDE_SPELLING': True,
+    }
+}
+
 
 # email setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
