@@ -1,23 +1,21 @@
-from datetime import datetime
 from haystack import indexes
-from .models import PostBaseInfo
+from .models import PostBaseInfo, MaterialCommentDetail
 
 
-class PostBaseInfoIndex(indexes.SearchIndex, indexes.Indexable):
+class MaterialCommentDetailIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    title = indexes.CharField(model_attr='title')
-    abstract = indexes.CharField(model_attr='abstract')
-    desc = indexes.CharField(model_attr='desc')
-    add_time = indexes.CharField(model_attr='add_time')
+    title = indexes.CharField(model_attr='comment_info__post__title')
+    author = indexes.CharField(model_attr='comment_info__author__nick_name')
+    add_time = indexes.CharField(model_attr='comment_info__add_time')
+    type = indexes.CharField(default='material')
+    link = indexes.CharField(model_attr='comment_info__post__get_absolute_url')
 
     @staticmethod
     def prepare_autocomplete(obj):
-        return " ".join((
-            obj.title, obj.abstract, obj.desc
-        ))
+        return " "
 
     def get_model(self):
-        return PostBaseInfo
+        return MaterialCommentDetail
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(add_time__lte=datetime.now())
+        return self.get_model().objects.all()

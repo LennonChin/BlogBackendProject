@@ -7,14 +7,12 @@
 # @Software: PyCharm
 
 from rest_framework import serializers
-from drf_haystack.serializers import HighlighterMixin, HaystackSerializer
 
 from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, \
     MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 from user.serializers import GuestSerializer
 from user.models import GuestProfile
-from .search_indexes import PostBaseInfoIndex
 
 from BlogBackendProject.settings import MEDIA_URL_PREFIX, SITE_BASE_URL
 from base.utils import send_email
@@ -211,14 +209,3 @@ class MaterialMasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaterialMaster
         fields = "__all__"
-
-
-class PostBaseInfoSearchSerializer(HighlighterMixin, HaystackSerializer):
-
-    highlighter_css_class = "search-highlight"
-    highlighter_html_tag = "em"
-
-    class Meta:
-        index_classes = [PostBaseInfoIndex]
-
-        fields = ('title', 'abstract', 'desc')

@@ -30,7 +30,7 @@ from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset, BookNoteBaseInfoListViewset, BookNoteDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
-    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset, PostBaseInfoSearchView
+    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
 from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTokenViewset
@@ -38,6 +38,7 @@ from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTok
 from BlogBackendProject.settings import MEDIA_ROOT
 
 from index.views import IndexView
+from index.apiview import SearchViewViewSet
 from utils.CustomRSS import LatestEntriesFeed
 from base.views import SubscribeView, UnSubscribeView
 
@@ -89,7 +90,7 @@ router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
 router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 
 # 搜索
-router.register("search", PostBaseInfoSearchView, base_name="search")
+router.register("search", SearchViewViewSet, base_name="search")
 
 urlpatterns = [
     # 后台管理
