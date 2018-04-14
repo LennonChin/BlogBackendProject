@@ -1,0 +1,87 @@
+<style type="text/css">
+  body {
+    margin:0 auto;
+    padding:0;
+    font-family:Microsoft Yahei,Tahoma,Arial;
+    color:#333333;
+    background-color:#fff;
+    font-size:12px
+  }
+  div.comment {
+    position: relative;
+    display: inline-block;
+    margin: 25px 4em 25px 6em;
+    font-size: 13px;
+    line-height: 16px;
+    font-style: italic;
+    color: #aaa;
+  }
+  div.comment:before {
+    position: absolute;
+    content: "\201C";
+    left: -0.7em;
+    top: 0.1em;
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    color: #7a7a7a;
+  }
+  div.comment:after {
+    position: absolute;
+    content: "\201D";
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    right: -0.6em;
+    bottom: -0.3em;
+    color: #7a7a7a;
+  }
+</style>
+<div style="margin: 0 auto; width: 700px;font-size: 15px;">
+    <!-- 头部 -->
+    <div style="background-color: #0ab5ff;height: 50px;line-height: 50px;">
+        <div style="float: left;height: 50px;">
+            <a href="{{ email_info.base_url }}" target="_blank" style="display: inline-block;font-weight:100;height: 50px;line-height: 50px;padding-left: 15px;color: #fff;text-decoration:none;">Diomedes</a>
+        </div>
+        <div style="float: right;height: 50px;padding-right: 15px;">
+            <a href="{{ email_info.base_url }}" target="_blank"
+               style="color:#ffffff;text-decoration:none;font-weight:100;">首页</a>
+            <a href="{{ email_info.base_url }}/articles" target="_blank"
+               style="color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;">文章</a>
+            <a href="{{ email_info.base_url }}/albums" target="_blank"
+               style="color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;">图集</a>
+            <a href="{{ email_info.base_url }}/movies" target="_blank"
+               style="color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;">电影</a>
+            <a href="{{ email_info.base_url }}/timeline" target="_blank"
+               style="color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;">时间轴</a>
+        </div>
+    </div>
+
+    <div style="padding: 15px 30px 15px 30px;border: 1px solid #e5e5e5;">
+        <!-- 内容部分 -->
+        <div>
+            <p style="font-size: 16px;">您好，{{ email_info.receive_name }}：</p>
+            <p style="font-size: 14px;padding-left: 2em;">您在博文 <a
+                    style="color:#0ab5ff;text-decoration:none;font-weight:100;" href="{{ email_info.post_url }}"
+                    target="_blank">{{ email_info.post_title }} </a> 的评论：</p>
+            <div class="comment">
+                {{ email_info.comment | safe }}
+            </div>
+            <p style="font-size: 14px;padding-left: 2em;">
+                被 {{ email_info.reply_author_name }} 回复，内容如下：
+            </p>
+            <div class="comment">
+                {{ email_info.reply_comment  | safe }}
+            </div>
+            <p style="font-size: 14px;">
+                <a style="color:#0ab5ff;text-decoration:none;font-weight:100;"
+                   href="{{ email_info.post_url }}" target="_blank">点击此处查看</a>
+            </p>
+        </div>
+
+        <!-- 脚部 -->
+        <div>
+            <p style="padding-top: 20px;font-size:11px;font-weight:100;color: #aaa;border-top: 1px dashed #e5e5e5;">
+                此为<a href="{{ email_info.base_url }}" style="color:#0ab5ff;text-decoration:none;font-weight:100;" target="_blank">Diomedes博客发送的</a>系统邮件，请勿回复；点此<a href="{{ email_info.unsubscribe_url }}" style="color:#0ab5ff;text-decoration:none;font-weight:100;" target="_blank">退订</a>评论提示邮件；您也可以点<a href="{{ email_info.subscribe_url }}" style="color:#0ab5ff;text-decoration:none;font-weight:100;" target="_blank">订阅</a>再次打开评论邮件提示。
+            </p>
+        </div>
+    </div>
+</div>

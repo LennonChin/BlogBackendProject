@@ -14,8 +14,11 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.pagination import LimitOffsetPagination
 
 from user.models import EmailVerifyRecord
-from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, PRIVATE_MEDIA_URL_PREFIX
+from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, \
+    PRIVATE_MEDIA_URL_PREFIX
 from BlogBackendProject.settings import EMAIL_FROM
+from BlogBackendProject.settings import SITE_BASE_URL
+
 
 # 分页
 class CustomePageNumberPagination(PageNumberPagination):
@@ -34,7 +37,6 @@ class CustomeLimitOffsetPagination(LimitOffsetPagination):
     min_offset = 0
 
 
-
 def generate_code(length):
     """
     生成四位数字的验证码
@@ -49,20 +51,19 @@ def generate_code(length):
 
 
 # 发送邮件
-def send_email(receive_name, email, send_type="comment"):
+def send_email(email_info, email, send_type="comment"):
 
-    random_str = generate_code(4)
     if send_type == "comment":
         random_str = generate_code(4)
-
-    if send_type == "comment":
         email_title = "Diomedes博客评论-验证邮箱，验证码：{0}".format(random_str)
-        email_content = "您的验证码是：{0}".format(random_str)
-        email_body = loader.render_to_string('emailMessage.html', {
-            'base_url': 'https://blog.coderap.com',
-            'receive_name': receive_name,
-            'email_context': email_content
-        })
+        context = {
+            'email_info': {
+                'base_url': SITE_BASE_URL,
+                'receive_name': email_info['receive_name'],
+                'code': random_str
+            }
+        }
+        email_body = loader.render_to_string('CommentCodeEmail.html', context)
 
         message = EmailMessage(email_title, email_body, EMAIL_FROM, [email])
         message.content_subtype = "html"  # Main content is now text/html
@@ -78,6 +79,17 @@ def send_email(receive_name, email, send_type="comment"):
             return int(send_status)
         else:
             return 0
+
+    if send_type == 'reply_comment':
+        email_title = "Diomedes博客评论-收到回复"
+        context = {
+            'email_info': email_info
+        }
+        email_body = loader.render_to_string('ReplyCommentEmail.html', context)
+
+        message = EmailMessage(email_title, email_body, EMAIL_FROM, [email])
+        message.content_subtype = "html"  # Main content is now text/html
+        return message.send()
 
 
 def generate_qiniu_random_filename(length):
@@ -115,3 +127,122 @@ def generate_qiniu_token(object_name, use_type, expire_time=600):
     base_url = PRIVATE_MEDIA_URL_PREFIX
 
     return (object_name, token, base_url, expire_time)
+
+
+# 关于Python Markdown使用Bleach过滤XSS风险的配置
+
+#: List of allowed tags
+ALLOWED_TAGS = [
+    'a',
+    'abbr',
+    'acronym',
+    'address',
+    'area',
+    'article',
+    'aside',
+    'audio',
+    'b',
+    'base',
+    'bdi',
+    'bdo',
+    'big',
+    'blockquote',
+    'br',
+    'caption',
+    'cite',
+    'code',
+    'col',
+    'colgroup',
+    'command',
+    'dd',
+    'del',
+    'details',
+    'div',
+    'dfn',
+    'dl',
+    'dt',
+    'em',
+    'embed',
+    'fieldset',
+    'figcaption',
+    'figure',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'h7',
+    'head',
+    'header',
+    'hr',
+    'i',
+    'img',
+    'input',
+    'ins',
+    'kbd',
+    'keygen',
+    'label',
+    'legend',
+    'li',
+    'map',
+    'mark',
+    'menu',
+    'nav',
+    'object',
+    'ol',
+    'optgroup',
+    'option',
+    'output',
+    'p',
+    'param',
+    'pre',
+    'progress',
+    'q',
+    'rp',
+    'rt',
+    'ruby',
+    's',
+    'samp',
+    'section',
+    'select',
+    'small',
+    'source',
+    'span',
+    'strike',
+    'strong',
+    'style',
+    'sub',
+    'summary',
+    'sup',
+    'table',
+    'tbody',
+    'td',
+    'textarea',
+    'tfoot',
+    'th',
+    'thead',
+    'time',
+    'tr',
+    'track',
+    'tt',
+    'u',
+    'ul',
+    'var',
+    'video',
+    'wbr',
+    'xmp',
+]
+
+#: Map of allowed attributes by tag
+ALLOWED_ATTRIBUTES = {
+    'a': ['href', 'title'],
+    'abbr': ['title'],
+    'acronym': ['title'],
+}
+
+#: List of allowed styles
+ALLOWED_STYLES = []
+
+#: List of allowed protocols
+ALLOWED_PROTOCOLS = ['http', 'https', 'mailto']

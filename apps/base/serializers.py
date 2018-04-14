@@ -26,7 +26,7 @@ class SiteInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteInfo
-        fields = ('name', 'name_en', 'desc', 'icon', 'navigations', 'copyright', 'icp')
+        fields = ('name', 'name_en', 'desc', 'icon', 'api_base_url', 'navigations', 'copyright', 'icp')
 
 
 class BloggerInfoSerializer(serializers.ModelSerializer):

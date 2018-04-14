@@ -7,11 +7,15 @@
 # @Software: PyCharm
 
 from rest_framework import serializers
+
 from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, \
     MaterialCamera, \
     MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
 from user.serializers import GuestSerializer
-from BlogBackendProject.settings import MEDIA_URL_PREFIX
+from user.models import GuestProfile
+
+from BlogBackendProject.settings import MEDIA_URL_PREFIX, SITE_BASE_URL
+from base.utils import send_email
 
 
 class CategorySerializer3(serializers.ModelSerializer):
@@ -125,7 +129,7 @@ class CreateCommentSerializer(serializers.ModelSerializer):
         # 创建评论
         comment_info = MaterialCommentInfo.objects.create(**validated_data)
         # 处理评论详情
-        MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
+        comment_detail = MaterialCommentDetail.objects.create(comment_info=comment_info, **detail_data)
         # 修改根级评论数数据
         if comment_info.parent_comment_id:
             parent_comment = MaterialCommentInfo.objects.get(id=comment_info.parent_comment_id)
@@ -135,6 +139,30 @@ class CreateCommentSerializer(serializers.ModelSerializer):
         post = comment_info.post
         post.comment_num += 1
         post.save()
+        # 评论成功后给被回复人发送邮件
+        if comment_info.reply_to_author_id:
+            guest = GuestProfile.objects.filter(id=comment_info.reply_to_author_id)[0]
+            if guest and guest.is_subcribe and guest.email:
+                # 取出评论人
+                author = GuestProfile.objects.filter(id=comment_info.author_id)[0]
+                # 取出被回复评论
+                reply_to_comment_detail = MaterialCommentDetail.objects.filter(comment_info_id=comment_info.reply_to_comment_id)[0]
+                email_info = {
+                    'base_url': SITE_BASE_URL,
+                    'receive_name': guest.nick_name,
+                    'post_title': post.title,
+                    'post_url': '{0}/{1}/{2}'.format(SITE_BASE_URL, post.post_type, post.id),
+                    'comment': reply_to_comment_detail.formatted_content if reply_to_comment_detail else '',
+                    'reply_author_name': author.nick_name if author else '',
+                    'reply_comment': comment_detail.formatted_content,
+                    'unsubscribe_url': '{0}/{1}/?id={2}'.format(SITE_BASE_URL, 'unsubscribe', guest.uuid),
+                    'subscribe_url': '{0}/{1}/?id={2}'.format(SITE_BASE_URL, 'subscribe', guest.uuid),
+                }
+                try:
+                    send_email(email_info, guest.email, send_type='reply_comment')
+                except Exception as e:
+                    pass
+
         return comment_info
 
     class Meta:
@@ -181,4 +209,3 @@ class MaterialMasterSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaterialMaster
         fields = "__all__"
-

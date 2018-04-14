@@ -2,6 +2,8 @@ import hashlib
 import markdown
 
 from django.db import models
+import bleach
+from base.utils import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES, ALLOWED_PROTOCOLS
 
 from user.models import GuestProfile
 from utils.RelativeImageExtension import RelativeImageExtension
@@ -91,7 +93,7 @@ class MaterialLicense(models.Model):
         verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
-        return self.name
+        return self.subname
 
 
 class MaterialCamera(models.Model):
@@ -236,17 +238,18 @@ class MaterialCommentDetail(models.Model):
                                        help_text="修改时间")
 
     def save(self, *args, **kwargs):
-        self.formatted_content = markdown.markdown(self.origin_content,
-                                                   extensions=[
-                                                       'markdown.extensions.extra',
-                                                       'markdown.extensions.codehilite',
-                                                       'markdown.extensions.toc',
-                                                       RelativeImageExtension({
-                                                           'base_urls': [
-                                                               MEDIA_URL_PREFIX
-                                                           ]
-                                                       })
-                                                   ])
+        self.formatted_content = bleach.clean(markdown.markdown(self.origin_content,
+                                                                extensions=[
+                                                                    'markdown.extensions.extra',
+                                                                    'markdown.extensions.codehilite',
+                                                                    'markdown.extensions.toc',
+                                                                    RelativeImageExtension({
+                                                                        'base_urls': [
+                                                                            MEDIA_URL_PREFIX
+                                                                        ]
+                                                                    })
+                                                                ]), ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES,
+                                              ALLOWED_PROTOCOLS, False, False)
         super(MaterialCommentDetail, self).save(*args, **kwargs)
 
     def __str__(self):

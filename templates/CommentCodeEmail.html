@@ -1,0 +1,78 @@
+<style type='text/css'>
+    body {
+        margin: 0 auto;
+        padding: 0;
+        font-family: Microsoft Yahei, Tahoma, Arial;
+        color: #333333;
+        background-color: #fff;
+        font-size: 12px
+    }
+
+    blockquote {
+        position: relative;
+        display: inline-block;
+        padding-left: 6em;
+        padding-right: 4em;
+        margin: 25px 0;
+        font-size: 13px;
+        line-height: 16px;
+        font-style: italic;
+        color: #aaa;
+    }
+
+    blockquote:before {
+        content: "\201C";
+        margin-right: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 35px;
+        color: #7a7a7a;
+    }
+
+    blockquote:after {
+        position: absolute;
+        content: "\201D";
+        margin-left: 5px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 35px;
+        bottom: -25px;
+        color: #7a7a7a;
+    }
+</style>
+<div style="margin: 0 auto; width: 700px;font-size: 15px;">
+    <!-- 头部 -->
+    <div style="background-color: #0ab5ff;height: 50px;line-height: 50px;">
+        <div style="float: left;height: 50px;">
+            <a href='{{ email_info.base_url }}' target='_blank'
+               style="display: inline-block;font-weight:100;height: 50px;line-height: 50px;padding-left: 15px;color: #fff;text-decoration:none;">Diomedes</a>
+        </div>
+        <div style="float: right;height: 50px;padding-right: 15px;">
+            <a href='{{ email_info.base_url }}' target='_blank'
+               style='color:#ffffff;text-decoration:none;font-weight:100;'>首页</a>
+            <a href='{{ email_info.base_url }}/articles' target='_blank'
+               style='color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;'>文章</a>
+            <a href='{{ email_info.base_url }}/albums' target='_blank'
+               style='color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;'>图集</a>
+            <a href='{{ email_info.base_url }}/movies' target='_blank'
+               style='color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;'>电影</a>
+            <a href='{{ email_info.base_url }}/timeline' target='_blank'
+               style='color:#ffffff;text-decoration:none;font-weight:100;padding-left: 8px;'>时间轴</a>
+        </div>
+    </div>
+
+    <div style="padding: 15px 30px 15px 30px;border: 1px solid #e5e5e5;">
+        <!-- 内容部分 -->
+        <div>
+            <p style="font-size: 16px;">您好，{{ email_info.receive_name }}：</p>
+            <p style="font-size: 14px;padding-left: 2em;">您的验证码为：<span
+                    style="color: #0ab5ff;">{{ email_info.code }}</span></p>
+            <p style="font-size: 14px;color:#0ab5ff;">验证码十分钟内有效</p>
+        </div>
+
+        <!-- 脚部 -->
+        <div>
+            <p style="padding-top: 20px;font-size:11px;font-weight:100;color: #aaa;border-top: 1px dashed #e5e5e5;">此为<a
+                    href="{{ email_info.base_url }}" style='color:#0ab5ff;text-decoration:none;font-weight:100;'
+                    target="_blank">Diomedes博客发送的</a>系统邮件，请勿回复。</p>
+        </div>
+    </div>
+</div>

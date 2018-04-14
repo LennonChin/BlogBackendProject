@@ -97,12 +97,21 @@ class EmailCodeViewset(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.
         email = serializer.validated_data["email"]
         nick_name = serializer.validated_data['nick_name']
 
-        send_email_status = send_email(nick_name, email=email, send_type='comment')
+        email_info = {
+            'receive_name': nick_name
+        }
+
+        try:
+            send_email_status = send_email(email_info, email=email, send_type='comment')
+        except Exception as e:
+            send_email_status = 0
 
         if send_email_status != 1:
 
             context = {
-                "error": send_email_status["msg"]
+                "email": [
+                    '发送邮件出错，请检查您的邮箱；如果依旧出错，请联系博主'
+                ]
             }
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
 

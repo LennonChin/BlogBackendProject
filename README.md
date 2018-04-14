@@ -84,6 +84,7 @@ DATABASE_CONFIG = {
     "USER": '', # database user name
     "PASSWORD": '', # database password
     "HOST": '', # database address
+    'PORT': 3306, # database access port，MySQL is 3306 default
     'OPTIONS': {
         "init_command": "SET default_storage_engine = INNODB;",
     }
@@ -106,6 +107,7 @@ PRIVATE_QINIU_BUCKET_DOMAIN = '' # Qiniu Bucket domain
 PRIVATE_QINIU_BUCKET_NAME = '' # Qiniu name
 
 PRIVATE_MEDIA_URL_PREFIX = '' # Resource prefix used when accessing Cattle Cloud
+PRIVATE_SITE_BASE_URL = '' # Site URL, for example as you site access domain
 ```
 6. Configure the above configs, use the following command to migrate the table:
 
@@ -123,6 +125,8 @@ PRIVATE_MEDIA_URL_PREFIX = '' # Resource prefix used when accessing Cattle Cloud
 ```
 
 By default, if you run the evelopment Server after running '127.0.0.1: 8000`, the provided interface is at http://127.0.0.1:8000/api`, background management address `http://127.0.0.1: 8000/xadmin`.
+
+At the same time, if you want the front-end to access the back-end interface, you need to fill in the site information in the back-end of the basic configuration - Web site configuration, the most important thing is to fill in the `API interface BaseURL` entry for your front-end page to access the interface API.
 
 ## License
 

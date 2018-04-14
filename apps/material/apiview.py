@@ -106,3 +106,5 @@ class CommentDetailListViewset(mixins.ListModelMixin, mixins.CreateModelMixin, v
         elif self.action == "create":
             return CreateCommentSerializer
         return CommentDetailInfoSerializer
+
+

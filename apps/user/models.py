@@ -1,5 +1,5 @@
+import uuid
 from django.db import models
-from datetime import datetime
 
 from django.contrib.auth.models import AbstractUser
 
@@ -31,12 +31,14 @@ class GuestProfile(models.Model):
     """
     客人
     """
+    uuid = models.UUIDField(primary_key=False, default=uuid.uuid4, null=True, blank=True, editable=False)
     username = models.CharField(max_length=50, null=True, blank=True, verbose_name="用户名", help_text="用户名")
     nick_name = models.CharField(max_length=50, default="", verbose_name="昵称", help_text="昵称")
     mobile = models.CharField(max_length=11, null=True, blank=True, verbose_name="电话", help_text="电话")
     email = models.CharField(max_length=100, null=True, blank=True, verbose_name="邮箱", help_text="邮箱")
     avatar = models.ImageField(upload_to="user/avatar/image/%Y/%m", default='user/avatar/image/guest.png', null=True,
                                blank=True, verbose_name="头像", help_text="头像")
+    is_subcribe = models.BooleanField(default=True, blank=True, verbose_name="是否订阅通知邮件", help_text="除验证码通知邮件外的通知邮件")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     def __str__(self):

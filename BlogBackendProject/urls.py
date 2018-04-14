@@ -38,7 +38,9 @@ from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTok
 from BlogBackendProject.settings import MEDIA_ROOT
 
 from index.views import IndexView
+from index.apiview import SearchViewViewSet
 from utils.CustomRSS import LatestEntriesFeed
+from base.views import SubscribeView, UnSubscribeView
 
 router = DefaultRouter()
 
@@ -87,10 +89,19 @@ router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
 # 七牛云token
 router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 
+# 搜索
+router.register("search", SearchViewViewSet, base_name="search")
+
 urlpatterns = [
+    # 后台管理
     url(r'^xadmin/', xadmin.site.urls),
+    # 媒体文件
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    # RSS订阅
     url(r'^rss/$', LatestEntriesFeed()),
+    # 订阅相关
+    url(r'^subscribe/$', SubscribeView.as_view(), name='subscribe'),
+    url(r'^unsubscribe/$', UnSubscribeView.as_view(), name='unsubscribe'),
     # drf自带认证模式
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'^api/', include(router.urls)),
