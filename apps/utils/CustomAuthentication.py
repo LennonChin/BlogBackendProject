@@ -30,7 +30,7 @@ class AnonymousBrowseAuthentication(authentication.BaseAuthentication):
 
         utc_second = calendar.timegm(datetime.utcnow().timetuple())
 
-        if abs(int(decode_time) - int(utc_second)) > 60 * 3:
+        if abs(int(decode_time) - int(utc_second)) > 60 * 5:
             raise exceptions.AuthenticationFailed('Illegal Request')
 
         local_path = '{0}{1}{2}'.format('https://', request.META['SERVER_NAME'], request.META['PATH_INFO'])
