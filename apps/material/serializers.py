@@ -183,7 +183,7 @@ class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'title', 'desc', 'tags', 'like_num', 'comment_num', 'click_num', 'front_image', 'front_image_type',
             'is_hot',
-            'is_recommend', 'is_banner',
+            'is_recommend', 'is_banner', 'is_commentable',
             'post_type', 'browse_password_encrypt', 'add_time')
 
 

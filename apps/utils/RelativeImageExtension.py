@@ -38,7 +38,8 @@ class RelativeImagesTreeprocessor(Treeprocessor):
         imgs = root.getiterator("img")
         for image in imgs:
             if self.is_absolute(image.attrib["src"]):
-                image.set("src", self.make_external(image.attrib["src"]))
+                image.set("data-src", self.make_external(image.attrib["src"]))
+                image.set("src", "")
 
     def make_external(self, url):
         temp_url = url

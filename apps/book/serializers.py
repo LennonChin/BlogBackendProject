@@ -60,7 +60,7 @@ class BookBaseInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookInfo
-        fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner',
+        fields = ('id', 'title', 'desc', 'category', 'tags', 'post_type', 'is_recommend', 'is_hot', 'is_banner', 'is_commentable',
                   'browse_password_encrypt', 'front_image', 'front_image_type', 'is_reading', 'read_precentage', 'add_time', 'douban_id', 'douban_type', 'douban_infos', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_rating', 'book_tags')
 
 
