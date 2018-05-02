@@ -27,11 +27,11 @@ class SearchViewViewSet(HaystackViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
-        raw_data = serializer.data
+        raw_datas = serializer.data
         result_data = {}
-        for dict in raw_data:
+        for dict in raw_datas:
             type = dict['type']
             if type not in result_data.keys():
                 result_data[type] = []
             result_data[type].append(dict)
-        return Response(result_data)
+        return Response(raw_datas)

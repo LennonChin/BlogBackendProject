@@ -19,6 +19,7 @@ from base.utils import send_email
 
 
 class CategorySerializer3(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialCategory
         fields = "__all__"
@@ -41,24 +42,28 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class SingleLevelCategorySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialCategory
         fields = "__all__"
 
 
 class TagSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialTag
         fields = "__all__"
 
 
 class LicenseSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialLicense
         fields = "__all__"
 
 
 class CameraSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialCamera
         fields = "__all__"
@@ -84,6 +89,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
 
 # 子级评论排序
 class OrderSubCommentListSerializer(serializers.ListSerializer):
+
     def to_representation(self, data):
         data = data.order_by('add_time')[:10]
         return super(OrderSubCommentListSerializer, self).to_representation(data)
@@ -115,6 +121,7 @@ class CommentDetailInfoSerializer(serializers.ModelSerializer):
 
 # 评论基本信息
 class CommentBaseInfoSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialCommentInfo
         fields = "__all__"
@@ -188,6 +195,7 @@ class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
 
 
 class MaterialBannerSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialBanner
         fields = "__all__"
@@ -206,6 +214,7 @@ class MaterialSocialSerializer(serializers.ModelSerializer):
 
 
 class MaterialMasterSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MaterialMaster
         fields = "__all__"
