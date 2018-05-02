@@ -5,7 +5,7 @@ __date__ = '2017/12/2 12:56'
 from rest_framework import serializers
 
 from movie.models import MovieInfo, MovieDetail
-from material.serializers import SingleLevelCategorySerializer, TagSerializer
+from material.serializers import SingleLevelCategorySerializer, TagSerializer, LicenseSerializer
 from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
@@ -19,6 +19,7 @@ class MovieDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
     details = MovieDetailSerializer(many=True)
+    license = LicenseSerializer()
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
 
     class Meta:
@@ -38,5 +39,5 @@ class MovieBaseInfoSerializer(serializers.ModelSerializer):
         model = MovieInfo
         fields = (
             'id', 'title', 'desc', 'directors', 'actors', 'category', 'post_type', 'is_recommend', 'is_hot',
-            'is_banner', 'browse_password_encrypt',
+            'is_banner', 'is_commentable', 'browse_password_encrypt',
             'front_image', 'add_time')

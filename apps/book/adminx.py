@@ -44,7 +44,8 @@ class BookDetailAdmin(object):
 
 # 图书基本信息
 class BookInfoAdmin(object):
-    list_display = ['title', "category", "tags", "front_image", "front_image_type"]
+    list_display = ['title', "category", "tags", 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', "front_image", "front_image_type"]
+    list_editable = ['is_hot', 'is_recommend', 'is_banner', 'is_commentable']
     search_fields = ['title']
     exclude = ['post_type', 'browse_password_encrypt']
 

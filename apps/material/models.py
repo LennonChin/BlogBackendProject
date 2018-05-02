@@ -172,6 +172,7 @@ class PostBaseInfo(models.Model):
     is_recommend = models.BooleanField(default=False, verbose_name="是否推荐", help_text="是否推荐")
     is_banner = models.BooleanField(default=False, verbose_name="是否是Banner", help_text="是否是Banner")
     is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
+    is_commentable = models.BooleanField(default=True, verbose_name="是否可评论", help_text="是否可评论")
     browse_password = models.CharField(max_length=20, null=True, blank=True, verbose_name="浏览密码", help_text="浏览密码")
     browse_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密",
                                                help_text="浏览密码加密")
