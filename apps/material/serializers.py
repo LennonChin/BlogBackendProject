@@ -10,7 +10,7 @@ from rest_framework import serializers
 
 from material.models import MaterialCategory, MaterialTag, MaterialLicense, PostBaseInfo, MaterialBanner, \
     MaterialCamera, \
-    MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster
+    MaterialPicture, MaterialCommentInfo, MaterialCommentDetail, MaterialSocial, MaterialMaster, PostTag
 from user.serializers import GuestSerializer
 from user.models import GuestProfile
 
@@ -47,9 +47,14 @@ class SingleLevelCategorySerializer(serializers.ModelSerializer):
 
 
 class TagSerializer(serializers.ModelSerializer):
+    related_post_num = serializers.SerializerMethodField()
+
+    def get_related_post_num(self, tag):
+        return len(PostTag.objects.filter(tag__id=tag.id))
+
     class Meta:
         model = MaterialTag
-        fields = "__all__"
+        fields = ('name', 'color', 'related_post_num')
 
 
 class LicenseSerializer(serializers.ModelSerializer):
