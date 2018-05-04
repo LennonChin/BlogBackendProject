@@ -6,6 +6,7 @@ from drf_haystack.serializers import HighlighterMixin, HaystackSerializer
 
 from article.search_indexes import ArticleDetailIndex
 from material.search_indexes import MaterialCommentDetailIndex
+from utils.CustomHighlighter import CustomHighlighter
 
 
 class SearchSerializer(HighlighterMixin, HaystackSerializer):
@@ -14,6 +15,7 @@ class SearchSerializer(HighlighterMixin, HaystackSerializer):
     """
     highlighter_css_class = "search-highlight"
     highlighter_html_tag = "em"
+    highlighter_class = CustomHighlighter
 
     class Meta:
         index_classes = (ArticleDetailIndex, MaterialCommentDetailIndex)
