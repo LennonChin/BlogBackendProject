@@ -34,7 +34,7 @@ class NavigationLink(models.Model):
 class SiteInfo(models.Model):
     name = models.CharField(default="", max_length=20, verbose_name="名称", help_text="名称")
     name_en = models.CharField(default="", max_length=20, verbose_name="名称英文", help_text="名称英文")
-    desc = models.CharField(default="", max_length=20, verbose_name="简介", help_text="简介")
+    desc = models.CharField(default="", max_length=150, verbose_name="简介", help_text="简介")
     keywords = models.CharField(default="", max_length=300, verbose_name="关键字", help_text="关键字")
     icon = models.ImageField(upload_to="base/site/image/%y/%m", null=True, blank=True, verbose_name="图标", help_text="图标")
     api_base_url = models.URLField(max_length=30, null=False, blank=False, verbose_name='API接口BaseURL')

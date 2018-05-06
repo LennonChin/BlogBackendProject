@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 from .models import BookInfo, BookNoteInfo
 from .serializers import BookBaseInfoSerializer, BookDetailInfoSerializer, BookNoteBaseInfoSerializer, BookNoteDetialInfoSerializer
-from .filters import BookFilter
+from .filters import BookFilter, BookNoteFilter
 
 from base.utils import CustomeLimitOffsetPagination
 
@@ -84,8 +84,8 @@ class BookNoteBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = BookNoteBaseInfoSerializer
 
     # 过滤，搜索，排序
-    # filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    # filter_class = BookFilter
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = BookNoteFilter
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
     ordering_fields = ('click_num', 'like_num', 'comment_num')
 
