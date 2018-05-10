@@ -1,7 +1,6 @@
 import markdown
 import requests
 import json
-from datetime import datetime
 from django.db import models
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo

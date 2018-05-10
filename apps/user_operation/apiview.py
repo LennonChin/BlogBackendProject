@@ -8,76 +8,9 @@
 
 from rest_framework import mixins, viewsets, status
 from rest_framework.response import Response
-from .serializers import PostLikeSerializer, CommentLikeSerializer, QiniuTokenSerializer
-from material.models import PostBaseInfo, MaterialCommentInfo
+from .serializers import QiniuTokenSerializer
 from user_operation.models import QiniuTokenRecord
 from base.utils import generate_qiniu_token, generate_qiniu_random_filename
-
-
-class PostLikeViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    """
-    文章点赞
-    """
-    serializer_class = PostLikeSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True) # status 400
-
-        post_id = serializer.validated_data["post_id"]
-
-        post = PostBaseInfo.objects.filter(id=post_id)[0]
-
-        if post is not None:
-            post.like_num += 1
-            post.save()
-            context = {
-                "post": post_id
-            }
-            return Response(context, status.HTTP_201_CREATED)
-        else:
-            context = {
-                "error": '未找到文章'
-            }
-            return Response(context, status=status.HTTP_400_BAD_REQUEST)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
-
-class CommentLikeViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    """
-    文章点赞
-    """
-    serializer_class = CommentLikeSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True) # status 400
-
-        comment_id = serializer.validated_data["comment_id"]
-        operation = serializer.validated_data["operation"]
-
-        comment = MaterialCommentInfo.objects.filter(id=comment_id)[0]
-
-        if comment is not None:
-            if bool(operation):
-                comment.like_num += 1
-            else:
-                comment.unlike_num += 1
-            comment.save()
-            context = {
-                "comment": comment_id
-            }
-            return Response(context, status.HTTP_201_CREATED)
-        else:
-            context = {
-                "error": '未找到评论'
-            }
-            return Response(context, status=status.HTTP_400_BAD_REQUEST)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class QiniuTokenViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):

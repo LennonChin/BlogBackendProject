@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('base', '0001_initial'),
-        ('material', '0001_initial'),
+        ('comment', '0001_initial'),
     ]
 
     operations = [

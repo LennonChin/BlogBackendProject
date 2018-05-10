@@ -54,6 +54,7 @@ PERSONAL_APPS = [
     'movie.apps.MovieConfig',
     'album.apps.AlbumConfig',
     'article.apps.ArticleConfig',
+    'comment.apps.CommentConfig',
     'user.apps.UserConfig',
     'user_operation.apps.UserOperationConfig',
     'book.apps.BookConfig'
@@ -212,7 +213,7 @@ STATICFILES_DIRS = [
 # MEDIA_ROOT = ''
 
 # 线上环境，从七牛云读取
-MEDIA_URL = 'https://material.coderap.com/'
+MEDIA_URL = 'https://comment.coderap.com/'
 MEDIA_ROOT = ''
 
 # 站点Media资源前缀网址

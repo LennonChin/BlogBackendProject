@@ -73,12 +73,12 @@ def makeExtension(configs={}):
 if __name__ == '__main__':
     import markdown
     text = """
-![001.png](https://material.coderap.com/a/b/001.png)
+![001.png](https://comment.coderap.com/a/b/001.png)
 ![abc.png](/c/d/abc.png)
-![test.png](https://material.coderap.com/efg/hijk/test.png)
+![test.png](https://comment.coderap.com/efg/hijk/test.png)
 """
     configs = {
-        'base_urls': ["https://material.coderap.com"],
+        'base_urls': ["https://comment.coderap.com"],
     }
 
     md = markdown.markdown(text, extensions=['markdown.extensions.extra',

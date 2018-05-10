@@ -533,7 +533,7 @@
      "[tag ![[*foo*]]][string (http://example.com/)] bar");
 
   // Not a link. Should be normal text due to square brackets being used
-  // regularly in text, especially in quoted material, and no space is allowed
+  // regularly in text, especially in quoted comment, and no space is allowed
   // between square brackets and parentheses (per Dingus).
   MT("notALink",
      "[[foo]] (bar)");

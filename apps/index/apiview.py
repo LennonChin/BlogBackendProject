@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from drf_haystack.viewsets import HaystackViewSet
 
 from article.models import ArticleDetail
-from material.models import MaterialCommentDetail
+from comment.models import CommentDetail
 from .serializers import SearchSerializer
 
 
@@ -14,7 +14,7 @@ class SearchViewViewSet(HaystackViewSet):
     """
     搜索ViewSet
     """
-    index_models = (ArticleDetail, MaterialCommentDetail)
+    index_models = (ArticleDetail, CommentDetail)
 
     serializer_class = SearchSerializer
 

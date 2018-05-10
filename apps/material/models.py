@@ -1,13 +1,9 @@
 import hashlib
-import markdown
 
 from django.db import models
-import bleach
-from base.utils import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES, ALLOWED_PROTOCOLS
 
 from user.models import GuestProfile
-from utils.RelativeImageExtension import RelativeImageExtension
-from BlogBackendProject.settings import MEDIA_URL_PREFIX, SITE_BASE_URL
+from BlogBackendProject.settings import SITE_BASE_URL
 
 
 class MaterialCategory(models.Model):
@@ -37,7 +33,7 @@ class MaterialCategory(models.Model):
     subname = models.CharField(max_length=30, default="", verbose_name="别名", help_text="别名")
     category_type = models.CharField(max_length=30, choices=CATEGORY_TYPE, verbose_name="路由编码", help_text="用于配置路由跳转")
     desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
-    image = models.ImageField(upload_to="material/category/image/%Y/%m", null=True, blank=True, help_text="图片")
+    image = models.ImageField(upload_to="comment/category/image/%Y/%m", null=True, blank=True, help_text="图片")
     category_level = models.CharField(max_length=20, choices=CATEGORY_LEVEL, verbose_name="类目级别", help_text="类目级别")
     parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="父类目级别", help_text="父目录",
                                         related_name="sub_category")
@@ -121,7 +117,7 @@ class MaterialPicture(models.Model):
     subtitle = models.CharField(max_length=100, null=True, blank=True, verbose_name="子标题", help_text="子标题")
     abstract = models.CharField(max_length=255, null=True, blank=True, verbose_name="摘要", help_text="摘要")
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
-    image = models.ImageField(upload_to="material/picture/image/%Y/%m", null=True, blank=True, verbose_name="图片",
+    image = models.ImageField(upload_to="comment/picture/image/%Y/%m", null=True, blank=True, verbose_name="图片",
                               help_text="图片")
     camera = models.ForeignKey(MaterialCamera, null=True, blank=True, verbose_name="拍摄相机", help_text="拍摄相机")
     link = models.URLField(null=True, blank=True, verbose_name="链接", help_text="链接")
@@ -163,7 +159,7 @@ class PostBaseInfo(models.Model):
     click_num = models.IntegerField(default=0, verbose_name="点击数", help_text="点击数")
     like_num = models.IntegerField(default=0, verbose_name="点赞数", help_text="点赞数")
     comment_num = models.IntegerField(default=0, verbose_name="评论数", help_text="评论数")
-    front_image = models.ImageField(upload_to="material/post/image/%y/%m", null=True, blank=True, verbose_name="封面图",
+    front_image = models.ImageField(upload_to="comment/post/image/%y/%m", null=True, blank=True, verbose_name="封面图",
                                     help_text="大图833*217，小图243*207")
     front_image_type = models.CharField(max_length=20, default="0", choices=FRONT_IMAGE_TYPE, verbose_name="封面图类别",
                                         help_text="封面图类别")
@@ -197,70 +193,6 @@ class PostBaseInfo(models.Model):
         return self.title
 
 
-class MaterialCommentInfo(models.Model):
-    """
-    评论基本信息
-    """
-    post = models.ForeignKey(PostBaseInfo, null=False, blank=False, verbose_name='所属文章')
-    author = models.ForeignKey(GuestProfile, null=True, blank=True, related_name="comments", verbose_name='作者')
-    reply_to_author = models.ForeignKey(GuestProfile, null=True, blank=True, related_name="be_comments",
-                                        verbose_name='被回复人')
-    comment_level = models.IntegerField(default=0, verbose_name="评论级别", help_text="评论级别")
-    parent_comment = models.ForeignKey("self", null=True, blank=True, related_name="sub_comment", verbose_name="根评论",
-                                       help_text="根评论")
-    reply_to_comment = models.ForeignKey("self", null=True, blank=True, related_name='reply_comment',
-                                         verbose_name='父级评论')
-    like_num = models.IntegerField(default=0, verbose_name="点赞数", help_text="点赞数")
-    unlike_num = models.IntegerField(default=0, verbose_name="反对数", help_text="反对数")
-    comment_num = models.IntegerField(default=0, verbose_name="评论数", help_text="评论数")
-    is_hot = models.BooleanField(default=False, verbose_name="是否热门", help_text="是否热门")
-    is_recommend = models.BooleanField(default=False, verbose_name="是否推荐", help_text="是否推荐")
-    is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
-    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
-
-    class Meta:
-        verbose_name = "评论基本信息"
-        verbose_name_plural = verbose_name + '列表'
-
-    def __str__(self):
-        return self.detail.formatted_content[:100]
-
-
-class MaterialCommentDetail(models.Model):
-    """
-    评论详细信息
-    """
-    comment_info = models.OneToOneField(MaterialCommentInfo, null=True, blank=True, related_name='detail',
-                                        verbose_name="基本信息",
-                                        help_text="基本信息")
-    origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
-    formatted_content = models.TextField(null=True, blank=True, verbose_name="处理后内容", help_text="处理后内容")
-    update_time = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="修改时间",
-                                       help_text="修改时间")
-
-    def save(self, *args, **kwargs):
-        self.formatted_content = bleach.clean(markdown.markdown(self.origin_content,
-                                                                extensions=[
-                                                                    'markdown.extensions.extra',
-                                                                    'markdown.extensions.codehilite',
-                                                                    'markdown.extensions.toc',
-                                                                    RelativeImageExtension({
-                                                                        'base_urls': [
-                                                                            MEDIA_URL_PREFIX
-                                                                        ]
-                                                                    })
-                                                                ]), ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES,
-                                              ALLOWED_PROTOCOLS, False, False)
-        super(MaterialCommentDetail, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.comment_info.post.title
-
-    class Meta:
-        verbose_name = "评论详细信息"
-        verbose_name_plural = verbose_name + '列表'
-
-
 class PostTag(models.Model):
     """
     Post标签
@@ -282,7 +214,7 @@ class MaterialBanner(models.Model):
     轮播图
     """
     title = models.CharField(max_length=100, verbose_name="标题", help_text="标题")
-    image = models.ImageField(upload_to="material/banner/image/%y/%m", null=True, blank=True, verbose_name="图片",
+    image = models.ImageField(upload_to="comment/banner/image/%y/%m", null=True, blank=True, verbose_name="图片",
                               help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
     category = models.ForeignKey(MaterialCategory, default='1', null=False, blank=False, verbose_name="类别",
@@ -304,7 +236,7 @@ class MaterialSocial(models.Model):
     """
     name = models.CharField(max_length=30, verbose_name="名称", help_text="名称")
     desc = models.CharField(max_length=100, verbose_name="简介", help_text="简介")
-    image = models.ImageField(upload_to="material/social/image/%y/%m", null=True, blank=True, verbose_name="图片",
+    image = models.ImageField(upload_to="comment/social/image/%y/%m", null=True, blank=True, verbose_name="图片",
                               help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
@@ -323,7 +255,7 @@ class MaterialMaster(models.Model):
     """
     name = models.CharField(max_length=30, verbose_name="名称", help_text="名称")
     desc = models.CharField(max_length=100, verbose_name="简介", help_text="简介")
-    image = models.ImageField(upload_to="material/master/image/%y/%m", null=True, blank=True, verbose_name="图片",
+    image = models.ImageField(upload_to="comment/master/image/%y/%m", null=True, blank=True, verbose_name="图片",
                               help_text="图片")
     url = models.URLField(max_length=200, verbose_name="链接", help_text="链接")
     experience = models.FloatField(default=0, verbose_name="熟练度", help_text="熟练度")

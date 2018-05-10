@@ -6,13 +6,15 @@
 # @File    : apiview.py
 # @Software: PyCharm
 
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import mixins, viewsets, filters
+from rest_framework import mixins, status
+from rest_framework.response import Response
 
-from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo, MaterialCommentInfo
-from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, \
-    MaterialPostBaseInfoSerializer, CommentDetailInfoSerializer, CreateCommentSerializer
-from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter, CommentFilter
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, filters
+
+from .models import MaterialCategory, MaterialTag, MaterialBanner, PostBaseInfo
+from .serializers import CategorySerializer, SingleLevelCategorySerializer, TagSerializer, MaterialBannerSerializer, MaterialPostBaseInfoSerializer, PostLikeSerializer
+from .filters import CategoryFilter, MaterialBannerFilter, PostBaseInfoFilter
 from base.utils import CustomeLimitOffsetPagination, CustomePageNumberPagination
 
 
@@ -86,25 +88,33 @@ class PostBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = MaterialPostBaseInfoSerializer
 
 
-class CommentDetailListViewset(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+
+class PostLikeViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
-    List:
-        评论列表页
+    文章点赞
     """
-    queryset = MaterialCommentInfo.objects.all()
-    # 分页设置
-    pagination_class = CustomeLimitOffsetPagination
-    
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_class = CommentFilter
-    ordering_fields = ('add_time',)
-    ordering = ('-add_time',)
+    serializer_class = PostLikeSerializer
 
-    def get_serializer_class(self):
-        if self.action == "list":
-            return CommentDetailInfoSerializer
-        elif self.action == "create":
-            return CreateCommentSerializer
-        return CommentDetailInfoSerializer
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True) # status 400
 
+        post_id = serializer.validated_data["post_id"]
 
+        post = PostBaseInfo.objects.filter(id=post_id)[0]
+
+        if post is not None:
+            post.like_num += 1
+            post.save()
+            context = {
+                "post": post_id
+            }
+            return Response(context, status.HTTP_201_CREATED)
+        else:
+            context = {
+                "error": '未找到文章'
+            }
+            return Response(context, status=status.HTTP_400_BAD_REQUEST)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

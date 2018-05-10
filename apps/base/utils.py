@@ -8,7 +8,7 @@
 
 from datetime import datetime
 from random import choice
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.template import loader
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.pagination import LimitOffsetPagination

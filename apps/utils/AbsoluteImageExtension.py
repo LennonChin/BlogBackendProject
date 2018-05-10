@@ -64,7 +64,7 @@ if __name__ == '__main__':
 """
 
     configs = {
-        'base_url': ["https://material.coderap.com"],
+        'base_url': ["https://comment.coderap.com"],
     }
 
     absoluteImagesExtension = AbsoluteImageExtension(configs)

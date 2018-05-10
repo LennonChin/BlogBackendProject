@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('material', '0001_initial'),
+        ('comment', '0001_initial'),
     ]
 
     operations = [
@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='postbaseinfo',
             name='front_image',
-            field=models.ImageField(blank=True, help_text='大图833*217，小图243*207', null=True, upload_to='material/post/image/%y/%m', verbose_name='封面图'),
+            field=models.ImageField(blank=True, help_text='大图833*217，小图243*207', null=True, upload_to='comment/post/image/%y/%m', verbose_name='封面图'),
         ),
     ]

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('material', '0001_initial'),
+        ('comment', '0001_initial'),
     ]
 
     operations = [
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': '图书列表',
                 'verbose_name': '图书',
             },
-            bases=('material.postbaseinfo',),
+            bases=('comment.postbaseinfo',),
         ),
         migrations.CreateModel(
             name='BookNoteDetail',
@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': '图书笔记列表',
                 'verbose_name': '图书笔记',
             },
-            bases=('material.postbaseinfo',),
+            bases=('comment.postbaseinfo',),
         ),
         migrations.CreateModel(
             name='BookResource',

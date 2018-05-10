@@ -6,17 +6,7 @@
 # @File    : serializers.py
 # @Software: PyCharm
 
-import re
 from rest_framework import serializers
-
-
-class PostLikeSerializer(serializers.Serializer):
-    post_id = serializers.IntegerField(required=True, label='文章')
-
-
-class CommentLikeSerializer(serializers.Serializer):
-    comment_id = serializers.IntegerField(required=True, label='评论')
-    operation = serializers.BooleanField(required=True, label='like或者unlike')
 
 
 class QiniuTokenSerializer(serializers.Serializer):

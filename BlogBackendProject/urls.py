@@ -30,10 +30,11 @@ from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset, BookNoteBaseInfoListViewset, BookNoteDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
-    MaterialBannerListViewset, PostBaseInfoListViewset, CommentDetailListViewset
+    MaterialBannerListViewset, PostBaseInfoListViewset,PostLikeViewset
+from comment.apiview import CommentDetailListViewset, CommentLikeViewset
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
-from user_operation.apiview import PostLikeViewset, CommentLikeViewset, QiniuTokenViewset
+from user_operation.apiview import QiniuTokenViewset
 
 from BlogBackendProject.settings import MEDIA_ROOT
 

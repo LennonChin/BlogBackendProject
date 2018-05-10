@@ -5,7 +5,7 @@ __date__ = '2017/12/9 13:31'
 from drf_haystack.serializers import HighlighterMixin, HaystackSerializer
 
 from article.search_indexes import ArticleDetailIndex
-from material.search_indexes import MaterialCommentDetailIndex
+from comment.search_indexes import CommentDetailIndex
 from utils.CustomHighlighter import CustomHighlighter
 
 
@@ -18,5 +18,5 @@ class SearchSerializer(HighlighterMixin, HaystackSerializer):
     highlighter_class = CustomHighlighter
 
     class Meta:
-        index_classes = (ArticleDetailIndex, MaterialCommentDetailIndex)
+        index_classes = (ArticleDetailIndex, CommentDetailIndex)
         fields = ('title', 'author', 'add_time', 'update_time', 'link', 'type')

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('material', '0001_initial'),
+        ('comment', '0001_initial'),
     ]
 
     operations = [
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': '图集列表',
                 'verbose_name': '图集',
             },
-            bases=('material.postbaseinfo',),
+            bases=('comment.postbaseinfo',),
         ),
         migrations.CreateModel(
             name='AlbumPhoto',

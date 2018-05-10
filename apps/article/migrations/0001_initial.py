@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('material', '0001_initial'),
+        ('comment', '0001_initial'),
     ]
 
     operations = [
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': '文章列表',
                 'verbose_name': '文章',
             },
-            bases=('material.postbaseinfo',),
+            bases=('comment.postbaseinfo',),
         ),
         migrations.AddField(
             model_name='articledetail',
