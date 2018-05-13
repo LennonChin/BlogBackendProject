@@ -4,7 +4,7 @@ __date__ = '2017/12/2 12:52'
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from rest_framework import status, viewsets, filters
+from rest_framework import status, viewsets, filters, mixins
 from rest_framework.response import Response
 
 from .models import BookInfo, BookNoteInfo
@@ -39,7 +39,7 @@ class BookBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class BookDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
+class BookDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     List:
         图书详细信息列表页
@@ -100,7 +100,7 @@ class BookNoteBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class BookNoteDetailInfoListViewset(viewsets.ReadOnlyModelViewSet):
+class BookNoteDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     List:
         图书笔记信息列表页
