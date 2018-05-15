@@ -19,14 +19,19 @@ class NavigationLinkSerializer(serializers.ModelSerializer):
 class SiteInfoSerializer(serializers.ModelSerializer):
     navigations = NavigationLinkSerializer(many=True)
     icon = serializers.SerializerMethodField()
+    background = serializers.SerializerMethodField()
 
     def get_icon(self, site_info):
         if site_info.icon:
             return "{0}/{1}".format(MEDIA_URL_PREFIX, site_info.icon)
 
+    def get_background(self, blogger_info):
+        if blogger_info.background:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, blogger_info.background)
+
     class Meta:
         model = SiteInfo
-        fields = ('name', 'name_en', 'desc', 'keywords', 'icon', 'api_base_url', 'navigations', 'copyright', 'icp')
+        fields = ('name', 'name_en', 'desc', 'keywords', 'icon', 'background', 'api_base_url', 'navigations', 'copyright', 'icp')
 
 
 class BloggerInfoSerializer(serializers.ModelSerializer):

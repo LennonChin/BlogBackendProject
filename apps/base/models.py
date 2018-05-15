@@ -37,6 +37,7 @@ class SiteInfo(models.Model):
     desc = models.CharField(default="", max_length=150, verbose_name="简介", help_text="简介")
     keywords = models.CharField(default="", max_length=300, verbose_name="关键字", help_text="关键字")
     icon = models.ImageField(upload_to="base/site/image/%y/%m", null=True, blank=True, verbose_name="图标", help_text="图标")
+    background = models.ImageField(upload_to="base/site/image/%y/%m", null=True, blank=True, verbose_name="背景图", help_text="背景图")
     api_base_url = models.URLField(max_length=30, null=False, blank=False, verbose_name='API接口BaseURL')
     navigations = models.ManyToManyField(NavigationLink, through="SiteInfoNavigation", through_fields=(
         'site', 'navigation'), verbose_name='自定义导航', help_text='自定义导航')
