@@ -1,6 +1,6 @@
 import markdown
 from django.db import models
-import bleach
+import bleach, html
 from base.utils import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES, ALLOWED_PROTOCOLS
 
 from material.models import PostBaseInfo
@@ -37,7 +37,7 @@ class CommentInfo(models.Model):
         verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
-        return self.detail.formatted_content[:100]
+        return html.unescape(self.detail.formatted_content[:100])
 
 
 class CommentDetail(models.Model):
