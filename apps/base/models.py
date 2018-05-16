@@ -42,6 +42,8 @@ class SiteInfo(models.Model):
     navigations = models.ManyToManyField(NavigationLink, through="SiteInfoNavigation", through_fields=(
         'site', 'navigation'), verbose_name='自定义导航', help_text='自定义导航')
     copyright = models.CharField(default="", max_length=100, verbose_name="版权", help_text="版权")
+    copyright_desc = models.CharField(default="", max_length=300, verbose_name="版权说明中文", help_text="版权说明中文")
+    copyright_desc_en = models.CharField(default="", max_length=300, verbose_name="版权说明英文", help_text="版权说明英文")
     icp = models.CharField(default="", max_length=20, verbose_name="ICP", help_text="ICP")
     is_live = models.BooleanField(default=False, verbose_name="是否激活", help_text="是否激活")
     is_force_refresh = models.BooleanField(default=False, verbose_name="是否强制刷新", help_text="是否强制刷新")
