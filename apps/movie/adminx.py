@@ -42,8 +42,8 @@ class MovieDetailAdmin(object):
 
 
 class MovieInfoAdmin(object):
-    list_display = ['title', "category", "tags", 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', "front_image", "front_image_type"]
-    list_editable = ['is_hot', 'is_recommend', 'is_banner', 'is_commentable']
+    list_display = ['title', "category", "tags", 'is_active', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', "front_image", "front_image_type"]
+    list_editable = ['is_active', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable']
     search_fields = ['title']
     exclude = ['post_type', 'browse_password_encrypt']
 

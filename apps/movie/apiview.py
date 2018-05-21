@@ -17,7 +17,7 @@ class MovieBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         文章列表页
     """
-    queryset = MovieInfo.objects.all()
+    queryset = MovieInfo.objects.filter(is_active=True)
     serializer_class = MovieBaseInfoSerializer
 
     # 过滤，搜索，排序
@@ -42,7 +42,7 @@ class MovieDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericView
     List:
         文章列表页
     """
-    queryset = MovieInfo.objects.all()
+    queryset = MovieInfo.objects.filter(is_active=True)
     serializer_class = MovieDetailInfoSerializer
 
     # 过滤，搜索，排序

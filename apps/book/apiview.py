@@ -19,7 +19,7 @@ class BookBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         图书基本信息文章列表页
     """
-    queryset = BookInfo.objects.all()
+    queryset = BookInfo.objects.filter(is_active=True)
     serializer_class = BookBaseInfoSerializer
 
     # 过滤，搜索，排序
@@ -44,7 +44,7 @@ class BookDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericViewS
     List:
         图书详细信息列表页
     """
-    queryset = BookInfo.objects.all()
+    queryset = BookInfo.objects.filter(is_active=True)
     serializer_class = BookDetailInfoSerializer
 
     # 过滤，搜索，排序
@@ -80,7 +80,7 @@ class BookNoteBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         图书笔记信息列表页
     """
-    queryset = BookNoteInfo.objects.all()
+    queryset = BookNoteInfo.objects.filter(is_active=True)
     serializer_class = BookNoteBaseInfoSerializer
 
     # 过滤，搜索，排序
@@ -105,7 +105,7 @@ class BookNoteDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericV
     List:
         图书笔记信息列表页
     """
-    queryset = BookNoteInfo.objects.all()
+    queryset = BookNoteInfo.objects.filter(is_active=True)
     serializer_class = BookNoteDetialInfoSerializer
 
     # 过滤，搜索，排序

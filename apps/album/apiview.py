@@ -17,7 +17,7 @@ class AlbumBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         图集列表页
     """
-    queryset = AlbumInfo.objects.all()
+    queryset = AlbumInfo.objects.filter(is_active=True)
     serializer_class = AlbumBaseInfoSerializer
 
     # 过滤，搜索，排序
@@ -43,7 +43,7 @@ class AlbumDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericView
     List:
         图集列表页
     """
-    queryset = AlbumInfo.objects.all()
+    queryset = AlbumInfo.objects.filter(is_active=True)
     serializer_class = AlbumDetailInfoSerializer
 
     # 过滤，搜索，排序

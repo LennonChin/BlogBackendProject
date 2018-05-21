@@ -17,7 +17,7 @@ class ArticleBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         文章列表页
     """
-    queryset = ArticleInfo.objects.all()
+    queryset = ArticleInfo.objects.filter(is_active=True)
     serializer_class = ArticleBaseInfoSerializer
 
     # 过滤，搜索，排序
@@ -42,7 +42,7 @@ class ArticleDetailInfoListViewset(mixins.RetrieveModelMixin, viewsets.GenericVi
     List:
         文章列表页
     """
-    queryset = ArticleInfo.objects.all()
+    queryset = ArticleInfo.objects.filter(is_active=True)
     serializer_class = ArticleDetailInfoSerializer
 
     # 过滤，搜索，排序
