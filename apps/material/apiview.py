@@ -77,7 +77,7 @@ class PostBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         时间轴列表页
     """
-    queryset = PostBaseInfo.objects.all()
+    queryset = PostBaseInfo.objects.filter(is_active=True)
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination
 
