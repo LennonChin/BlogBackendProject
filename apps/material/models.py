@@ -37,7 +37,9 @@ class MaterialCategory(models.Model):
     category_level = models.CharField(max_length=20, choices=CATEGORY_LEVEL, verbose_name="类目级别", help_text="类目级别")
     parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="父类目级别", help_text="父目录",
                                         related_name="sub_category")
-    is_tab = models.BooleanField(default=False, verbose_name="是否导航", help_text="是否导航")
+    is_active = models.BooleanField(default=True, verbose_name="是否激活", help_text="是否激活")
+    is_tab = models.BooleanField(default=True, verbose_name="是否导航", help_text="是否导航")
+    index = models.IntegerField(default=0, verbose_name="排序", help_text="排序")
     add_time = models.DateTimeField(auto_now_add=True, verbose_name="添加时间")
 
     class Meta:

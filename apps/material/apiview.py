@@ -23,15 +23,15 @@ class CategoryListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         分类列表页
     """
-    queryset = MaterialCategory.objects.all()
+    queryset = MaterialCategory.objects.filter(is_active=True)
     # 分页设置
     pagination_class = CustomePageNumberPagination
     serializer_class = CategorySerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CategoryFilter
     search_fields = ('name', 'category_type', 'desc')
-    ordering_fields = ('category_level', 'is_tab')
-    ordering = ('id',)
+    ordering_fields = ('category_level', 'index')
+    ordering = ('index',)
 
 
 class SingleLevelCategoryListViewset(viewsets.ReadOnlyModelViewSet):
@@ -39,15 +39,15 @@ class SingleLevelCategoryListViewset(viewsets.ReadOnlyModelViewSet):
     List:
         单级分类列表页
     """
-    queryset = MaterialCategory.objects.all()
+    queryset = MaterialCategory.objects.filter(is_active=True)
     # 分页设置
     pagination_class = CustomePageNumberPagination
     serializer_class = SingleLevelCategorySerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = CategoryFilter
     search_fields = ('name', 'category_type', 'desc')
-    ordering_fields = ('category_level', 'is_tab')
-    ordering = ('id',)
+    ordering_fields = ('category_level', 'index')
+    ordering = ('index',)
 
 
 class TagListViewset(viewsets.ReadOnlyModelViewSet):

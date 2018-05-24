@@ -14,9 +14,18 @@ from material.models import MaterialCategory, MaterialTag, MaterialLicense, Post
 from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
+# 子级分类排序过滤，只取显示在tab上的，且按index排序
+class OrderCategoryListSerializer(serializers.ListSerializer):
+
+    def to_representation(self, data):
+        data = data.filter(is_active=True).order_by('index')
+        return super(OrderCategoryListSerializer, self).to_representation(data)
+
+
 class CategorySerializer3(serializers.ModelSerializer):
 
     class Meta:
+        list_serializer_class = OrderCategoryListSerializer
         model = MaterialCategory
         fields = "__all__"
 
@@ -25,6 +34,7 @@ class CategorySerializer2(serializers.ModelSerializer):
     sub_category = CategorySerializer3(many=True)
 
     class Meta:
+        list_serializer_class = OrderCategoryListSerializer
         model = MaterialCategory
         fields = "__all__"
 
