@@ -11,15 +11,20 @@ from material.models import PostBaseInfo
 
 
 class LatestEntriesFeed(Feed):
-    title = "Diomedes博客RSS订阅"
+    title = "CODERAP博客RSS订阅"
     link = "/rss/"
-    description = "Diomedes博客RSS订阅，更新推送"
+    description = "Cast a cold eyes, one life one death, horseman pass by"
 
     def items(self):
-        return PostBaseInfo.objects.order_by('-add_time')[:20]
+        return PostBaseInfo.objects.filter(is_active=True).order_by('-add_time')
 
     def item_title(self, item):
         return item.title
 
     def item_description(self, item):
         return item.desc
+
+    def item_extra_kwargs(self, item):
+        return {
+            'comments': '{}#comments'.format(item.get_absolute_url())
+        }
