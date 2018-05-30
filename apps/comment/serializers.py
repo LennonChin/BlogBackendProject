@@ -9,6 +9,7 @@
 from rest_framework import serializers
 
 from .models import CommentInfo, CommentDetail
+from material.models import PostBaseInfo
 from user.serializers import GuestSerializer
 from user.models import GuestProfile
 
@@ -75,7 +76,23 @@ class CommentBaseInfoSerializer(serializers.ModelSerializer):
 class CreateCommentSerializer(serializers.ModelSerializer):
     detail = CommentDetailSerializer()
 
+    def validate(self, attrs):
+        # TODO 这里需要对评论的内容进行校验，包括评论内容，评论人，评论回复人等信息
+        # 判断评论内容是否不为空
+        if 'detail' not in attrs or 'origin_content' not in attrs['detail'] or len(attrs['detail']['origin_content']) == 0:
+            raise serializers.ValidationError("请指定评论内容")
+        # 判断评论级别
+        # 判断文章是否存在，是否允许评论
+        post = PostBaseInfo.objects.filter(id=attrs['post'].id)[0]
+        if post is None:
+            raise serializers.ValidationError("请指定文章信息")
+        if not post.is_commentable:
+            raise serializers.ValidationError("该文章暂不允许评论")
+        else:
+            return attrs
+
     def create(self, validated_data):
+        return None
         detail_data = validated_data.pop('detail')
         # 创建评论
         comment_info = CommentInfo.objects.create(**validated_data)
