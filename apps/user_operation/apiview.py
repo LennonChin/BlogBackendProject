@@ -21,7 +21,7 @@ class QiniuTokenViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True) # status 400
+        serializer.is_valid(raise_exception=True)  # status 400
 
         suffix = serializer.validated_data['suffix']
         use_type = serializer.validated_data['use_type']
@@ -41,11 +41,14 @@ class QiniuTokenViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
             return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
         ip = '0.0.0.0'
-        print(request.META)
-        if 'HTTP_X_FORWARDED_FOR' in request.META:
-            ip = request.META['HTTP_X_FORWARDED_FOR']
-        elif 'REMOTE_ADDR' in request.META:
-            ip = request.META['REMOTE_ADDR']
+        error = ''
+        try:
+            if 'HTTP_X_FORWARDED_FOR' in request.META:
+                ip = request.META['HTTP_X_FORWARDED_FOR']
+            elif 'REMOTE_ADDR' in request.META:
+                ip = request.META['REMOTE_ADDR']
+        except Exception as e:
+            error = e
 
         # 生成Token返回
         object_name = generate_qiniu_random_filename(64)
@@ -56,6 +59,7 @@ class QiniuTokenViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
             'key': object_name,
             'token': token,
             'base_url': base_url,
-            'expire': expire_time
+            'expire': expire_time,
+            'error': error
         }
         return Response(context, status.HTTP_201_CREATED)

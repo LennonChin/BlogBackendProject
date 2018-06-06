@@ -125,6 +125,9 @@
 
                 var fileInput = dialog.find("[name=\"" + classPrefix + "images-file\"]");
 
+                console.log(fileInput);
+                console.log(fileInput.fileName);
+
                 // 获取文件后缀名
                 var suffix = /.[^.]+$/.exec(fileInput.fileName)[0];
 
