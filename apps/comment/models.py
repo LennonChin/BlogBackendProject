@@ -78,7 +78,7 @@ class CommentDetail(models.Model):
                                                                             MEDIA_URL_PREFIX
                                                                         ]
                                                                     })
-                                                                ]), ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES,
+                                                                ], lazy_ol=False), ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES,
                                               ALLOWED_PROTOCOLS, False, False)
         super(CommentDetail, self).save(*args, **kwargs)
 

@@ -60,7 +60,7 @@ class ArticleDetail(models.Model):
                                                                MEDIA_URL_PREFIX
                                                            ]
                                                        })
-                                                   ])
+                                                   ], lazy_ol=False)
         super(ArticleDetail, self).save(*args, **kwargs)
 
     def __str__(self):

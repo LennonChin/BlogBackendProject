@@ -66,7 +66,7 @@ class MovieDetail(models.Model):
                                                                MEDIA_URL_PREFIX
                                                            ]
                                                        })
-                                                   ])
+                                                   ], lazy_ol=False)
         super(MovieDetail, self).save(*args, **kwargs)
 
     def __str__(self):

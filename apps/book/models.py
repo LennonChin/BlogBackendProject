@@ -120,7 +120,7 @@ class BookDetail(models.Model):
                                                                MEDIA_URL_PREFIX
                                                            ]
                                                        })
-                                                   ])
+                                                   ], lazy_ol=False)
 
         super(BookDetail, self).save(*args, **kwargs)
 
@@ -200,7 +200,7 @@ class BookNoteDetail(models.Model):
                                                                MEDIA_URL_PREFIX
                                                            ]
                                                        })
-                                                   ])
+                                                   ], lazy_ol=False)
         super(BookNoteDetail, self).save(*args, **kwargs)
 
     def __str__(self):
