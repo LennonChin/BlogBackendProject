@@ -16,11 +16,11 @@ from rest_framework.pagination import LimitOffsetPagination
 from user.models import EmailVerifyRecord
 from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_SECRET_KEY, PRIVATE_QINIU_BUCKET_NAME, \
     PRIVATE_MEDIA_URL_PREFIX
-from BlogBackendProject.settings import EMAIL_FROM
-from BlogBackendProject.settings import SITE_BASE_URL
+from BlogBackendProject.settings import SITE_BASE_URL, MEDIA_URL_PREFIX, EMAIL_FROM
+from utils.RelativeImageExtension import RelativeImageExtension
 
 
-# 分页
+# Page分页
 class CustomePageNumberPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
@@ -28,6 +28,7 @@ class CustomePageNumberPagination(PageNumberPagination):
     max_page_size = 100
 
 
+# Limit 分页
 class CustomeLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 50
     limit_query_param = 'limit'
@@ -37,6 +38,7 @@ class CustomeLimitOffsetPagination(LimitOffsetPagination):
     min_offset = 0
 
 
+# 生成验证码
 def generate_code(length):
     """
     生成四位数字的验证码
@@ -52,7 +54,6 @@ def generate_code(length):
 
 # 发送邮件
 def send_email(email_info, email, send_type="comment"):
-
     if send_type == "comment":
         random_str = generate_code(4)
         email_title = "Diomedes博客评论-验证邮箱，验证码：{0}".format(random_str)
@@ -246,3 +247,54 @@ ALLOWED_STYLES = []
 
 #: List of allowed protocols
 ALLOWED_PROTOCOLS = ['http', 'https', 'mailto']
+
+# python markdown extension default
+MARKDOWN_EXTENSIONS_DEFAULT = [
+    'markdown.extensions.abbr',
+    'markdown.extensions.attr_list',
+    'markdown.extensions.def_list',
+    'markdown.extensions.footnotes',
+    'markdown.extensions.tables',
+    'markdown.extensions.smart_strong',
+    'markdown.extensions.admonition',
+    'markdown.extensions.codehilite',
+    'markdown.extensions.headerid',
+    'markdown.extensions.meta',
+    'markdown.extensions.nl2br',
+    'markdown.extensions.sane_lists',
+    'markdown.extensions.smarty',
+    'markdown.extensions.toc',
+    'markdown.extensions.wikilinks'
+]
+
+# python markdown extension pymdownx
+MARKDOWN_EXTENSIONS_PYMDOWNX = [
+    'pymdownx.extra',
+    'pymdownx.superfences',
+    'pymdownx.magiclink',
+    'pymdownx.tilde',
+    'pymdownx.emoji',
+    'pymdownx.tasklist',
+    'pymdownx.superfences',
+    'pymdownx.details',
+    'pymdownx.highlight',
+    'pymdownx.inlinehilite',
+    'pymdownx.keys',
+    'pymdownx.progressbar',
+    'pymdownx.critic',
+    'pymdownx.arithmatex'
+]
+
+# python markdown extension custom
+MARKDOWN_EXTENSIONS_CUSTOM = [
+    RelativeImageExtension({
+        'base_urls': [
+            MEDIA_URL_PREFIX
+        ]
+    })
+]
+
+MARKDOWN_EXTENSIONS = MARKDOWN_EXTENSIONS_DEFAULT + MARKDOWN_EXTENSIONS_PYMDOWNX + MARKDOWN_EXTENSIONS_CUSTOM
+
+
+MARKDOWN_EXTENSION_CONFIGS = {}

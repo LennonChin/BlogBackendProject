@@ -1,7 +1,5 @@
 import hashlib
-
 from django.db import models
-
 from material.models import MaterialSocial, MaterialMaster
 
 

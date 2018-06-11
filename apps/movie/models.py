@@ -2,8 +2,7 @@ import markdown
 from django.db import models
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo
-from utils.RelativeImageExtension import RelativeImageExtension
-from BlogBackendProject.settings import MEDIA_URL_PREFIX
+from base.utils import MARKDOWN_EXTENSIONS
 
 
 class MovieInfo(PostBaseInfo):
@@ -42,31 +41,7 @@ class MovieDetail(models.Model):
                                        help_text="修改时间")
 
     def save(self, *args, **kwargs):
-        self.formatted_content = markdown.markdown(self.origin_content,
-                                                   extensions=[
-                                                       'markdown.extensions.extra',
-                                                       'markdown.extensions.abbr',
-                                                       'markdown.extensions.attr_list',
-                                                       'markdown.extensions.def_list',
-                                                       'markdown.extensions.fenced_code',
-                                                       'markdown.extensions.footnotes',
-                                                       'markdown.extensions.tables',
-                                                       'markdown.extensions.smart_strong',
-                                                       'markdown.extensions.admonition',
-                                                       'markdown.extensions.codehilite',
-                                                       'markdown.extensions.headerid',
-                                                       'markdown.extensions.meta',
-                                                       'markdown.extensions.nl2br',
-                                                       'markdown.extensions.sane_lists',
-                                                       'markdown.extensions.smarty',
-                                                       'markdown.extensions.toc',
-                                                       'markdown.extensions.wikilinks',
-                                                       RelativeImageExtension({
-                                                           'base_urls': [
-                                                               MEDIA_URL_PREFIX
-                                                           ]
-                                                       })
-                                                   ], lazy_ol=False)
+        self.formatted_content = markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS, lazy_ol=False)
         super(MovieDetail, self).save(*args, **kwargs)
 
     def __str__(self):
