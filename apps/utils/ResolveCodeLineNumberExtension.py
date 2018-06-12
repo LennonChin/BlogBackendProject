@@ -8,34 +8,45 @@
 
 import copy, re
 
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    import xml.etree.ElementTree as ET
+
 from markdown import Extension
 from markdown.postprocessors import Postprocessor
-
-MARKDOWN_EXTENSION_CONFIGS = {
-    'pymdownx.highlight': {
-        'use_pygments': True
-    }
-}
 
 
 class ResolveLineNumberPostprocessor(Postprocessor):
 
     @staticmethod
+    def addUlTag1(matched):
+        value = matched.group()
+        return value
+
+    @staticmethod
     def addUlTag(matched):
         value = matched.group()
-        pattern = re.compile(r'\n+?</', re.S | re.M)
-        value = re.sub(pattern, '</', value)
-        pattern = re.compile(r'(^\s*)|(\s*$)')
-        value = re.sub(pattern, '', value)
-        pattern = re.compile(r'\n', re.S | re.M)
-        value = re.sub(pattern, '\n</li><li>', value)
-        value = value[:value.index('>') + 1] + '<ul><li>' + value[value.index('>') + 1:value.index('</pre>')] + '\n</li></ul>' + value[value.index('</pre>'):]
         return value
+        preEle = ET.fromstring(value)
+        children = preEle.getchildren()
+        if len(children) == 0 and children[0].tag == 'ul':
+            return value
+        else:
+            # 创建ul
+            ulEle = ET.Element('ul')
+            for child in children:
+                liEle = ET.SubElement(ulEle, 'li')
+                liEle.append(child)
+            # 清除preEle的所有元素
+            preEle.clear()
+            # 将新构建的元素添加到pre中
+            preEle.append(ulEle)
+        return str(ET.tostring(preEle))
 
     def run(self, text):
         pattern = re.compile(r'<pre[^>]*>(.*?)</pre>', re.S | re.M)
         text = re.sub(pattern, ResolveLineNumberPostprocessor.addUlTag, text)
-        print(text)
         return text
 
 
@@ -307,6 +318,5 @@ public class ResourceTest {
         'pymdownx.keys',
         'pymdownx.progressbar',
         'pymdownx.critic',
-        'pymdownx.arithmatex',
-        ResolveCodeLineNumberExtension(configs)], extension_configs=MARKDOWN_EXTENSION_CONFIGS, lazy_ol=False)
-    # print(md)
+        'pymdownx.arithmatex'], lazy_ol=False)
+    print(md)
