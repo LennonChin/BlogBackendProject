@@ -736,7 +736,13 @@ class SuperFencesBlockPreprocessor(Preprocessor):
             # 每个按钮
             # <button class="copy" id="copy" value="复制" type="button" title="复制" onclick="copyCode(this)">换行</button>
             for name, tool in toolsbar.items():
-                clazz, iD, title, text, icon, event = tool.values()
+                clazz = tool['class'] if 'class' in tool else ''
+                iD = tool['id'] if 'id' in tool else ''
+                title = tool['title'] if 'title' in tool else ''
+                text = tool['text'] if 'text' in tool else ''
+                icon = tool['icon'] if 'icon' in tool else ''
+                event = tool['event'] if 'event' in tool else ''
+
                 button = '<button'
                 # clazz
                 buttonstyles = []

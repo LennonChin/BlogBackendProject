@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1cdb940b-c796-492c-b3b1-87cd5285e5fe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/base/utils.py" afterPath="$PROJECT_DIR$/apps/base/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/book/models.py" afterPath="$PROJECT_DIR$/apps/book/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/movie/models.py" afterPath="$PROJECT_DIR$/apps/movie/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/utils/HTMLFormatter/html.py" afterPath="$PROJECT_DIR$/apps/utils/HTMLFormatter/html.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/utils/HTMLFormatter/superfences.py" afterPath="$PROJECT_DIR$/apps/utils/HTMLFormatter/superfences.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,25 +62,7 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
-        <option name="myItemId" value="material_postbaseinfo" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-    </PATH>
-    <PATH>
-      <PATH_ELEMENT>
-        <option name="myItemId" />
-        <option name="myItemType" value="com.intellij.database.view.DatabaseStructure$Root" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="47.96.138.114" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="blog_coderap_com_back_to_test" />
-        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
-      </PATH_ELEMENT>
-      <PATH_ELEMENT>
-        <option name="myItemId" value="book_bookinfo" />
+        <option name="myItemId" value="article_articledetail" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
@@ -96,11 +73,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/base/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="319" column="36" lean-forward="false" selection-start-line="319" selection-start-column="36" selection-end-line="319" selection-end-column="36" />
+            <state relative-caret-position="73">
+              <caret line="312" column="40" lean-forward="false" selection-start-line="298" selection-start-column="0" selection-end-line="327" selection-end-column="1" />
               <folding>
                 <element signature="e#168#197#0" expanded="true" />
               </folding>
@@ -108,11 +85,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/article/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="22">
+              <caret line="28" column="111" lean-forward="false" selection-start-line="28" selection-start-column="111" selection-end-line="28" selection-end-column="111" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="html.py" pinned="false" current-in-tab="false">
         <entry file="file://D:/VirtualenvWorkOn/BlogBackend/Lib/site-packages/pygments/formatters/html.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="815" column="54" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1234" selection-end-column="0" />
+            <state relative-caret-position="17">
+              <caret line="1024" column="0" lean-forward="false" selection-start-line="1024" selection-start-column="0" selection-end-line="1024" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -121,8 +108,8 @@
       <file leaf-file-name="superfences.py" pinned="false" current-in-tab="false">
         <entry file="file://D:/VirtualenvWorkOn/BlogBackend/Lib/site-packages/pymdownx/superfences.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13">
-              <caret line="881" column="38" lean-forward="true" selection-start-line="881" selection-start-column="38" selection-end-line="881" selection-end-column="38" />
+            <state relative-caret-position="-161">
+              <caret line="881" column="38" lean-forward="false" selection-start-line="881" selection-start-column="38" selection-end-line="881" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -131,11 +118,26 @@
       <file leaf-file-name="superfences.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/utils/HTMLFormatter/superfences.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="613" column="52" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="902" selection-end-column="0" />
+            <state relative-caret-position="-955">
+              <caret line="739" column="55" lean-forward="false" selection-start-line="739" selection-start-column="55" selection-end-line="739" selection-end-column="55" />
               <folding>
                 <element signature="e#830#868#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="blog_coderap_com_back_to_test.article_articledetail" pinned="false" current-in-tab="true">
+        <entry file="dbDummy://dbtable:/4bbd4142/b47bf0aa-4d5f-42f0-b437-fd6cb34a7cb2/blog_coderap_com_back_to_test.article_articledetail">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
             </state>
           </provider>
         </entry>
@@ -144,7 +146,7 @@
         <entry file="file://$PROJECT_DIR$/BlogBackendProject/private.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-60">
-              <caret line="16" column="35" lean-forward="true" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+              <caret line="16" column="35" lean-forward="false" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -154,7 +156,7 @@
         <entry file="file://$PROJECT_DIR$/apps/utils/HTMLFormatter/TestCodeHtmlFormatter.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="312">
-              <caret line="49" column="4" lean-forward="true" selection-start-line="49" selection-start-column="4" selection-end-line="78" selection-end-column="5" />
+              <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="78" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -181,8 +183,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&quot;{0}{1}&quot;.format(MEDIA_URL_PREFIX</find>
-      <find>kao</find>
       <find>kao'l</find>
       <find>考虑</find>
       <find>DateTimeField</find>
@@ -211,6 +211,8 @@
       <find>PostP</find>
       <find>postprocessors</find>
       <find>parse_hl_lines</find>
+      <find>toolsbar</find>
+      <find>foldcode</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -272,10 +274,10 @@
         <option value="D:/VirtualenvWorkOn/BlogBackend/Lib/site-packages/pymdownx/superfences.py" />
         <option value="D:/VirtualenvWorkOn/BlogBackend/Lib/site-packages/pygments/formatters/html.py" />
         <option value="$PROJECT_DIR$/apps/utils/HTMLFormatter/html.py" />
-        <option value="$PROJECT_DIR$/apps/utils/HTMLFormatter/superfences.py" />
         <option value="$PROJECT_DIR$/apps/movie/models.py" />
         <option value="$PROJECT_DIR$/apps/book/models.py" />
         <option value="$PROJECT_DIR$/apps/base/utils.py" />
+        <option value="$PROJECT_DIR$/apps/utils/HTMLFormatter/superfences.py" />
       </list>
     </option>
   </component>
@@ -286,7 +288,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -1210,18 +1212,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32887402" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875144" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4226804" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1305842" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33676976" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4400648" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4400648" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26835853" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29424307" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2937365" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24946004" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2462772" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1284,13 +1286,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/comment/apiview.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="72" column="58" lean-forward="false" selection-start-line="72" selection-start-column="58" selection-end-line="72" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/material/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="438">
@@ -1588,7 +1583,7 @@
     <entry file="file://$PROJECT_DIR$/BlogBackendProject/private.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-60">
-          <caret line="16" column="35" lean-forward="true" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+          <caret line="16" column="35" lean-forward="false" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -1596,18 +1591,8 @@
     <entry file="file://$PROJECT_DIR$/apps/utils/HTMLFormatter/TestCodeHtmlFormatter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
-          <caret line="49" column="4" lean-forward="true" selection-start-line="49" selection-start-column="4" selection-end-line="78" selection-end-column="5" />
+          <caret line="49" column="4" lean-forward="false" selection-start-line="49" selection-start-column="4" selection-end-line="78" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/utils/HTMLFormatter/superfences.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="613" column="52" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="902" selection-end-column="0" />
-          <folding>
-            <element signature="e#830#868#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1619,22 +1604,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/article/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/book/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="7" column="70" lean-forward="false" selection-start-line="7" selection-start-column="70" selection-end-line="7" selection-end-column="70" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1644,34 +1619,65 @@
         <state relative-caret-position="116">
           <caret line="4" column="70" lean-forward="true" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="70" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/VirtualenvWorkOn/BlogBackend/Lib/site-packages/pygments/formatters/html.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="815" column="54" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1234" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://D:/VirtualenvWorkOn/BlogBackend/Lib/site-packages/pymdownx/superfences.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="881" column="38" lean-forward="true" selection-start-line="881" selection-start-column="38" selection-end-line="881" selection-end-column="38" />
+        <state relative-caret-position="-161">
+          <caret line="881" column="38" lean-forward="false" selection-start-line="881" selection-start-column="38" selection-end-line="881" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/base/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="319" column="36" lean-forward="false" selection-start-line="319" selection-start-column="36" selection-end-line="319" selection-end-column="36" />
+        <state relative-caret-position="73">
+          <caret line="312" column="40" lean-forward="false" selection-start-line="298" selection-start-column="0" selection-end-line="327" selection-end-column="1" />
           <folding>
             <element signature="e#168#197#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/article/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="28" column="111" lean-forward="false" selection-start-line="28" selection-start-column="111" selection-end-line="28" selection-end-column="111" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/VirtualenvWorkOn/BlogBackend/Lib/site-packages/pygments/formatters/html.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1024" column="0" lean-forward="false" selection-start-line="1024" selection-start-column="0" selection-end-line="1024" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/utils/HTMLFormatter/superfences.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-955">
+          <caret line="739" column="55" lean-forward="false" selection-start-line="739" selection-start-column="55" selection-end-line="739" selection-end-column="55" />
+          <folding>
+            <element signature="e#830#868#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/4bbd4142/b47bf0aa-4d5f-42f0-b437-fd6cb34a7cb2/blog_coderap_com_back_to_test.article_articledetail">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
