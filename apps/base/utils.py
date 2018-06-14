@@ -297,7 +297,32 @@ MARKDOWN_EXTENSIONS_CUSTOM = [
 MARKDOWN_EXTENSIONS = MARKDOWN_EXTENSIONS_DEFAULT + MARKDOWN_EXTENSIONS_PYMDOWNX + MARKDOWN_EXTENSIONS_CUSTOM
 
 MARKDOWN_EXTENSION_CONFIGS = {
-    'pymdownx.highlight': {
-        'use_pygments': True
+    'pymdownx.superfences': {
+        'global_toolsbar': """
+            {
+                "copy": {
+                    "class": "copy_class",
+                    "id": "button-copy",
+                    "title": "复制代码到剪切板",
+                    "text": "复制代码",
+                    "icon": "i-icon-copy",
+                    "event": "onclick='copyCode(this)'"},
+                "break": {
+                    "class": "break_class",
+                    "id": "button-break",
+                    "title": "过长代码换号显示",
+                    "text": "代码折行",
+                    "icon": "i-icon-break",
+                    "event": "onclick='breakCode(this)'"},
+                "fold": {
+                    "class": "fold_class",
+                    "id": "button-fold",
+                    "title": "点击收起代码",
+                    "text": "收起代码",
+                    "icon": "i-icon-fold",
+                    "event": "onclick='foldCode(this)'"
+                }
+            }
+            """
     }
 }

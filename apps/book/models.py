@@ -5,7 +5,7 @@ from django.db import models
 
 from material.models import MaterialCategory, MaterialTag, PostBaseInfo
 from BlogBackendProject.settings import DOUBAN_API_URL
-from base.utils import MARKDOWN_EXTENSIONS
+from base.utils import MARKDOWN_EXTENSIONS, MARKDOWN_EXTENSION_CONFIGS
 
 
 class BookInfo(PostBaseInfo):
@@ -96,7 +96,8 @@ class BookDetail(models.Model):
                                        help_text="修改时间")
 
     def save(self, *args, **kwargs):
-        self.formatted_content = markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS, lazy_ol=False)
+        self.formatted_content = markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS,
+                                                   extension_configs=MARKDOWN_EXTENSION_CONFIGS, lazy_ol=False)
 
         super(BookDetail, self).save(*args, **kwargs)
 
@@ -152,7 +153,8 @@ class BookNoteDetail(models.Model):
                                        help_text="修改时间")
 
     def save(self, *args, **kwargs):
-        self.formatted_content = markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS, lazy_ol=False)
+        self.formatted_content = markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS,
+                                                   extension_configs=MARKDOWN_EXTENSION_CONFIGS, lazy_ol=False)
         super(BookNoteDetail, self).save(*args, **kwargs)
 
     def __str__(self):

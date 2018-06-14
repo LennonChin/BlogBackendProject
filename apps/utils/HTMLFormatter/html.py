@@ -813,7 +813,7 @@ class HtmlFormatter(Formatter):
                             # 使用默认高亮
                             listyles.append('background-color: %s' % (highlight_color,))
                 # 间隔行
-                if lncount % st == 0 and lncount >= fl:
+                if lncount >= fl and (lncount - fl) % st == 0:
                     # 添加行号
                     if not self.noclasses:
                         liclasses.append('numbered')

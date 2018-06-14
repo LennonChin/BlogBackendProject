@@ -35,7 +35,7 @@ from markdown.preprocessors import Preprocessor
 from markdown.postprocessors import Postprocessor
 from markdown.blockprocessors import CodeBlockProcessor
 from markdown import util as md_util
-from . import highlight as hl
+from pymdownx import highlight as hl
 import re
 import json
 
@@ -373,7 +373,7 @@ class SuperFencesBlockPreprocessor(Preprocessor):
     def build_global_toolsbar(self, language):
         """
         build global toolsbar
-        :return: 
+        :return:
         """
         if not self.checked_global_toolsbar:
             self.checked_global_toolsbar = True
@@ -611,7 +611,7 @@ class SuperFencesBlockPreprocessor(Preprocessor):
             linestep = self.parse_line_step(self.linestep)
             linestart = self.parse_line_start(self.linestart)
             linespecial = self.parse_line_special(self.linespecial)
-            hl_lines = self.parse_hl_lines(self.hl_lines)
+            hl_lines = self.hl_lines # self.parse_hl_lines(self.hl_lines)
 
             el = hl.Highlight(
                 guess_lang=self.guess_lang,
@@ -770,7 +770,7 @@ class SuperFencesBlockPreprocessor(Preprocessor):
         用于添加toolbar
         :param formatted_code: 已被highlight处理过的代码
         :param language: 语言
-        :return: 
+        :return:
         """
         if len(formatted_code) == 0:
             return formatted_code
