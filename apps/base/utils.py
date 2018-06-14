@@ -18,7 +18,6 @@ from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_S
     PRIVATE_MEDIA_URL_PREFIX
 from BlogBackendProject.settings import SITE_BASE_URL, MEDIA_URL_PREFIX, EMAIL_FROM
 from utils.RelativeImageExtension import RelativeImageExtension
-from utils.ResolveCodeLineNumberExtension import ResolveCodeLineNumberExtension
 
 
 # Page分页
@@ -288,11 +287,6 @@ MARKDOWN_EXTENSIONS_PYMDOWNX = [
 
 # python markdown extension custom
 MARKDOWN_EXTENSIONS_CUSTOM = [
-    # ResolveCodeLineNumberExtension({
-    #     'base_urls': [
-    #         MEDIA_URL_PREFIX
-    #     ]
-    # }),
     RelativeImageExtension({
         'base_urls': [
             MEDIA_URL_PREFIX
