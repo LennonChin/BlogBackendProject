@@ -164,7 +164,7 @@ class Highlight(object):
 
     def highlight(
         self, src, language, css_class='highlight', hl_lines=None,
-        linestart=-1, linestep=-1, linespecial=-1, inline=False
+        linestart=-1, linestep=-1, linespecial=-1, inline=False, linefeed=False, shownum=True
     ):
         """Highlight code."""
 
@@ -194,7 +194,9 @@ class Highlight(object):
                 linenospecial=linespecial,
                 style=self.pygments_style,
                 noclasses=self.noclasses,
-                hl_lines=hl_lines
+                hl_lines=hl_lines,
+                linefeed=linefeed,
+                shownum=shownum
             )
 
             # Convert

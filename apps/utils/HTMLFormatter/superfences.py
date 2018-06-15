@@ -52,8 +52,9 @@ RE_NESTED_FENCE_START = re.compile(
     (?:
     hl_lines=(?P<quot>"|')(?P<hl_lines>.*?)(?P=quot)[ \t]*|                   # highlight lines
     toolsbar=(?P<quot1>"|')(?P<toolsbar>.*?)(?P=quot1)[ \t]*|                 # toolsbar
-    folded=(?P<quot4>"|')(?P<folded>.*?)(?P=quot4)[ \t]*|                 # toolsbar
-    linefeed=(?P<quot5>"|')(?P<linefeed>.*?)(?P=quot5)[ \t]*|                 # toolsbar
+    folded=(?P<quot4>"|')(?P<folded>.*?)(?P=quot4)[ \t]*|                     # code fold
+    linefeed=(?P<quot5>"|')(?P<linefeed>.*?)(?P=quot5)[ \t]*|                 # code linefeed
+    shownum=(?P<quot6>"|')(?P<shownum>.*?)(?P=quot6)[ \t]*|                   # show code line number
     linenums=(?P<quot2>"|')                                                   # Line numbers
         (?P<linestart>[\d]+)                                                  #   Line number start
         (?:[ \t]+(?P<linestep>[\d]+))?                                        #   Line step
@@ -400,6 +401,9 @@ class SuperFencesBlockPreprocessor(Preprocessor):
         self.linestart = None
         self.linestep = None
         self.linespecial = None
+        self.folded = None
+        self.linefeed = None
+        self.shownum = None
         self.quote_level = 0
         self.code = []
         self.empty_lines = 0
@@ -476,6 +480,9 @@ class SuperFencesBlockPreprocessor(Preprocessor):
 
     def parse_linefeed(self, linefeed):
         return bool(int(linefeed)) if linefeed else True
+
+    def parse_shownum(self, shownum):
+        return bool(int(shownum)) if shownum else True
 
     def parse_hl_lines(self, hl_lines):
         """Parse the lines to highlight."""
@@ -566,6 +573,7 @@ class SuperFencesBlockPreprocessor(Preprocessor):
                     self.toolsbar = m.group('toolsbar')
                     self.folded = m.group('folded')
                     self.linefeed = m.group('linefeed')
+                    self.shownum = m.group('shownum')
                     self.fence_end = re.compile(NESTED_FENCE_END % self.fence)
                     if m.group('tab'):
                         self.tab = m.group('tab_title')
@@ -623,9 +631,9 @@ class SuperFencesBlockPreprocessor(Preprocessor):
             linestep = self.parse_line_step(self.linestep)
             linestart = self.parse_line_start(self.linestart)
             linespecial = self.parse_line_special(self.linespecial)
-            hl_lines = self.hl_lines # self.parse_hl_lines(self.hl_lines)
-            folded = self.parse_folded(self.folded)
+            hl_lines = self.hl_lines  # self.parse_hl_lines(self.hl_lines)
             linefeed = self.parse_linefeed(self.linefeed)
+            shownum = self.parse_shownum(self.shownum)
 
             el = hl.Highlight(
                 guess_lang=self.guess_lang,
@@ -641,7 +649,9 @@ class SuperFencesBlockPreprocessor(Preprocessor):
                 hl_lines=hl_lines,
                 linestart=linestart,
                 linestep=linestep,
-                linespecial=linespecial
+                linespecial=linespecial,
+                linefeed=linefeed,
+                shownum=shownum
             )
             # fence toolsbar
             el = self.fence_toolbar_format(el, language)
@@ -809,21 +819,36 @@ class SuperFencesBlockPreprocessor(Preprocessor):
         if not local_toolsbar:
             return formatted_code
 
+        # code fold and linefeed
+        wrapclasses = []
+        if not self.noclasses and self.parse_linefeed(self.linefeed):
+            wrapclasses.append('linefeed')
+        if not self.noclasses and self.parse_folded(self.folded):
+            wrapclasses.append('folded')
+        if not self.noclasses and self.parse_shownum(self.shownum):
+            wrapclasses.append('shownum')
+
         # if global, use global toolsbar
         if 'global' in local_toolsbar:
             title = ''
-            if 'title' in local_toolsbar and isinstance(local_toolsbar, (dict, )):
+            if 'title' in local_toolsbar and isinstance(local_toolsbar, (dict,)):
                 title = local_toolsbar['title']
             elif isinstance(language, (str,)) and len(str(language)) > 0:
                 # refresh language identifier
                 title = language.capitalize()
             pattern = re.compile(r'(<span[^>]*>).*?(</span>)', re.S | re.M)
             self.global_toolsbar = pattern.sub(r'\1' + title + r'\2', self.global_toolsbar)
-            return '<div class="with-global-toolsbar">%s%s</div>' % (self.global_toolsbar, formatted_code)
+            if not self.noclasses:
+                wrapclasses.append('with-global-toolsbar')
+            return '<div%s>%s%s</div>' % (wrapclasses and ' class="%s"' % ' '.join(wrapclasses),
+                                          self.global_toolsbar, formatted_code)
 
         # or use local globar only for this sinppet
         local_toolsbar = self._build_toolsbar(local_toolsbar, language)
-        return '<div class="with-local-toolsbar">%s%s</div>' % (local_toolsbar, formatted_code)
+        if not self.noclasses:
+            wrapclasses.append('with-local-toolsbar')
+        return '<div%s>%s%s</div>' % (wrapclasses and ' class="%s"' % ' '.join(wrapclasses),
+                                      local_toolsbar, formatted_code)
 
     def _store(self, source, code, start, end, obj):
         """

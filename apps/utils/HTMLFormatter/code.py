@@ -513,8 +513,8 @@ class HtmlFormatter(Formatter):
         # 关于ul和li添加的属性
         # 一开始就显示行号
         self.shownum = get_bool_opt(options, 'shownum', True)
-        # 是否收起代码，会给最外层标签加上一个folded类，或者添加相应的属性，如果提供了该属性，需要有toolsbar
-        self.foldcode = get_bool_opt(options, 'foldcode', False)
+        # 代码是否折行，默认为True
+        self.linefeed = get_bool_opt(options, 'linefeed', True)
         # ul自定义的class，默认为ul-wrap
         self.ulclass = self._decodeifneeded(options.get('ulclass', 'highlight-ul'))
         # ul自定义的style
@@ -528,8 +528,6 @@ class HtmlFormatter(Formatter):
         self.listyles = self._decodeifneeded(options.get('listyles', ''))
         # 需要行号的li的class，默认为numbered，该选项用在并不是所有行都需要行号的情况下
         self.linumclass = self._decodeifneeded(options.get('linumclass', 'numbered'))
-        # 代码是否折行，默认为True
-        self.liwrapline = get_bool_opt(options, 'liwrapline', True)
 
         # 检查ctags相关，这里的ctags是import的
         if self.tagsfile:
@@ -833,7 +831,7 @@ class HtmlFormatter(Formatter):
                         listyles.append('color: #222')
 
                 # 不能添加class情况下是否折行需要特殊处理
-                if self.liwrapline:
+                if self.linefeed:
                     if nocls:
                         listyles.append('white-space: pre-wrap')
                 else:
@@ -912,17 +910,10 @@ class HtmlFormatter(Formatter):
         if self.cssclass:
             clazz.append('%stable' % self.cssclass)
 
-        # 折叠代码
-        if self.foldcode:
-            if nocls:
-                style.append('height: 0')
-            else:
-                clazz.append('folded')
-
         # 自动换行
-        if self.liwrapline:
+        if self.linefeed:
             if not self.nocls:
-                clazz.append('wrapline')
+                clazz.append('linefeed')
 
         clazz = ' '.join(clazz)
         style = '; '.join(style)
@@ -1014,18 +1005,12 @@ class HtmlFormatter(Formatter):
         if self.cssclass:
             clazz.append(self.cssclass)
 
-        # 折叠代码和自动换行，table模式会加在table tag上，所以此处不加
+        # 自动换行，table模式会加在table tag上，所以此处不加
         if self.linenos != 1:
-            # 折叠代码
-            if self.foldcode:
-                if self.noclasses:
-                    style.append('height: 0')
-                else:
-                    clazz.append('folded')
             # 自动换行
-            if self.liwrapline:
+            if self.linefeed:
                 if not self.noclasses:
-                    clazz.append('wrapline')
+                    clazz.append('linefeed')
 
         clazz = ' '.join(clazz)
         style = '; '.join(style)

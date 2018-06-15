@@ -300,6 +300,20 @@ MARKDOWN_EXTENSION_CONFIGS = {
     'pymdownx.superfences': {
         'global_toolsbar': """
             {
+                "shownum": {
+                    "class": "shownum-class ivu-icon",
+                    "id": "button-shownum",
+                    "title": "显示或隐藏行号",
+                    "text": "",
+                    "icon": "i-icon-shownum",
+                    "event": "onclick='toggleCodeNum(this)'"},
+                "theme": {
+                    "class": "theme-class ivu-icon",
+                    "id": "button-theme",
+                    "title": "切换代码明暗显示",
+                    "text": "",
+                    "icon": "i-icon-theme",
+                    "event": "onclick='toggleCodeTheme(this)'"},
                 "copy": {
                     "class": "copy-class ivu-icon",
                     "id": "button-copy",
@@ -310,17 +324,17 @@ MARKDOWN_EXTENSION_CONFIGS = {
                 "break": {
                     "class": "break-class ivu-icon",
                     "id": "button-break",
-                    "title": "过长代码换号显示",
+                    "title": "代码自动换行",
                     "text": "",
                     "icon": "i-icon-break",
-                    "event": "onclick='breakCode(this)'"},
+                    "event": "onclick='toggleBreakCode(this)'"},
                 "fold": {
                     "class": "fold-class ivu-icon",
                     "id": "button-fold",
                     "title": "点击收起代码",
                     "text": "",
                     "icon": "i-icon-fold",
-                    "event": "onclick='foldCode(this)'"
+                    "event": "onclick='toggleFoldCode(this)'"
                 }
             }
             """

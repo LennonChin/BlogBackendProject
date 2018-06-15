@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
 
 
-```java linenums="0 5 2" hl_lines="1 3 5" toolsbar='global' folded="1" linefeed="1"
+```java linenums="0 5 2" hl_lines="1 3 5" toolsbar='{"title": "This is a Special Title", "global":true}' folded="1" linefeed="1"
 package com.coderap.foundation.resource;
 
 public class ResourceTest {
