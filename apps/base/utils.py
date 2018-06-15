@@ -301,24 +301,24 @@ MARKDOWN_EXTENSION_CONFIGS = {
         'global_toolsbar': """
             {
                 "copy": {
-                    "class": "copy_class",
+                    "class": "copy-class ivu-icon",
                     "id": "button-copy",
                     "title": "复制代码到剪切板",
-                    "text": "复制代码",
+                    "text": "",
                     "icon": "i-icon-copy",
                     "event": "onclick='copyCode(this)'"},
                 "break": {
-                    "class": "break_class",
+                    "class": "break-class ivu-icon",
                     "id": "button-break",
                     "title": "过长代码换号显示",
-                    "text": "代码折行",
+                    "text": "",
                     "icon": "i-icon-break",
                     "event": "onclick='breakCode(this)'"},
                 "fold": {
-                    "class": "fold_class",
+                    "class": "fold-class ivu-icon",
                     "id": "button-fold",
                     "title": "点击收起代码",
-                    "text": "收起代码",
+                    "text": "",
                     "icon": "i-icon-fold",
                     "event": "onclick='foldCode(this)'"
                 }

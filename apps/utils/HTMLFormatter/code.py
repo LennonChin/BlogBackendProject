@@ -735,8 +735,6 @@ class HtmlFormatter(Formatter):
         fl = self.linenostart  # 行号起始
         sp = self.linenospecial  # 特殊行间隔数
         st = self.linenostep  # 行号间隔数
-        la = self.lineanchors  # 行锚点名称
-        aln = self.anchorlinenos  # 如果设置为True，会给行号添加一个a标签，和`linenos` and `lineanchors`联合使用
         nocls = self.noclasses  # 是否是无class模式
 
         # 高亮行号
@@ -749,14 +747,14 @@ class HtmlFormatter(Formatter):
             ulstyles.append(self.ulstyles)
 
         # 如果使用了无class模式，则手动添加公共样式
-        if self.noclasses:
+        if nocls:
             ulstyles.append('padding: 5px 5px 5px 40px !important')
             ulstyles.append('margin: 0')
             ulstyles.append('background: transparent')
 
         # ul头
         ul = '<ul'
-        if self.noclasses:
+        if nocls:
             if self.shownum:
                 ulstyles.append('list-style:decimal')
             else:
@@ -780,7 +778,7 @@ class HtmlFormatter(Formatter):
                 lncount += 1
                 liclasses = []
                 listyles = []
-                if self.noclasses:
+                if nocls:
                     # 添加li基本样式
                     listyles.append('border-left:1px solid #ddd !important')
                     listyles.append('background: transparent')
@@ -791,7 +789,7 @@ class HtmlFormatter(Formatter):
                     listyles.append('word-wrap: break-word')
                 # 高亮
                 if lncount in hls:
-                    if not self.noclasses:
+                    if not nocls:
                         liclasses.append('hll')
                         highlight_color = self.style.highlight_color
                         if isinstance(self.hl_lines, (dict,)):
@@ -815,33 +813,31 @@ class HtmlFormatter(Formatter):
                 # 间隔行
                 if lncount >= fl and (lncount - fl) % st == 0:
                     # 添加行号
-                    if not self.noclasses:
+                    if not nocls:
                         liclasses.append('numbered')
                     else:
                         listyles.append('list-style: decimal-leading-zero;')
                 else:
                     # 去除行号
-                    if self.noclasses:
+                    if nocls:
                         listyles.append('list-style:none')
 
                 # 特殊行
                 if sp > 0 and lncount % sp == 0:
-                    if not self.noclasses:
+                    if not nocls:
                         liclasses.append('special')
                     else:
                         listyles.append('color: #999')
                 else:
-                    if self.noclasses:
+                    if nocls:
                         listyles.append('color: #222')
 
-                # 是否折行
+                # 不能添加class情况下是否折行需要特殊处理
                 if self.liwrapline:
-                    if not self.noclasses:
-                        liclasses.append('wrapline')
-                    else:
+                    if nocls:
                         listyles.append('white-space: pre-wrap')
                 else:
-                    if self.noclasses:
+                    if nocls:
                         listyles.append('white-space: pre')
 
                 # 组合
@@ -922,6 +918,11 @@ class HtmlFormatter(Formatter):
                 style.append('height: 0')
             else:
                 clazz.append('folded')
+
+        # 自动换行
+        if self.liwrapline:
+            if not self.nocls:
+                clazz.append('wrapline')
 
         clazz = ' '.join(clazz)
         style = '; '.join(style)
@@ -1013,12 +1014,18 @@ class HtmlFormatter(Formatter):
         if self.cssclass:
             clazz.append(self.cssclass)
 
-        # 折叠代码，table模式会加在table tag上，所以此处不加
-        if self.linenos != 1 and self.foldcode:
-            if self.noclasses:
-                style.append('height: 0')
-            else:
-                clazz.append('folded')
+        # 折叠代码和自动换行，table模式会加在table tag上，所以此处不加
+        if self.linenos != 1:
+            # 折叠代码
+            if self.foldcode:
+                if self.noclasses:
+                    style.append('height: 0')
+                else:
+                    clazz.append('folded')
+            # 自动换行
+            if self.liwrapline:
+                if not self.noclasses:
+                    clazz.append('wrapline')
 
         clazz = ' '.join(clazz)
         style = '; '.join(style)

@@ -52,6 +52,8 @@ RE_NESTED_FENCE_START = re.compile(
     (?:
     hl_lines=(?P<quot>"|')(?P<hl_lines>.*?)(?P=quot)[ \t]*|                   # highlight lines
     toolsbar=(?P<quot1>"|')(?P<toolsbar>.*?)(?P=quot1)[ \t]*|                 # toolsbar
+    folded=(?P<quot4>"|')(?P<folded>.*?)(?P=quot4)[ \t]*|                 # toolsbar
+    linefeed=(?P<quot5>"|')(?P<linefeed>.*?)(?P=quot5)[ \t]*|                 # toolsbar
     linenums=(?P<quot2>"|')                                                   # Line numbers
         (?P<linestart>[\d]+)                                                  #   Line number start
         (?:[ \t]+(?P<linestep>[\d]+))?                                        #   Line step
@@ -163,6 +165,7 @@ class SuperFencesCodeExtension(Extension):
                 "Config toolsbar menu for global toolsbar, format like this:"
                 """
                     {
+                        "title": "A Special Title",
                         "copy": {
                             "class": "copy_class",
                             "id": "button-copy",
@@ -187,6 +190,7 @@ class SuperFencesCodeExtension(Extension):
                         }
                     }
                 """
+                "`title` is indigenous to assign title to toolsbar, if no pass it will use language name."
             ],
             'toolsbarclass': ['toolsbar'],
             'preserve_tabs': [False, "Preserve tabs in fences - Default: False"]
@@ -467,6 +471,12 @@ class SuperFencesBlockPreprocessor(Preprocessor):
             self._store(self.normalize_ws('\n'.join(self.code)) + '\n', code, start, end, entry)
         self.clear()
 
+    def parse_folded(self, folded):
+        return bool(int(folded)) if folded else False
+
+    def parse_linefeed(self, linefeed):
+        return bool(int(linefeed)) if linefeed else True
+
     def parse_hl_lines(self, hl_lines):
         """Parse the lines to highlight."""
 
@@ -554,6 +564,8 @@ class SuperFencesBlockPreprocessor(Preprocessor):
                     self.linestep = m.group('linestep')
                     self.linespecial = m.group('linespecial')
                     self.toolsbar = m.group('toolsbar')
+                    self.folded = m.group('folded')
+                    self.linefeed = m.group('linefeed')
                     self.fence_end = re.compile(NESTED_FENCE_END % self.fence)
                     if m.group('tab'):
                         self.tab = m.group('tab_title')
@@ -612,6 +624,8 @@ class SuperFencesBlockPreprocessor(Preprocessor):
             linestart = self.parse_line_start(self.linestart)
             linespecial = self.parse_line_special(self.linespecial)
             hl_lines = self.hl_lines # self.parse_hl_lines(self.hl_lines)
+            folded = self.parse_folded(self.folded)
+            linefeed = self.parse_linefeed(self.linefeed)
 
             el = hl.Highlight(
                 guess_lang=self.guess_lang,
@@ -677,6 +691,7 @@ class SuperFencesBlockPreprocessor(Preprocessor):
         build toolsbar div according to a toolsbar dict
         :param toolsbar: a dict special toolsbar, like this:
                 {
+                    "title": "A Special Title",
                     "copy": {
                         "class": "copy_class",
                         "id": "button-copy",
@@ -716,26 +731,32 @@ class SuperFencesBlockPreprocessor(Preprocessor):
             else:
                 toolsbardiv = toolsbardiv + (self.toolsbarclass and ' class="%s"' % self.toolsbarclass) + '>'
 
-            # 语言提示标签
-            languagespan = '<span'
+            # 标题标签
+            titleSpan = '<span'
             spanstyles = []
             if self.noclasses:
                 spanstyles.append('flex-grow: 1')
                 spanstyles.append('color: #666')
                 spanstyles.append('font-size: 13px')
                 spanstyles.append('padding-left: 4px')
-                languagespan = languagespan + (spanstyles and ' style="%s"' % ';'.join(spanstyles)) + '>'
+                titleSpan = titleSpan + (spanstyles and ' style="%s"' % ';'.join(spanstyles)) + '>'
             else:
-                languagespan = languagespan + ' class="language">'
+                titleSpan = titleSpan + ' class="language">'
 
-            # 语言
-            language = language.capitalize() if isinstance(language, (str,)) and len(str(language)) > 0 else ''
-            languagespan = languagespan + language + '</span>'
+            # 标题
+            title = ''
+            if 'title' in toolsbar.keys():
+                title = toolsbar['title']
+            elif isinstance(language, (str,)) and len(str(language)) > 0:
+                title = language.capitalize()
+            titleSpan = titleSpan + title + '</span>'
 
             buttons = []
             # 每个按钮
             # <button class="copy" id="copy" value="复制" type="button" title="复制" onclick="copyCode(this)">换行</button>
             for name, tool in toolsbar.items():
+                if name == 'title':
+                    continue
                 clazz = tool['class'] if 'class' in tool else ''
                 iD = tool['id'] if 'id' in tool else ''
                 title = tool['title'] if 'title' in tool else ''
@@ -767,7 +788,7 @@ class SuperFencesBlockPreprocessor(Preprocessor):
                 button = button + text + '</button>'
                 buttons.append(button)
             buttons = ''.join(buttons)
-            return toolsbardiv + languagespan + buttons + '</div>'
+            return toolsbardiv + titleSpan + buttons + '</div>'
         else:
             return ''
 
@@ -789,12 +810,15 @@ class SuperFencesBlockPreprocessor(Preprocessor):
             return formatted_code
 
         # if global, use global toolsbar
-        if local_toolsbar == 'global':
-            if isinstance(language, (str,)) and len(str(language)) > 0:
+        if 'global' in local_toolsbar:
+            title = ''
+            if 'title' in local_toolsbar and isinstance(local_toolsbar, (dict, )):
+                title = local_toolsbar['title']
+            elif isinstance(language, (str,)) and len(str(language)) > 0:
                 # refresh language identifier
-                language = language.capitalize()
-                pattern = re.compile(r'(<span[^>]*>).*?(</span>)', re.S | re.M)
-                self.global_toolsbar = pattern.sub(r'\1' + language + r'\2', self.global_toolsbar)
+                title = language.capitalize()
+            pattern = re.compile(r'(<span[^>]*>).*?(</span>)', re.S | re.M)
+            self.global_toolsbar = pattern.sub(r'\1' + title + r'\2', self.global_toolsbar)
             return '<div class="with-global-toolsbar">%s%s</div>' % (self.global_toolsbar, formatted_code)
 
         # or use local globar only for this sinppet

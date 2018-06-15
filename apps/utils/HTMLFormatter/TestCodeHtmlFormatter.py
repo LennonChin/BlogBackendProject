@@ -6,13 +6,30 @@
 # @File    : TestCodeHtmlFormatter.py
 # @Software: PyCharm
 
+"""
+修改了文件：
+pymdownx:
+    superfences.py
+    highlight.py
+Pygments
+    formater/html.py
+    
+global还可以这样用：
+    - 自定义标题，全局工具栏：toolsbar='{"title": "This is a Special Title", "global":true}'
+    - 自定义标题，自定义工具栏：toolsbar='{"title": "This is a Special Title","copy":{"class":"class_1","id":"id_1","title":"自定义按钮1","text":"自定义按钮1","icon":"i-icon-1","event":"onclick='alert(1)'"},"wrap":{"class":"class_2","id":"id_2","title":"自定义按钮2","text":"自定义按钮2","icon":"i-icon-2","event":"onclick='alert(2)'"},"fold":{"class":"class_3","id":"id_3","title":"自定义按钮3","text":"自定义按钮3","icon":"i-icon-3","event":"onclick='alert(3)'"}}'
+    - 全局工具栏和标题：toolsbar="global"
+"""
+
+import markdown
+
 if __name__ == '__main__':
-    import markdown
 
     text = """
 下面是上面提到的几种加载方式的测试：
 
-```java linenums="1 1 2" hl_lines="1 3 5" toolsbar='global'
+
+
+```java linenums="0 5 2" hl_lines="1 3 5" toolsbar='global' folded="1" linefeed="1"
 package com.coderap.foundation.resource;
 
 public class ResourceTest {
@@ -51,6 +68,7 @@ public class ResourceTest {
         'pymdownx.superfences': {
             'global_toolsbar': """
             {
+                "title": "这是一个标题",
                 "copy": {
                     "class": "copy_class",
                     "id": "button-copy",
@@ -86,7 +104,6 @@ public class ResourceTest {
         'markdown.extensions.tables',
         'markdown.extensions.smart_strong',
         'markdown.extensions.admonition',
-        'markdown.extensions.codehilite',
         'markdown.extensions.headerid',
         'markdown.extensions.meta',
         'markdown.extensions.nl2br',
