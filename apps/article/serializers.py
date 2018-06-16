@@ -12,7 +12,7 @@ from BlogBackendProject.settings import MEDIA_URL_PREFIX
 class ArticleDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleDetail
-        fields = ('formatted_content', 'add_time', 'update_time')
+        fields = ('language', 'formatted_content', 'add_time', 'update_time')
 
 
 class ArticleDetailInfoSerializer(serializers.ModelSerializer):
@@ -38,6 +38,6 @@ class ArticleBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleInfo
         fields = (
-            'id', 'title', 'desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type',
+            'id', 'title', 'en_title', 'desc', 'en_desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type',
             'front_image', 'is_recommend', 'is_hot', 'is_banner', 'is_commentable', 'browse_password_encrypt',
             'front_image_type', 'add_time')

@@ -30,7 +30,7 @@ class MaterialCategory(models.Model):
         ("book/notes/category", "阅读笔记分类"),
     )
     name = models.CharField(max_length=30, default="", verbose_name="类别名", help_text="类别名")
-    subname = models.CharField(max_length=30, default="", verbose_name="别名", help_text="别名")
+    en_name = models.CharField(max_length=30, default="", verbose_name="英文名", help_text="英文名")
     category_type = models.CharField(max_length=30, choices=CATEGORY_TYPE, verbose_name="路由编码", help_text="用于配置路由跳转")
     desc = models.TextField(default="", verbose_name="类别描述", help_text="类别描述")
     image = models.ImageField(upload_to="comment/category/image/%Y/%m", null=True, blank=True, help_text="图片")
@@ -55,7 +55,7 @@ class MaterialTag(models.Model):
     素材标签
     """
     name = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签名", help_text="标签名")
-    subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="标签别名", help_text="标签别名")
+    en_name = models.CharField(max_length=30, null=False, blank=False, verbose_name="英文名", help_text="英文名")
     category = models.ForeignKey(MaterialCategory, null=True, blank=True, verbose_name="类别", help_text="类别")
     color = models.CharField(max_length=20, default="blue", verbose_name="颜色", help_text="颜色")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
@@ -80,7 +80,7 @@ class MaterialLicense(models.Model):
         ("#FA5555", "红色")
     )
     name = models.CharField(max_length=30, null=False, blank=False, verbose_name="版权名", help_text="版权名")
-    subname = models.CharField(max_length=30, null=False, blank=False, verbose_name="版权别名", help_text="版权别名")
+    en_name = models.CharField(max_length=30, null=False, blank=False, verbose_name="英文名", help_text="英文名")
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
     link = models.URLField(null=True, blank=True, verbose_name="版权参考链接", help_text="版权参考链接")
     color = models.CharField(max_length=20, default="blue", choices=COLOR_TYPE, verbose_name="颜色", help_text="颜色")
@@ -116,8 +116,8 @@ class MaterialPicture(models.Model):
     素材图片
     """
     title = models.CharField(max_length=100, null=False, blank=False, verbose_name="标题", help_text="标题")
-    subtitle = models.CharField(max_length=100, null=True, blank=True, verbose_name="子标题", help_text="子标题")
-    abstract = models.CharField(max_length=255, null=True, blank=True, verbose_name="摘要", help_text="摘要")
+    en_title = models.CharField(max_length=100, null=True, blank=True, verbose_name="子标题", help_text="子标题")
+    en_desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="摘要", help_text="摘要")
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
     image = models.ImageField(upload_to="comment/picture/image/%Y/%m", null=True, blank=True, verbose_name="图片",
                               help_text="图片")
@@ -150,8 +150,8 @@ class PostBaseInfo(models.Model):
         ("2", "大图")
     )
     title = models.CharField(max_length=100, null=False, blank=False, verbose_name="标题", help_text="标题")
-    subtitle = models.CharField(max_length=100, null=True, blank=True, verbose_name="子标题", help_text="子标题")
-    abstract = models.CharField(max_length=255, null=True, blank=True, verbose_name="摘要", help_text="摘要")
+    en_title = models.CharField(max_length=100, null=True, blank=True, verbose_name="英文标题", help_text="英文标题")
+    en_desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="英文简介", help_text="英文简介")
     desc = models.CharField(max_length=255, null=True, blank=True, verbose_name="简介", help_text="简介")
     author = models.CharField(max_length=20, null=True, blank=True, verbose_name="作者", help_text="作者")
     category = models.ForeignKey(MaterialCategory, null=False, blank=False, verbose_name="类别", help_text="类别")

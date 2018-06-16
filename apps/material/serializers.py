@@ -62,7 +62,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MaterialTag
-        fields = ('name', 'color', 'related_post_num')
+        fields = ('name', 'en_name', 'color', 'related_post_num')
 
 
 class LicenseSerializer(serializers.ModelSerializer):
@@ -98,7 +98,7 @@ class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostBaseInfo
         fields = (
-            'id', 'title', 'desc', 'tags', 'like_num', 'comment_num', 'click_num', 'front_image', 'front_image_type',
+            'id', 'title', 'en_title', 'desc', 'en_desc', 'tags', 'like_num', 'comment_num', 'click_num', 'front_image', 'front_image_type',
             'is_hot',
             'is_recommend', 'is_banner', 'is_commentable',
             'post_type', 'browse_password_encrypt', 'add_time')
