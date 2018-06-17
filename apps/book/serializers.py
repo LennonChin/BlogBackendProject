@@ -13,14 +13,14 @@ from BlogBackendProject.settings import MEDIA_URL_PREFIX
 class BookDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookDetail
-        fields = ('formatted_content', 'add_time', 'update_time')
+        fields = ('language', 'formatted_content', 'add_time', 'update_time')
 
 
 # 笔记
 class BookNoteDetialSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookNoteDetail
-        fields = ('formatted_content', 'add_time', 'update_time')
+        fields = ('language','formatted_content', 'add_time', 'update_time')
 
 
 class BookNoteBaseInfoSerializer2(serializers.ModelSerializer):

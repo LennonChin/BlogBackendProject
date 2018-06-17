@@ -31,16 +31,6 @@ class BookDetailAdmin(object):
     model = BookDetail
     extra = 1
 
-    def save_models(self):
-        # 转换Markdown为格式化的HTML
-        self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
-                                                           extensions=[
-                                                               'markdown.extensions.extra',
-                                                               'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc',
-                                                           ])
-        self.new_obj.save()
-
 
 # 图书基本信息
 class BookInfoAdmin(object):
@@ -70,16 +60,6 @@ class BookNoteDetailAdmin(object):
     exclude = ['formatted_content']
     model = BookNoteDetail
     extra = 1
-
-    def save_models(self):
-        # 转换Markdown为格式化的HTML
-        self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
-                                                           extensions=[
-                                                               'markdown.extensions.extra',
-                                                               'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc',
-                                                           ])
-        self.new_obj.save()
 
 
 # 章节基本信息

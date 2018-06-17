@@ -149,6 +149,7 @@ ALLOWED_TAGS = [
     'big',
     'blockquote',
     'br',
+    'button'
     'caption',
     'cite',
     'code',
@@ -240,10 +241,11 @@ ALLOWED_ATTRIBUTES = {
     'a': ['href', 'title'],
     'abbr': ['title'],
     'acronym': ['title'],
+    '*': ['class', 'id', 'style', 'type', 'value', 'title']
 }
 
 #: List of allowed styles
-ALLOWED_STYLES = []
+ALLOWED_STYLES = ['*']
 
 #: List of allowed protocols
 ALLOWED_PROTOCOLS = ['http', 'https', 'mailto']

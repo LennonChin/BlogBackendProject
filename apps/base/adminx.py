@@ -22,7 +22,7 @@ class GlobalSettings(object):
 
 
 class SiteInfoAdmin(object):
-    list_display = ['name', 'name_en', 'is_live', 'is_force_refresh', "desc", "copyright", "icp", 'access_password']
+    list_display = ['name', 'is_live', 'is_force_refresh', "desc", "copyright", "icp", 'access_password']
     list_editable = ["is_force_refresh", '']
     search_fields = ['name', 'name_en']
     exclude = ['browse_password_encrypt']
@@ -40,8 +40,8 @@ class NavigationLinkAdmin(object):
 
 
 class BloggerInfoAdmin(object):
-    list_display = ['name', 'name_en', 'desc', 'avatar', 'socials', 'masters']
-    search_fields = ['name', 'name_en', 'desc']
+    list_display = ['name', 'desc', 'avatar', 'socials', 'masters']
+    search_fields = ['name', 'desc']
 
     class BloggerSocialInline(object):
         model = BloggerSocial

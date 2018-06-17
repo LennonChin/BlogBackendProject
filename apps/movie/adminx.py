@@ -8,7 +8,6 @@
 
 import xadmin
 
-import markdown
 from django import forms
 
 from .models import MovieInfo, MovieDetail
@@ -29,16 +28,6 @@ class MovieDetailAdmin(object):
     exclude = ['formatted_content']
     model = MovieDetail
     extra = 1
-
-    def save_models(self):
-        # 转换Markdown为格式化的HTML
-        self.new_obj.formatted_content = markdown.markdown(self.new_obj.origin_content,
-                                                           extensions=[
-                                                               'markdown.extensions.extra',
-                                                               'markdown.extensions.codehilite',
-                                                               'markdown.extensions.toc',
-                                                           ])
-        self.new_obj.save()
 
 
 class MovieInfoAdmin(object):

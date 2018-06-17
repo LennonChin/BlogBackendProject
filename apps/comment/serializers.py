@@ -92,7 +92,6 @@ class CreateCommentSerializer(serializers.ModelSerializer):
             return attrs
 
     def create(self, validated_data):
-        return None
         detail_data = validated_data.pop('detail')
         # 创建评论
         comment_info = CommentInfo.objects.create(**validated_data)

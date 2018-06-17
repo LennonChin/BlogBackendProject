@@ -5,7 +5,7 @@ from base.utils import ALLOWED_TAGS, ALLOWED_ATTRIBUTES, ALLOWED_STYLES, ALLOWED
 
 from material.models import PostBaseInfo
 from user.models import GuestProfile
-from base.utils import MARKDOWN_EXTENSIONS
+from base.utils import MARKDOWN_EXTENSIONS, MARKDOWN_EXTENSION_CONFIGS
 
 
 class CommentInfo(models.Model):
@@ -51,7 +51,7 @@ class CommentDetail(models.Model):
 
     def save(self, *args, **kwargs):
         self.formatted_content = bleach.clean(
-            markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS, lazy_ol=False), ALLOWED_TAGS,
+            markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS, extension_configs=MARKDOWN_EXTENSION_CONFIGS, lazy_ol=False), ALLOWED_TAGS,
             ALLOWED_ATTRIBUTES, ALLOWED_STYLES,
             ALLOWED_PROTOCOLS, False, False)
         super(CommentDetail, self).save(*args, **kwargs)

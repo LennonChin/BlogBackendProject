@@ -40,7 +40,7 @@ class ArticleDetail(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.language:
-            self.language = '中文'
+            self.language = 'CN'
         self.formatted_content = markdown.markdown(self.origin_content, extensions=MARKDOWN_EXTENSIONS,
                                                    extension_configs=MARKDOWN_EXTENSION_CONFIGS, lazy_ol=False)
         super(ArticleDetail, self).save(*args, **kwargs)
