@@ -115,7 +115,7 @@ class MaterialLicense(models.Model):
         verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
-        return self.subname
+        return self.name
 
 
 class MaterialCamera(models.Model):
@@ -206,6 +206,7 @@ class PostBaseInfo(models.Model):
     browse_password = models.CharField(max_length=20, null=True, blank=True, verbose_name="浏览密码", help_text="浏览密码")
     browse_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密",
                                                help_text="浏览密码加密")
+    index = models.IntegerField(default=0, verbose_name="置顶", help_text="置顶")
     add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     def save(self, *args, **kwargs):

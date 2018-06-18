@@ -20,12 +20,12 @@ class RelativeImageExtension(Extension):
     def __init__(self, configs, *args, **kwargs):
         """Initialize."""
 
-        self.config = copy.deepcopy(configs)
+        self.configs = copy.deepcopy(configs)
         super(RelativeImageExtension, self).__init__(*args, **kwargs)
 
     def extendMarkdown(self, md, md_globals):
         absolute_images = RelativeImagesTreeprocessor(md)
-        absolute_images.config = self.getConfigs()
+        absolute_images.config = self.configs
         md.treeprocessors.add("relativeimages", absolute_images, "_end")
 
         md.registerExtension(self)
@@ -73,12 +73,12 @@ def makeExtension(configs={}):
 if __name__ == '__main__':
     import markdown
     text = """
-![001.png](https://comment.coderap.com/a/b/001.png)
+![001.png](https://jianshu.com/a/b/001.png)
 ![abc.png](/c/d/abc.png)
-![test.png](https://comment.coderap.com/efg/hijk/test.png)
+![test.png](https://material.coderap.com/efg/hijk/test.png)
 """
     configs = {
-        'base_urls': ["https://comment.coderap.com"],
+        'base_urls': ["https://material.coderap.com"],
     }
 
     md = markdown.markdown(text, extensions=['markdown.extensions.extra',

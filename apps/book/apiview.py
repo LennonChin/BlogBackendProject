@@ -26,7 +26,8 @@ class BookBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = BookFilter
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
-    ordering_fields = ('click_num', 'like_num', 'comment_num', 'add_time')
+    ordering_fields = ('click_num', 'like_num', 'comment_num', 'index', 'add_time')
+    ordering = ('-index', '-add_time')
 
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination
@@ -87,7 +88,8 @@ class BookNoteBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = BookNoteFilter
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
-    ordering_fields = ('click_num', 'like_num', 'comment_num')
+    ordering_fields = ('click_num', 'like_num', 'comment_num', 'index', 'add_time')
+    ordering = ('-index', '-add_time')
 
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination

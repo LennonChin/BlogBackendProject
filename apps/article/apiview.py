@@ -24,8 +24,8 @@ class ArticleBaseInfoListViewset(viewsets.ReadOnlyModelViewSet):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = ArticleFilter
     search_fields = ('title', 'subtitle', 'abstract', 'desc')
-    ordering_fields = ('click_num', 'like_num', 'comment_num', 'add_time')
-    ordering = ('-add_time',)
+    ordering_fields = ('click_num', 'like_num', 'comment_num', 'index', 'add_time')
+    ordering = ('-index', '-add_time')
 
     # 分页设置
     pagination_class = CustomeLimitOffsetPagination

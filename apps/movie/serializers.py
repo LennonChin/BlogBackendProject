@@ -39,5 +39,5 @@ class MovieBaseInfoSerializer(serializers.ModelSerializer):
         model = MovieInfo
         fields = (
             'id', 'title', 'en_title', 'desc', 'en_desc', 'directors', 'actors', 'category', 'post_type', 'is_recommend', 'is_hot',
-            'is_banner', 'is_commentable', 'browse_password_encrypt',
+            'is_banner', 'is_commentable', 'index', 'browse_password_encrypt',
             'front_image', 'add_time')

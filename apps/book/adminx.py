@@ -34,8 +34,8 @@ class BookDetailAdmin(object):
 
 # 图书基本信息
 class BookInfoAdmin(object):
-    list_display = ['title', "category", "tags", 'is_active', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', "front_image", "front_image_type"]
-    list_editable = ['is_active', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable']
+    list_display = ['title', "category", "tags", 'is_active', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', 'index', "front_image", "front_image_type"]
+    list_editable = ['is_active', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', 'index']
     search_fields = ['title']
     exclude = ['post_type', 'browse_password_encrypt']
 
@@ -64,8 +64,8 @@ class BookNoteDetailAdmin(object):
 
 # 章节基本信息
 class BookNoteInfoAdmin(object):
-    list_display = ['title', 'book', "category", "tags", 'is_active', 'is_reading', 'is_completed', 'is_noted', "front_image", "front_image_type"]
-    list_editable = ['is_active', 'is_reading', 'is_completed', 'is_noted']
+    list_display = ['title', 'book', "category", "tags", 'is_active', 'is_reading', 'is_completed', 'is_noted', 'index', "front_image", "front_image_type"]
+    list_editable = ['is_active', 'is_reading', 'is_completed', 'is_noted', 'index']
     search_fields = ['title']
     exclude = ['post_type', 'browse_password_encrypt']
 

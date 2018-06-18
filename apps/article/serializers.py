@@ -40,4 +40,4 @@ class ArticleBaseInfoSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'title', 'en_title', 'desc', 'en_desc', 'author', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type',
             'front_image', 'is_recommend', 'is_hot', 'is_banner', 'is_commentable', 'browse_password_encrypt',
-            'front_image_type', 'add_time')
+            'front_image_type', 'index', 'add_time')
