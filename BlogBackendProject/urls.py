@@ -30,7 +30,7 @@ from album.apiview import AlbumBaseInfoListViewset, AlbumDetailInfoListViewset
 from movie.apiview import MovieBaseInfoListViewset, MovieDetailInfoListViewset
 from book.apiview import BookBaseInfoListViewset, BookDetailInfoListViewset, BookNoteBaseInfoListViewset, BookNoteDetailInfoListViewset
 from material.apiview import CategoryListViewset, SingleLevelCategoryListViewset, TagListViewset, \
-    MaterialBannerListViewset, PostBaseInfoListViewset,PostLikeViewset
+    MaterialBannerListViewset, PostBaseInfoListViewset, PostLikeViewset, VerifyPostAuthViewset
 from comment.apiview import CommentDetailListViewset, CommentLikeViewset
 from base.apiview import SiteInfoViewset, BloggerInfoViewset, FriendLinkListViewset
 from user.apiview import EmailCodeViewset
@@ -87,6 +87,8 @@ router.register(r'likeOrUnlikeComment', CommentLikeViewset, base_name="likeOrUnl
 
 # 邮箱验证码
 router.register(r'emailCode', EmailCodeViewset, base_name="emailCode")
+# 验证文章权限
+router.register(r'verifyPostAuth', VerifyPostAuthViewset, base_name="verifyPostAuth")
 # 七牛云token
 router.register(r'qiniuToken', QiniuTokenViewset, base_name='qiniuToken')
 

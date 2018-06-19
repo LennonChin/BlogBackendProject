@@ -23,17 +23,23 @@ class AlbumDetailInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AlbumInfo
-        exclude = ('browse_password', )
+        exclude = ('browse_password', 'browse_password_encrypt')
 
 
 class AlbumBaseInfoSerializer(serializers.ModelSerializer):
     front_image = serializers.SerializerMethodField()
+    need_auth = serializers.SerializerMethodField()
 
     def get_front_image(self, album):
         if album.front_image:
             return "{0}/{1}".format(MEDIA_URL_PREFIX, album.front_image)
 
+    def get_need_auth(self, article):
+        if article.browse_password_encrypt:
+            return True
+        else:
+            return False
+
     class Meta:
         model = AlbumInfo
-        fields = ('id', 'title', 'en_title', 'desc', 'en_desc', 'author', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image',
-                  'front_image_type', 'is_banner', 'is_commentable', 'browse_password_encrypt', 'add_time')
+        fields = ('id', 'title', 'en_title', 'desc', 'en_desc', 'author', 'click_num', 'like_num', 'comment_num', 'post_type', 'front_image', 'front_image_type', 'is_banner', 'is_commentable', 'need_auth', 'add_time')

@@ -90,10 +90,17 @@ class PictureSerializer(serializers.ModelSerializer):
 class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     front_image = serializers.SerializerMethodField()
+    need_auth = serializers.SerializerMethodField()
 
-    def get_front_image(self, post):
-        if post.front_image:
-            return "{0}/{1}".format(MEDIA_URL_PREFIX, post.front_image)
+    def get_front_image(self, article):
+        if article.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, article.front_image)
+
+    def get_need_auth(self, article):
+        if article.browse_password_encrypt:
+            return True
+        else:
+            return False
 
     class Meta:
         model = PostBaseInfo
@@ -101,7 +108,7 @@ class MaterialPostBaseInfoSerializer(serializers.ModelSerializer):
             'id', 'title', 'en_title', 'desc', 'en_desc', 'tags', 'like_num', 'comment_num', 'click_num', 'front_image', 'front_image_type',
             'is_hot',
             'is_recommend', 'is_banner', 'is_commentable',
-            'post_type', 'browse_password_encrypt', 'add_time')
+            'post_type', 'need_auth', 'add_time')
 
 
 class MaterialBannerSerializer(serializers.ModelSerializer):
@@ -132,3 +139,8 @@ class MaterialMasterSerializer(serializers.ModelSerializer):
 
 class PostLikeSerializer(serializers.Serializer):
     post_id = serializers.IntegerField(required=True, label='文章')
+
+
+class VerifyPostAuthSerializer(serializers.Serializer):
+    post_id = serializers.CharField(max_length=11, min_length=1, required=True, label='文章')
+    browse_auth = serializers.CharField(max_length=64, min_length=6, required=True, label='阅读密码')

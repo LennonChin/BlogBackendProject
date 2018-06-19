@@ -20,48 +20,76 @@ class BookDetailSerializer(serializers.ModelSerializer):
 class BookNoteDetialSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookNoteDetail
-        fields = ('language','formatted_content', 'add_time', 'update_time')
+        fields = ('language', 'formatted_content', 'add_time', 'update_time')
 
 
 class BookNoteBaseInfoSerializer2(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
-    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
+    front_image = serializers.SerializerMethodField()
+    need_auth = serializers.SerializerMethodField()
+
+    def get_front_image(self, book_note):
+        if book_note.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, book_note.front_image)
+
+    def get_need_auth(self, article):
+        if article.browse_password_encrypt:
+            return True
+        else:
+            return False
 
     class Meta:
         model = BookNoteInfo
-        exclude = ('browse_password',)
+        exclude = ('browse_password', 'browse_password_encrypt')
 
 
 class BookNoteBaseInfoSerializer1(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
     sub_note = BookNoteBaseInfoSerializer2(many=True)
-    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
     front_image = serializers.SerializerMethodField()
+    need_auth = serializers.SerializerMethodField()
 
     def get_front_image(self, book_note):
         if book_note.front_image:
             return "{0}/{1}".format(MEDIA_URL_PREFIX, book_note.front_image)
 
+    def get_need_auth(self, article):
+        if article.browse_password_encrypt:
+            return True
+        else:
+            return False
+
     class Meta:
         model = BookNoteInfo
-        exclude = ('browse_password',)
+        exclude = ('browse_password', 'browse_password_encrypt')
 
 
 class BookBaseInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
     front_image = serializers.SerializerMethodField()
+    need_auth = serializers.SerializerMethodField()
 
     def get_front_image(self, book):
         if book.front_image:
             return "{0}/{1}".format(MEDIA_URL_PREFIX, book.front_image)
 
+    def get_need_auth(self, article):
+        if article.browse_password_encrypt:
+            return True
+        else:
+            return False
+
     class Meta:
         model = BookInfo
-        fields = ('id', 'title', 'en_title', 'desc', 'en_desc', 'category', 'tags', 'click_num', 'like_num', 'comment_num', 'post_type', 'is_recommend', 'is_hot', 'is_banner', 'is_commentable', 'index',
-                  'browse_password_encrypt', 'front_image', 'front_image_type', 'is_reading', 'read_precentage', 'add_time', 'douban_id', 'douban_type', 'douban_infos', 'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url', 'book_image', 'book_rating', 'book_tags')
+        fields = (
+        'id', 'title', 'en_title', 'desc', 'en_desc', 'category', 'tags', 'click_num', 'like_num', 'comment_num',
+        'post_type', 'is_recommend', 'is_hot', 'is_banner', 'is_commentable', 'index', 'need_auth', 'front_image',
+        'front_image_type', 'is_reading', 'read_precentage', 'add_time', 'douban_id', 'douban_type', 'douban_infos',
+        'book_isbn10', 'book_isbn13', 'book_name', 'book_author', 'book_publisher', 'book_pages', 'book_url',
+        'book_image', 'book_rating', 'book_tags')
 
 
 class BookNoteBaseInfoSerializer(serializers.ModelSerializer):
@@ -69,11 +97,22 @@ class BookNoteBaseInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     book = BookBaseInfoSerializer()
     sub_note = BookNoteBaseInfoSerializer1(many=True)
-    browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
+    front_image = serializers.SerializerMethodField()
+    need_auth = serializers.SerializerMethodField()
+
+    def get_front_image(self, book_note):
+        if book_note.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, book_note.front_image)
+
+    def get_need_auth(self, article):
+        if article.browse_password_encrypt:
+            return True
+        else:
+            return False
 
     class Meta:
         model = BookNoteInfo
-        exclude = ('browse_password',)
+        exclude = ('browse_password', 'browse_password_encrypt')
 
 
 # 图书基本信息
@@ -95,7 +134,7 @@ class BookDetailInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookInfo
-        exclude = ('browse_password',)
+        exclude = ('browse_password', 'browse_password_encrypt')
 
 
 class BookNoteDetialInfoSerializer(serializers.ModelSerializer):
@@ -108,4 +147,4 @@ class BookNoteDetialInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookNoteInfo
-        exclude = ('browse_password',)
+        exclude = ('browse_password', 'browse_password_encrypt')
