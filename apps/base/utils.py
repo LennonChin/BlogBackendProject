@@ -18,6 +18,7 @@ from BlogBackendProject.private import PRIVATE_QINIU_ACCESS_KEY, PRIVATE_QINIU_S
     PRIVATE_MEDIA_URL_PREFIX
 from BlogBackendProject.settings import SITE_BASE_URL, MEDIA_URL_PREFIX, EMAIL_FROM
 from utils.RelativeImageExtension import RelativeImageExtension
+from utils.SpanTableExtension import SpanTableExtension
 
 
 # Page分页
@@ -241,6 +242,8 @@ ALLOWED_ATTRIBUTES = {
     'a': ['href', 'title'],
     'abbr': ['title'],
     'acronym': ['title'],
+    'td': ['colspan', 'rowspan', 'align'],
+    'th': ['colspan', 'rowspan', 'align'],
     '*': ['class', 'id', 'style', 'type', 'value', 'title']
 }
 
@@ -293,7 +296,8 @@ MARKDOWN_EXTENSIONS_CUSTOM = [
         'base_urls': [
             MEDIA_URL_PREFIX
         ]
-    })
+    }),
+    SpanTableExtension()
 ]
 
 MARKDOWN_EXTENSIONS = MARKDOWN_EXTENSIONS_DEFAULT + MARKDOWN_EXTENSIONS_PYMDOWNX + MARKDOWN_EXTENSIONS_CUSTOM
