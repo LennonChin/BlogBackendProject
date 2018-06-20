@@ -136,8 +136,10 @@ class SpanTableProcessor(BlockProcessor):
                 align.append('right')
             else:
                 align.append(None)
-        # Build table
-        table = etree.SubElement(parent, 'table')
+        # Build table, wrap a div to enhence style adjust
+        wrapdiv = etree.SubElement(parent, 'div')
+        wrapdiv.set('class', 'table-wrap')
+        table = etree.SubElement(wrapdiv, 'table')
         thead = etree.SubElement(table, 'thead')
         self._build_row(header, thead, align, border)
         tbody = etree.SubElement(table, 'tbody')
@@ -213,9 +215,9 @@ class SpanTableProcessor(BlockProcessor):
                     current += letter
                 else:
                     groups = match.groups()
-                    delim = groups[1]  # the code block delimeter (ie 1 or more backticks)
-                    row_contents = groups[2]  # the text contained inside the code block
-                    i += match.start(4) - 1  # jump pointer to the beginning of the rest of the text (group #4)
+                    delim = groups[2]  # the code block delimeter (ie 1 or more backticks)
+                    row_contents = groups[3]  # the text contained inside the code block
+                    i += match.start(5) - 1  # jump pointer to the beginning of the rest of the text (group #4)
                     element = delim + row_contents + delim  # reinstert backticks
                     current += element
             i += 1
@@ -250,25 +252,25 @@ if __name__ == '__main__':
     import markdown
 
     text = """
-| head1           | head2 |
-|:---------------:|-------|
-| span two cols          ||
-| span two rows   |  cell |
-|_                |  cell |
+|      | 第一个元素（头部）                  || 最后一个元素（尾部）                 ||
+|:--:|:----------------:|:-------------:|:------------------:|:------------:|
+|      |      抛出异常      |     特殊值      |       抛出异常       |     特殊值     |
+| 插入 |   addFirst(e)    | offerFirst(e) |     addLast(e)     | offerLast(e) |
+| 移除 |  removeFirst()   |  pollFirst()  |    removeLast()    |  pollLast()  |
+| 检查 |    getFirst()    |  peekFirst()  |     getLast()      |  peekLast()  |
 
+|      | 第一个元素（头部）                  || 最后一个元素（尾部）                 ||
+|:--:|:----------------:|:-------------:|:------------------:|:------------:|
+|      |      抛出异常      |     特殊值      |       抛出异常       |     特殊值     |
+| 插入 |   `addFirst(e)`    | `offerFirst(e)` |     `addLast(e)`     | `offerLast(e)` |
+| 移除 |  `removeFirst()`   |  `pollFirst()`  |    `removeLast()`    |  `pollLast()`  |
+| 检查 |    `getFirst()`    |  `peekFirst()`  |     `getLast()`      |  `peekLast()`  |
 
-|head1|head2|
-|-:|-|
-|span two cols||
-|span two rows||
-|_| |
-
-| head         |
-| ------------ |
-| regular cell |
-| span 2 rows  |
-|_             |
-
+|             |            |
+| ----------- | ---------- |
+| `addFirst(e)` ||
+| `getFirst()` |            |
+|_            |            |
 """
 
     md = markdown.markdown(text, extensions=[
