@@ -10,7 +10,6 @@ from BlogBackendProject.settings import MEDIA_URL_PREFIX
 
 
 class NavigationLinkSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = NavigationLink
         fields = "__all__"
@@ -31,7 +30,9 @@ class SiteInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteInfo
-        fields = ('name', 'en_name', 'desc', 'en_desc', 'keywords', 'icon', 'background', 'api_base_url', 'is_force_refresh', 'is_live', 'navigations', 'copyright', 'copyright_desc', 'copyright_desc_en', 'icp')
+        fields = (
+        'name', 'en_name', 'desc', 'en_desc', 'keywords', 'icon', 'background', 'api_base_url', 'is_force_refresh',
+        'is_live', 'navigations', 'copyright', 'copyright_desc', 'copyright_desc_en', 'icp')
 
 
 class BloggerInfoSerializer(serializers.ModelSerializer):
@@ -54,7 +55,6 @@ class BloggerInfoSerializer(serializers.ModelSerializer):
 
 
 class FriendLinkSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = FriendLink
         fields = "__all__"
