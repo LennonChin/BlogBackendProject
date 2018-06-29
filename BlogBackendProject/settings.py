@@ -29,7 +29,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = PRIVATE_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -224,3 +224,37 @@ SITE_BASE_URL = PRIVATE_SITE_BASE_URL
 
 # Douban Api
 DOUBAN_API_URL = 'https://api.douban.com/v2'
+
+# log setting
+LOGGING = {
+    'version':1,
+    'disable_existing_loggers':False,
+    'formatters':{
+        'brief': {
+            'format': '%(asctime)s %(livelname)-8s %(name)-15s %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'debug.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

@@ -38,6 +38,7 @@ from markdown import util as md_util
 from pymdownx import highlight as hl
 import re
 import json
+from collections import OrderedDict
 
 SOH = '\u0001'
 EOT = '\u0004'
@@ -677,7 +678,7 @@ class SuperFencesBlockPreprocessor(Preprocessor):
         if not opt:
             return default
         try:
-            option = json.loads(opt)
+            option = json.loads(opt, object_pairs_hook=OrderedDict)
             return option if len(option.keys()) > 0 else default
         except Exception:
             pass
