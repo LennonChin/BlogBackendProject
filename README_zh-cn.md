@@ -8,19 +8,21 @@
 
 > 注：与该仓库配合的前端代码仓库链接在此[BlogBackendProject](https://github.com/LennonChin/Blog-Frontend-Project)，前端代码使用Vue.js + Vue-Router + iView.js实现。
 
-后端控制台效果展示：
+## 控制台后端效果
 
-![首页](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend1.png)
+### PC端
 
-![图书列表页](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend2.png)
+![Home Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/PC_1.png)
 
-![所有博文列表](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend3.png)
+![Article List Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/PC_2.png)
 
-![添加文章](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend4.png)
+![Add Article Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/PC_3.png)
 
-![添加文章](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend5.png)
+![Add Article Page](https://github.com/LennonChin/BlogBackendProject/blob/master/media/PC_4.png)
 
-![添加文章](https://github.com/LennonChin/BlogBackendProject/blob/master/media/backend6.png)
+### 手机端
+
+![Mobile effect](https://github.com/LennonChin/BlogBackendProject/blob/master/media/MOBILE_1.png)
 
 ## 整体技术栈
 
@@ -77,6 +79,9 @@
 # @File    : private.py
 # @Software: PyCharm
 
+# 站点Secret Key设置，即settings.py中的SECRET_KEY项
+PRIVATE_SECRET_KEY = ''
+
 # 数据库连接配置
 DATABASE_CONFIG = {
     'ENGINE': '', # 数据库引擎
@@ -110,6 +115,17 @@ PRIVATE_MEDIA_URL_PREFIX = '' # 站点Media资源前缀网址，访问七牛云�
 PRIVATE_SITE_BASE_URL = '' # 站点网址
 ```
 
+关于上述配置中`SECRET_KEY`（`PRIVATE_SECRET_KEY`）可以使用系统自动生成的，也可以自己生成，生成方式如下：
+
+```python
+In [1]: from django.core.management import utils
+
+In [2]: utils.get_random_secret_key()
+Out[2]: '7%x-f2u#@q@ar$q(=_yauzx8i4$8u&5epa=w^tjfo@-mp3+!r1'
+```
+
+`SECRET_KEY`是在startproject时候生成的，最终引用的是上述代码，具体可以查看源码。
+
 6. 配置以上内容后，使用下面的命令迁移表
 
 ```shell
@@ -128,6 +144,12 @@ PRIVATE_SITE_BASE_URL = '' # 站点网址
 默认情况下，如果你运行后启动的evelopment Server为`127.0.0.1:8000`，则提供的接口访问地址为`http://127.0.0.1:8000/api`，后台管理地址为`http://127.0.0.1:8000/xadmin`。
 
 同时，如果想要让前端访问到后台的接口，需要在后台的基础配置-网站配置中填写站点信息，最重要的是需要填写`API接口BaseURL`项为你前端页面访问的接口API。
+
+## 其他补充
+
+在本项目中，对Markdown的转换处理，使用了Pygments和pymdownx两个第三方库，同时对这两个库做了定制化的扩展，扩展后的代码位于`apps/utils/HTMLFormatter`目录下，其中有一个测试文件可供测试。如果想使用这些高级扩展，你需要将`superfences.py`、`highlight.py`两个文件复制到你的虚拟环境下的pymdownx安装包中并覆盖源文件，如我的虚拟环境是`BlogBackend`，目录即为`virtualEnvs/BlogBackend/lib/python3.6/site-packages/pymdownx`；其次，需要将本项目`apps/utils/HTMLFormatter`目录下的`code.py`文件更名为`html.py`文件，然后将改名后的文件复制到你的虚拟环境下的pygments安装包中并覆盖源文件，如我目录为`virtualEnvs/BlogBackend/lib/python3.6/site-packages/pygments/formatters`。
+
+如果你觉得过于复杂而不打算使用扩展，也可以直接运行，但无法使用本博客扩展支持Markdown的高级语法，示例页面：[关于本站扩展Markdown语法](https://blog.coderap.com/article/4 "关于本站扩展Markdown语法")。
 
 ## License
 
