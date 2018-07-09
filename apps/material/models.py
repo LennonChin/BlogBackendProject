@@ -56,7 +56,7 @@ class MaterialCategory(models.Model):
         verbose_name_plural = verbose_name + '列表'
 
     def __str__(self):
-        return self.name
+        return '{0} - {1} - {2}'.format(self.name, self.get_category_type_display(), self.get_category_level_display())
 
 
 class MaterialTag(models.Model):
