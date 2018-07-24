@@ -213,7 +213,7 @@ STATICFILES_DIRS = [
 # MEDIA_ROOT = ''
 
 # 线上环境，从七牛云读取
-MEDIA_URL = 'https://comment.coderap.com/'
+MEDIA_URL = 'https://material.coderap.com/'
 MEDIA_ROOT = ''
 
 # 站点Media资源前缀网址

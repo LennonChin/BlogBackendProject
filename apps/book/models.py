@@ -16,6 +16,8 @@ class BookInfo(PostBaseInfo):
         ("book", "图书"),
         ("movie", "电影")
     )
+    book_image = models.ImageField(upload_to="book/image/%y/%m", null=True, blank=True, verbose_name="封面图",
+                                   help_text="大图833*217，小图243*207")
     is_reading = models.BooleanField(default=False, verbose_name='是否正在阅读', help_text='是否正在阅读')
     read_precentage = models.FloatField(default=0.0, null=True, blank=True, verbose_name='阅读进度', help_text='阅读进度')
     douban_type = models.CharField(max_length=255, choices=DOUBAN_TYPE, null=True, blank=True, verbose_name="豆瓣资源类型",
@@ -26,7 +28,6 @@ class BookInfo(PostBaseInfo):
     book_isbn13 = models.CharField(max_length=255, null=True, blank=True, verbose_name="isbn13", help_text="isbn13")
     book_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="书名", help_text="书名")
     book_origin_name = models.CharField(max_length=100, null=True, blank=True, verbose_name="本书原始名", help_text="本书原始名")
-    book_image = models.URLField(null=True, blank=True, verbose_name="本书图片", help_text="本书图片")
     book_author = models.CharField(max_length=255, null=True, blank=True, verbose_name="本书作者", help_text="本书作者")
     book_tags = models.CharField(max_length=255, null=True, blank=True, verbose_name="本书标签", help_text="本书标签")
     book_rating = models.CharField(max_length=10, null=True, blank=True, verbose_name="本书豆瓣评分", help_text="本书豆瓣评分")
@@ -56,8 +57,6 @@ class BookInfo(PostBaseInfo):
                     self.book_name = douban_infos_dict['title']
                 if not self.book_origin_name:
                     self.book_origin_name = douban_infos_dict['origin_title']
-                if not self.book_image:
-                    self.book_image = douban_infos_dict['image']
                 if not self.book_author:
                     self.book_author = '，'.join(douban_infos_dict['author'])
                 if not self.book_tags:

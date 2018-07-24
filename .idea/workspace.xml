@@ -4,8 +4,8 @@
     <list default="true" id="1cdb940b-c796-492c-b3b1-87cd5285e5fe" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BlogBackendProject/settings.py" afterPath="$PROJECT_DIR$/BlogBackendProject/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/base/models.py" afterPath="$PROJECT_DIR$/apps/base/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/base/serializers.py" afterPath="$PROJECT_DIR$/apps/base/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/book/models.py" afterPath="$PROJECT_DIR$/apps/book/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/material/models.py" afterPath="$PROJECT_DIR$/apps/material/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,7 +18,7 @@
     <SUITE FILE_PATH="coverage/BlogBackendProject$utils.coverage" NAME="utils Coverage Results" MODIFIED="1516096243617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/base" />
     <SUITE FILE_PATH="coverage/BlogBackendProject$RelativeImageExtension.coverage" NAME="RelativeImageExtension Coverage Results" MODIFIED="1529377888533" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils" />
     <SUITE FILE_PATH="coverage/BlogBackendProject$ResolveCodeLineNumberExtension.coverage" NAME="ResolveCodeLineNumberExtension Coverage Results" MODIFIED="1528736644842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils" />
-    <SUITE FILE_PATH="coverage/BlogBackendProject$SpanTableExtension.coverage" NAME="SpanTableExtension Coverage Results" MODIFIED="1529486487404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils" />
+    <SUITE FILE_PATH="coverage/BlogBackendProject$SpanTableExtension.coverage" NAME="SpanTableExtension Coverage Results" MODIFIED="1530264775549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils" />
     <SUITE FILE_PATH="coverage/BlogBackendProject$TestCodeHtmlFormatter.coverage" NAME="TestCodeHtmlFormatter Coverage Results" MODIFIED="1529076139671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/utils/HTMLFormatter" />
   </component>
   <component name="DatabaseView">
@@ -81,8 +81,8 @@
       <file leaf-file-name="apiview.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/base/apiview.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="288">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="e#80#124#0" expanded="true" />
               </folding>
@@ -93,18 +93,28 @@
       <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/base/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+            <state relative-caret-position="504">
+              <caret line="32" column="18" lean-forward="false" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BlogBackendProject/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+            <state relative-caret-position="249">
+              <caret line="215" column="29" lean-forward="false" selection-start-line="215" selection-start-column="29" selection-end-line="215" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/book/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="113">
+              <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -113,8 +123,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/base/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="63" column="126" lean-forward="false" selection-start-line="63" selection-start-column="126" selection-end-line="63" selection-end-column="126" />
+            <state relative-caret-position="1044">
+              <caret line="60" column="46" lean-forward="false" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -259,7 +269,6 @@
         <option value="$PROJECT_DIR$/apps/article/models.py" />
         <option value="$PROJECT_DIR$/apps/base/adminx.py" />
         <option value="$PROJECT_DIR$/apps/material/adminx.py" />
-        <option value="$PROJECT_DIR$/apps/book/models.py" />
         <option value="$PROJECT_DIR$/apps/material/models.py" />
         <option value="$PROJECT_DIR$/apps/article/apiview.py" />
         <option value="$PROJECT_DIR$/apps/article/adminx.py" />
@@ -280,6 +289,7 @@
         <option value="$PROJECT_DIR$/apps/base/models.py" />
         <option value="$PROJECT_DIR$/apps/base/serializers.py" />
         <option value="$PROJECT_DIR$/BlogBackendProject/settings.py" />
+        <option value="$PROJECT_DIR$/apps/book/models.py" />
       </list>
     </option>
   </component>
@@ -292,7 +302,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="989" />
+    <option name="height" value="985" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -358,6 +368,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="apps" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlogBackendProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlogBackendProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apps" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="book" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -447,7 +475,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.SpanTableExtension">
+  <component name="RunManager" selected="Django server.BlogBackendProject">
     <configuration default="false" name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -793,22 +821,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="989" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1920" height="985" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32887402" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4238259" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49944258" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16610925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7558528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2743561" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4400648" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3065032" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3097015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2937365" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24946004" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46376812" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@BlogBackendProject" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3199554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@BlogBackendProject" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31914893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -899,13 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-529">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/book/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3509">
-          <caret line="128" column="11" lean-forward="false" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -1154,7 +1174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
           <caret line="304" column="8" lean-forward="false" selection-start-line="304" selection-start-column="8" selection-end-line="304" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1176,7 +1195,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-198">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1184,7 +1202,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1192,7 +1209,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
           <caret line="111" column="32" lean-forward="true" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1200,9 +1216,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="138" column="57" lean-forward="false" selection-start-line="138" selection-start-column="57" selection-end-line="138" selection-end-column="57" />
-          <folding>
-            <element signature="e#1147#1186#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1222,36 +1235,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/base/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="63" column="126" lean-forward="false" selection-start-line="63" selection-start-column="126" selection-end-line="63" selection-end-column="126" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/base/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/base/apiview.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="288">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
             <element signature="e#80#124#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apps/base/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="32" column="18" lean-forward="false" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/base/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="60" column="46" lean-forward="false" selection-start-line="60" selection-start-column="46" selection-end-line="60" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BlogBackendProject/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+        <state relative-caret-position="249">
+          <caret line="215" column="29" lean-forward="false" selection-start-line="215" selection-start-column="29" selection-end-line="215" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/book/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
           <folding />
         </state>
       </provider>
