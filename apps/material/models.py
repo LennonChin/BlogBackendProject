@@ -207,7 +207,7 @@ class PostBaseInfo(models.Model):
     browse_password_encrypt = models.CharField(max_length=100, null=True, blank=True, verbose_name="浏览密码加密",
                                                help_text="浏览密码加密")
     index = models.IntegerField(default=0, verbose_name="置顶", help_text="置顶")
-    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
+    add_time = models.DateTimeField(null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
 
     def save(self, *args, **kwargs):
         # 为英文标题和简介提供默认值

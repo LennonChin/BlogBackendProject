@@ -95,8 +95,8 @@ class BookDetail(models.Model):
                                   help_text="内容")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
-    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
-    update_time = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="修改时间",
+    add_time = models.DateTimeField(null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
+    update_time = models.DateTimeField(null=True, blank=True, verbose_name="修改时间",
                                        help_text="修改时间")
 
     def save(self, *args, **kwargs):
@@ -160,8 +160,8 @@ class BookNoteDetail(models.Model):
                                        help_text="内容")
     origin_content = models.TextField(null=False, blank=False, verbose_name="原始内容", help_text="原始内容")
     formatted_content = models.TextField(verbose_name="处理后内容", help_text="处理后内容")
-    add_time = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
-    update_time = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="修改时间",
+    add_time = models.DateTimeField(null=True, blank=True, verbose_name="添加时间", help_text="添加时间")
+    update_time = models.DateTimeField(null=True, blank=True, verbose_name="修改时间",
                                        help_text="修改时间")
 
     def save(self, *args, **kwargs):
