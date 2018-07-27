@@ -26,8 +26,8 @@ class MaterialTagAdmin(object):
 
 
 class MaterialPictureAdmin(object):
-    list_display = ['title', 'abstract', "desc", "image", "link"]
-    search_fields = ['title', 'abstract', "desc", "link"]
+    list_display = ['title', "desc", "image", "link"]
+    search_fields = ['title', "desc", "link"]
 
 
 class MaterialLicenseAdmin(object):
@@ -41,7 +41,7 @@ class MaterialBannerAdmin(object):
 
 
 class MaterialPostInfoAdmin(object):
-    list_display = ['title', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', "front_image", "front_image_type", 'browse_password']
+    list_display = ['title', 'is_hot', 'is_recommend', 'is_banner', 'is_commentable', "front_image", "front_image_type", 'browse_password', 'add_time']
     list_editable = ['is_hot', 'is_recommend', 'is_banner', 'is_commentable']
     search_fields = ['title', 'subtitle']
 

@@ -70,11 +70,16 @@ class BookBaseInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
     front_image = serializers.SerializerMethodField()
+    book_image = serializers.SerializerMethodField()
     need_auth = serializers.SerializerMethodField()
 
     def get_front_image(self, book):
         if book.front_image:
             return "{0}/{1}".format(MEDIA_URL_PREFIX, book.front_image)
+
+    def get_book_image(self, book):
+        if book.book_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, book.book_image)
 
     def get_need_auth(self, article):
         if article.browse_password_encrypt:
@@ -119,10 +124,20 @@ class BookNoteBaseInfoSerializer(serializers.ModelSerializer):
 class BookDetailInfoSerializer(serializers.ModelSerializer):
     category = SingleLevelCategorySerializer()
     tags = TagSerializer(many=True)
+    front_image = serializers.SerializerMethodField()
+    book_image = serializers.SerializerMethodField()
     license = LicenseSerializer()
     details = BookDetailSerializer(many=True)
     book_note = serializers.SerializerMethodField()
     browse_auth = serializers.CharField(required=False, max_length=100, write_only=True)
+
+    def get_front_image(self, book):
+        if book.front_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, book.front_image)
+
+    def get_book_image(self, book):
+        if book.book_image:
+            return "{0}/{1}".format(MEDIA_URL_PREFIX, book.book_image)
 
     def get_book_note(self, serializer):
         book_notes_json = []
