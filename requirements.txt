@@ -25,7 +25,7 @@ et-xmlfile==1.0.1
 future==0.16.0
 gunicorn==19.7.1
 html5lib==1.0.1
-httplib2==0.10.3
+httplib2==0.18.0
 idna==2.6
 itypes==1.1.0
 jdcal==1.3
