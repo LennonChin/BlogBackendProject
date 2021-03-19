@@ -17,7 +17,7 @@ django-import-export==1.0.0
 django-qiniu-storage==2.3.1
 django-redis==4.8.0
 django-reversion==2.0.9
-djangorestframework==3.6.3
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 drf-extensions==0.3.1
 drf-haystack==1.7.1rc2
