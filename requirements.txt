@@ -39,7 +39,7 @@ olefile==0.44
 openpyxl==2.5.0
 Pillow==4.2.1
 pycryptodome==3.4.6
-Pygments==2.2.0
+Pygments==2.7.4
 PyJWT==1.5.3
 pymdown-extensions==4.11
 python-dateutil==2.6.1
