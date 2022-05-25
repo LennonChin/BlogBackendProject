@@ -40,7 +40,7 @@ openpyxl==2.5.0
 Pillow==4.2.1
 pycryptodome==3.4.6
 Pygments==2.2.0
-PyJWT==1.5.3
+PyJWT==2.4.0
 pymdown-extensions==4.11
 python-dateutil==2.6.1
 python3-openid==3.1.0
